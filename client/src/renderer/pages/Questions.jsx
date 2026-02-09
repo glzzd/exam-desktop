@@ -63,6 +63,15 @@ export default function Questions() {
     ]
   });
 
+  const [isImportOpen, setIsImportOpen] = useState(false);
+  const [importLoading, setImportLoading] = useState(false);
+  const [importData, setImportData] = useState({
+    examType: '',
+    structureCodes: [],
+    file: null
+  });
+  const fileInputRef = React.useRef(null);
+
   useEffect(() => {
     fetchExamTypes();
     fetchStructures();
@@ -140,6 +149,87 @@ export default function Questions() {
       isCorrect: i === index
     }));
     setFormData(prev => ({ ...prev, options: newOptions }));
+  };
+
+  const handleImportChange = (name, value) => {
+    setImportData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const toggleImportStructure = (code) => {
+    setImportData(prev => {
+      const codes = prev.structureCodes || [];
+      if (codes.includes(code)) {
+        return { ...prev, structureCodes: codes.filter(c => c !== code) };
+      } else {
+        return { ...prev, structureCodes: [...codes, code] };
+      }
+    });
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setImportData(prev => ({ ...prev, file: e.target.files[0] }));
+    }
+  };
+
+  const handleImportSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!importData.examType) {
+      toast.error('İmtahan növü seçilməlidir');
+      return;
+    }
+
+    if (importData.structureCodes.length === 0) {
+      toast.error('Ən azı bir struktur seçilməlidir');
+      return;
+    }
+
+    if (!importData.file) {
+      toast.error('Excel faylı seçilməlidir');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', importData.file);
+    formData.append('examType', importData.examType);
+    // Append each structure code separately or as JSON
+    formData.append('structureCodes', JSON.stringify(importData.structureCodes));
+
+    try {
+      setImportLoading(true);
+      const response = await api.post('/questions/import', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      const { added, failed, errors } = response.data.data;
+      
+      let message = `Import tamamlandı: ${added} sual əlavə edildi.`;
+      if (failed > 0) message += ` ${failed} xəta.`;
+      
+      if (failed > 0) {
+        toast.warning(message);
+        console.error('Import errors:', errors);
+      } else {
+        toast.success(message);
+      }
+
+      setIsImportOpen(false);
+      setImportData({
+        examType: '',
+        structureCodes: [],
+        file: null
+      });
+      if (fileInputRef.current) fileInputRef.current.value = '';
+      fetchQuestions();
+    } catch (error) {
+      console.error('Error importing questions:', error);
+      toast.error(error.response?.data?.message || 'Import zamanı xəta baş verdi');
+    } finally {
+      setImportLoading(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -240,7 +330,86 @@ export default function Questions() {
             İmtahan suallarının idarə edilməsi
           </p>
         </div>
-        <Dialog open={isOpen} onOpenChange={(open) => {
+        <div className="flex gap-2">
+            <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
+            <DialogTrigger asChild>
+                <Button variant="outline">
+                <Plus className="mr-2 h-4 w-4" /> Exceldən yüklə
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                <DialogTitle>Exceldən sualları yüklə</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleImportSubmit} className="space-y-4">
+                <div className="space-y-2">
+                    <Label htmlFor="importExamType">İmtahan Növü</Label>
+                    <select
+                    id="importExamType"
+                    value={importData.examType}
+                    onChange={(e) => handleImportChange('examType', e.target.value)}
+                    className="flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    required
+                    >
+                    <option value="">Seçin</option>
+                    {examTypes.map((type) => (
+                        <option key={type._id} value={type._id}>
+                        {type.name}
+                        </option>
+                    ))}
+                    </select>
+                </div>
+
+                <div className="space-y-2">
+                    <Label>Strukturlar</Label>
+                    <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="outline" className="w-full justify-between">
+                        {importData.structureCodes.length > 0 
+                            ? `${importData.structureCodes.length} struktur seçilib` 
+                            : "Struktur seçin"}
+                        <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56 h-64 overflow-y-auto">
+                        {structures.map((structure) => (
+                        <DropdownMenuCheckboxItem
+                            key={structure._id}
+                            checked={importData.structureCodes.includes(structure.code)}
+                            onCheckedChange={() => toggleImportStructure(structure.code)}
+                            onSelect={(e) => e.preventDefault()}
+                        >
+                            {structure.name || structure.code}
+                        </DropdownMenuCheckboxItem>
+                        ))}
+                    </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
+
+                <div className="space-y-2">
+                    <Label htmlFor="file">Excel Faylı</Label>
+                    <Input
+                    id="file"
+                    type="file"
+                    accept=".xlsx, .xls"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    required
+                    />
+                    
+                </div>
+
+                <DialogFooter>
+                    <Button type="submit" disabled={importLoading}>
+                    {importLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Yüklə
+                    </Button>
+                </DialogFooter>
+                </form>
+            </DialogContent>
+            </Dialog>
+
+            <Dialog open={isOpen} onOpenChange={(open) => {
           setIsOpen(open);
           if (!open) resetForm();
         }}>
@@ -303,6 +472,7 @@ export default function Questions() {
                           key={structure._id}
                           checked={formData.structureCodes.includes(structure.code)}
                           onCheckedChange={() => toggleStructure(structure.code)}
+                          onSelect={(e) => e.preventDefault()}
                         >
                           {structure.name || structure.code}
                         </DropdownMenuCheckboxItem>
@@ -355,6 +525,7 @@ export default function Questions() {
             </form>
           </DialogContent>
         </Dialog>
+      </div>
       </div>
 
       <div className="flex items-center py-4">
