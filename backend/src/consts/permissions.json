@@ -1,0 +1,88 @@
+[
+  {
+    "module": "Users",
+    "moduleKey": "users",
+    "description": "İstifadəçi idarəetməsi və səlahiyyətləri",
+    "permissions": [
+      {
+        "slug": "users.create",
+        "action": "create",
+        "scope": "organization",
+        "riskLevel": "high",
+        "description": "Yeni istifadəçi yaratmaq",
+        "ui": {
+          "menu": "İstifadəçilər",
+          "visible": true
+        }
+      },
+      {
+        "slug": "users.read",
+        "action": "read",
+        "scope": "organization",
+        "riskLevel": "medium",
+        "description": "İstifadəçi siyahısını və detalları görmək",
+        "ui": {
+          "menu": "İstifadəçilər",
+          "visible": true
+        }
+      },
+      {
+        "slug": "users.update",
+        "action": "update",
+        "scope": "organization",
+        "riskLevel": "high",
+        "description": "İstifadəçi məlumatlarını yeniləmək"
+      },
+      {
+        "slug": "users.delete",
+        "action": "delete",
+        "scope": "organization",
+        "riskLevel": "critical",
+        "description": "İstifadəçi silmək"
+      },
+      {
+        "slug": "users.reset_password",
+        "action": "custom",
+        "scope": "organization",
+        "riskLevel": "critical",
+        "description": "İstifadəçinin şifrəsini sıfırlamaq"
+      }
+    ]
+  },
+
+  {
+    "module": "Roles",
+    "moduleKey": "roles",
+    "description": "Rol və səlahiyyətlərin idarə olunması",
+    "permissions": [
+      {
+        "slug": "roles.create",
+        "action": "create",
+        "scope": "organization",
+        "riskLevel": "critical",
+        "description": "Yeni rol yaratmaq"
+      },
+      {
+        "slug": "roles.read",
+        "action": "read",
+        "scope": "organization",
+        "riskLevel": "medium",
+        "description": "Rolları görmək"
+      },
+      {
+        "slug": "roles.update",
+        "action": "update",
+        "scope": "organization",
+        "riskLevel": "critical",
+        "description": "Rol məlumatlarını dəyişmək"
+      },
+      {
+        "slug": "roles.delete",
+        "action": "delete",
+        "scope": "organization",
+        "riskLevel": "critical",
+        "description": "Rol silmək"
+      }
+    ]
+  }
+]
