@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '@/context/AuthContext';
+import { useSocket } from '@/context/SocketContext';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logo from '@/assets/img/007.png';
 import {
@@ -16,6 +17,7 @@ import { LogOut, User, Settings, ChevronDown } from 'lucide-react';
 
 const Header = () => {
   const { user, logout } = useAuth();
+  const { isConnected } = useSocket();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -149,12 +151,23 @@ const Header = () => {
               >
                 Suallar
               </DropdownMenuItem>
+              <DropdownMenuItem 
+                onClick={() => navigate('/system/users')}
+                className={isActive('/system/users') ? 'text-blue-600 bg-blue-50 font-medium' : ''}
+              >
+                İstifadəçilər
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>
 
         {/* Right: User Info & Dropdown */}
         <div className="flex items-center gap-4">
+          {/* Connection Status Indicator */}
+          <div 
+            className={`w-3 h-3 rounded-full transition-colors duration-300 ${isConnected ? 'bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]' : 'bg-red-500 animate-pulse'}`} 
+            title={isConnected ? 'Serverə qoşulub' : 'Serverlə əlaqə yoxdur'}
+          />
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

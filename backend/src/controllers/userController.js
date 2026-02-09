@@ -109,9 +109,33 @@ const getUserById = async (req, res) => {
     }
 };
 
+// @desc    İstifadəçini sil (Soft delete)
+// @route   DELETE /api/v1/users/:id
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const metaData = {
+            ipAddress: req.ip || req.connection.remoteAddress,
+            userAgent: req.get('User-Agent'),
+            modifiedBy: req.user ? req.user._id : null
+        };
+
+        await userService.deleteUser(id, metaData);
+
+        return successResponse(res, null, 'İstifadəçi uğurla silindi');
+    } catch (error) {
+        if (error.statusCode === 404) {
+            return errorResponse(res, error.message, 404);
+        }
+        return errorResponse(res, 'Server xətası', 500, error.message);
+    }
+};
+
 module.exports = {
     createUser,
     updateUser,
+    deleteUser,
     getUserHistory,
     getAllUsers,
     getUserById

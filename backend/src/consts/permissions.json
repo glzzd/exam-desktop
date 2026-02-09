@@ -16,29 +16,57 @@
         }
       },
       {
-        "slug": "users.read",
+        "slug": "users.read.all",
         "action": "read",
         "scope": "organization",
         "riskLevel": "medium",
-        "description": "İstifadəçi siyahısını və detalları görmək",
+        "description": "Bütün istifadəçilərin siyahısını görmək",
         "ui": {
           "menu": "İstifadəçilər",
           "visible": true
         }
       },
       {
-        "slug": "users.update",
+        "slug": "users.read.one",
+        "action": "read",
+        "scope": "organization",
+        "riskLevel": "low",
+        "description": "Tək istifadəçi məlumatlarını görmək"
+      },
+      {
+        "slug": "users.update.all",
         "action": "update",
         "scope": "organization",
         "riskLevel": "high",
-        "description": "İstifadəçi məlumatlarını yeniləmək"
+        "description": "İstənilən istifadəçinin məlumatlarını yeniləmək"
       },
       {
-        "slug": "users.delete",
+        "slug": "users.update.one",
+        "action": "update",
+        "scope": "self",
+        "riskLevel": "medium",
+        "description": "Öz məlumatlarını yeniləmək"
+      },
+      {
+        "slug": "users.delete.all",
         "action": "delete",
         "scope": "organization",
         "riskLevel": "critical",
-        "description": "İstifadəçi silmək"
+        "description": "İstənilən istifadəçini silmək"
+      },
+      {
+        "slug": "users.delete.one",
+        "action": "delete",
+        "scope": "self",
+        "riskLevel": "critical",
+        "description": "Öz hesabını silmək"
+      },
+      {
+        "slug": "users.history.read",
+        "action": "read",
+        "scope": "organization",
+        "riskLevel": "medium",
+        "description": "İstifadəçi tarixçəsini görmək"
       },
       {
         "slug": "users.reset_password",

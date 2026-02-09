@@ -4,11 +4,15 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import Layout from '@/components/Layout';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { SocketProvider } from './context/SocketContext';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import ExamTypes from './pages/ExamTypes';
 import Structures from './pages/Structures';
 import Questions from './pages/Questions';
+import Employees from './pages/Employees';
+import ExamClient from './pages/ExamClient';
+import ActiveExam from './pages/ActiveExam';
 import './style.css';
 
 // Protected Route wrapper
@@ -30,6 +34,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/exam-client" element={<ExamClient />} />
       <Route
         element={
           <ProtectedRoute>
@@ -38,9 +43,11 @@ const AppRoutes = () => {
         }
       >
         <Route path="/" element={<Home />} />
+        <Route path="/active-exam" element={<ActiveExam />} />
         <Route path="/system/exam-types" element={<ExamTypes />} />
         <Route path="/system/structures" element={<Structures />} />
         <Route path="/system/questions" element={<Questions />} />
+        <Route path="/system/employees" element={<Employees />} />
       </Route>
     </Routes>
   );
@@ -50,10 +57,12 @@ const App = () => {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <AuthProvider>
-        <Router>
-          <AppRoutes />
-          <Toaster />
-        </Router>
+        <SocketProvider>
+          <Router>
+            <AppRoutes />
+            <Toaster />
+          </Router>
+        </SocketProvider>
       </AuthProvider>
     </ThemeProvider>
   );

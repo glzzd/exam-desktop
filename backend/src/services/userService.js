@@ -196,9 +196,34 @@ const getUserById = async (userId) => {
     return user;
 };
 
+/**
+ * İstifadəçini silir (Soft delete)
+ * @param {String} userId - İstifadəçi ID
+ * @param {Object} metaData - Metadata (ip, userAgent, modifiedBy)
+ * @returns {Promise<Object>} Silinmiş istifadəçi
+ */
+const deleteUser = async (userId, metaData) => {
+    const user = await User.findById(userId);
+    if (!user) {
+        throw { statusCode: 404, message: 'İstifadəçi tapılmadı' };
+    }
+
+    user.isDeleted = true;
+    user.isActive = false;
+
+    // Metadata
+    user.$locals.ipAddress = metaData.ipAddress;
+    user.$locals.userAgent = metaData.userAgent;
+    user.$locals.modifiedBy = metaData.modifiedBy;
+
+    await user.save();
+    return user;
+};
+
 module.exports = {
     createUser,
     updateUser,
+    deleteUser,
     getUserHistory,
     getAllUsers,
     getUserById

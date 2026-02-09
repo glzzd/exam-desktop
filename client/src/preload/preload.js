@@ -1,6 +1,16 @@
 const { contextBridge, ipcRenderer } = require('electron');
+const os = require('os');
 
 contextBridge.exposeInMainWorld('api', {
+  // System Info
+  getSystemInfo: () => ({
+    hostname: os.hostname(),
+    platform: os.platform(),
+    release: os.release(),
+    arch: os.arch(),
+    username: os.userInfo().username
+  }),
+  getMachineId: () => ipcRenderer.invoke('get-machine-id'),
   // Example: Send a message to main process
   sendMessage: (channel, data) => {
     // Whitelist channels

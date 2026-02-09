@@ -1,4 +1,6 @@
 const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const connectDB = require('./src/config/db');
@@ -8,10 +10,72 @@ const authRoutes = require('./src/routes/v1/authRoutes');
 const examTypeRoutes = require('./src/routes/v1/examTypeRoutes');
 const structureRoutes = require('./src/routes/v1/structureRoutes');
 const questionRoutes = require('./src/routes/v1/questionRoutes');
+const employeeRoutes = require('./src/routes/v1/employeeRoutes');
 require('dotenv').config();
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Allow all origins for Electron/Dev
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true
+  },
+  pingTimeout: 60000, // Increase timeout for robustness
+  pingInterval: 25000 // Regular heartbeats
+});
+
 const port = process.env.PORT || 3001;
+
+// Make io accessible globally or pass it to routes
+app.set('io', io);
+
+// Store connected students
+let students = [];
+
+// Socket.IO Connection Logic
+io.on('connection', (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  // Handle student joining
+  socket.on('student-join', (data) => {
+    const studentInfo = {
+      socketId: socket.id,
+      ip: socket.handshake.address.replace('::ffff:', ''), // Clean IPv6 mapping
+      connectedAt: new Date(),
+      ...data
+    };
+
+    // Remove existing if any (shouldn't happen with new socket id but good practice)
+    students = students.filter(s => s.socketId !== socket.id);
+    students.push(studentInfo);
+
+    console.log(`Student Joined: ${studentInfo.hostname} (${studentInfo.ip})`);
+    io.emit('student-list-updated', students);
+  });
+
+  // Handle admin requesting list
+  socket.on('admin-get-students', () => {
+    socket.emit('student-list-updated', students);
+  });
+
+  socket.on('disconnect', (reason) => {
+    console.log(`User Disconnected: ${socket.id} Reason: ${reason}`);
+    
+    // Check if it was a student
+    const index = students.findIndex(s => s.socketId === socket.id);
+    if (index !== -1) {
+      const removed = students[index];
+      students.splice(index, 1);
+      console.log(`Student Left: ${removed.hostname}`);
+      io.emit('student-list-updated', students);
+    }
+  });
+
+  socket.on('error', (err) => {
+    console.error(`Socket Error: ${err.message}`);
+  });
+});
 
 // Init MongoDB
 connectDB();
@@ -35,7 +99,8 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/exam-types', examTypeRoutes);
 app.use('/api/v1/structures', structureRoutes);
 app.use('/api/v1/questions', questionRoutes);
+app.use('/api/v1/employees', employeeRoutes);
 
-app.listen(port, '0.0.0.0', () => {
+server.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on http://0.0.0.0:${port}`);
 });
