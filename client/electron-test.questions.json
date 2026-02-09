@@ -1,0 +1,4640 @@
+[{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9738"
+  },
+  "text": "Əgər komandir (rəis) hərbi qulluqçunu xidmətə görə təbrik və ya ona təşəkkür edirsə, hərbi qulluqçu komandirə (rəisə) nə cavab verməlidir?",
+  "options": [
+    {
+      "text": "Azərbaycan Respublikasına xidmət edirəm",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9739"
+      }
+    },
+    {
+      "text": "Sağ ol",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead973a"
+      }
+    },
+    {
+      "text": "Təşəkkür edirəm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead973b"
+      }
+    },
+    {
+      "text": "Azərbaycan Respublikasının hərbi qulluqçusuyam",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead973c"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.932Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.932Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead973e"
+  },
+  "text": "9 mm Glok 19 C tapançasının natamam sökülməsi hansı ardıcılıqla olur?",
+  "options": [
+    {
+      "text": "sandıq, çaxmaq, qaytarıcı yay, lülə, çərçivə",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead973f"
+      }
+    },
+    {
+      "text": "qoruyucu, çaxmaq, qaytarıcı yay, lülə, çərçivə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9740"
+      }
+    },
+    {
+      "text": "qoruyucu, çaxmaq saxlayıcısı, çaxmaq, qaytarıcı yay, lülə, çərçivə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9741"
+      }
+    },
+    {
+      "text": "çaxmaq, qaytarıcı yay, lülə, çərçivə, tətik bəndi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9742"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.934Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.934Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9744"
+  },
+  "text": "Hansı hallarda şin qoyula bilər?",
+  "options": [
+    {
+      "text": "yanmalar zamanı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9745"
+      }
+    },
+    {
+      "text": "sınıqlar və çıxıqlar zamanı",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9746"
+      }
+    },
+    {
+      "text": "qanaxma zamanı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9747"
+      }
+    },
+    {
+      "text": "donmalar və günvurma zamanı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9748"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.935Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.935Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead974a"
+  },
+  "text": "Xidmətin ayliq təlim atişlarında, tirdə atışlar kimin komandası ilə keçirilir?",
+  "options": [
+    {
+      "text": "atış  rəhbəri",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead974b"
+      }
+    },
+    {
+      "text": "sursat anbarı rəisi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead974c"
+      }
+    },
+    {
+      "text": "tir rəisi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead974d"
+      }
+    },
+    {
+      "text": "nəzarət buraxılış rəisi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead974e"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.936Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.936Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9750"
+  },
+  "text": "Elektrik naqillərinin qısa qapanması nəticəsində baş vermiş yanğını söndürmək üçün aşağıda sadalanan yanğınsöndürmə vasitələrindən hansından istifadə etmək olmaz?",
+  "options": [
+    {
+      "text": "su",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9751"
+      }
+    },
+    {
+      "text": "xüsusi odadavamlı yanğınsöndürmə materialları",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9752"
+      }
+    },
+    {
+      "text": "qum",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9753"
+      }
+    },
+    {
+      "text": "xüsusi kimyəvi (mayesiz) odsöndürən",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9754"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.937Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.937Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9756"
+  },
+  "text": "Əgər tapança istifadə olunmursa, neçə gündə bir təmizlənməlidir?",
+  "options": [
+    {
+      "text": "ən azı 7 gündən bir",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9757"
+      }
+    },
+    {
+      "text": "hər aylıq təlim atışından sonra",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9758"
+      }
+    },
+    {
+      "text": "istifadə olunmayıbsa ehtiyac yoxdur",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9759"
+      }
+    },
+    {
+      "text": "ən azı 14 gündən bir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead975a"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.937Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.937Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead975c"
+  },
+  "text": "Hərbi qulluqçu sıradan kənarda çağırış ilə rəisə yaxınlaşarkən neçə addım qalmış dayanır?",
+  "options": [
+    {
+      "text": "1 addım",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead975d"
+      }
+    },
+    {
+      "text": "2-3 addım",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead975e"
+      }
+    },
+    {
+      "text": "5-10 addım",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead975f"
+      }
+    },
+    {
+      "text": "15-20 addım",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9760"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.938Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.938Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9762"
+  },
+  "text": "9 mm Glok 19 C tapançasının hissə və mexanizimlərinə aid olmayan hansıdır?",
+  "options": [
+    {
+      "text": "çaxmaq",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9763"
+      }
+    },
+    {
+      "text": "tətik bəndi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9764"
+      }
+    },
+    {
+      "text": "çaxmaq saxlayıcısı",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9765"
+      }
+    },
+    {
+      "text": "qaytarıcı yay",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9766"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.938Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.938Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9768"
+  },
+  "text": "Aylıq təlim atışları keçirilən tirdə “atəş xətti” nə üçün nəzərdə tutulmuşdur?",
+  "options": [
+    {
+      "text": "atəş açmaq üçün icazə verilən hüdud",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9769"
+      }
+    },
+    {
+      "text": "silah doldurub-boşaltma yeri",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead976a"
+      }
+    },
+    {
+      "text": "10 metrlik atış xətti",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead976b"
+      }
+    },
+    {
+      "text": "məşgələ otağı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead976c"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.939Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.939Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead976e"
+  },
+  "text": "Azərbaycan Respulikası Silahlı Qüvvələrin Nizamnaməsinin tələblərinə uyğun olaraq hərbi qulluqçu hansı hallarda odlu silah tətbiq edə bilər?",
+  "options": [
+    {
+      "text": "şəxs yaxalanarkən qaçmağa cəhd etdikdə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead976f"
+      }
+    },
+    {
+      "text": "şəxs yaxalanarkən güc işlətdikdə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9770"
+      }
+    },
+    {
+      "text": "şəxs yaxalanarkən silahlı müqavimət göstərdikdə",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9771"
+      }
+    },
+    {
+      "text": "şəxs yaxalanarkən müqavimət göstərdikdə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9772"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.940Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.940Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9774"
+  },
+  "text": "Hərbi intizam nə deməkdir?",
+  "options": [
+    {
+      "text": "Hərbi xidmətin bütün çətinlik və məhrumiyyətlərinə mətinliklə sinə gəlmək,Azərbaycan Respublikasına xidmət etmək",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9775"
+      }
+    },
+    {
+      "text": "Döyüş tapşırığın şərəf və vicdanla yerinə yetirmək",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9776"
+      }
+    },
+    {
+      "text": "Hərbi intizam - bütün hərbi qulluqçuların Azərbaycan Respublikası qanunlarında və hərbi nizamnamələrində müəyyən olunmuş qaydalara ciddi riayət etməsi deməkdir",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9777"
+      }
+    },
+    {
+      "text": "Hərbi və dövlət sirrini möhkəm saxlamaq, komandirlərin əmr və sərəncamlarına sözsüz tabe olmaq",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9778"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.940Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.940Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead977a"
+  },
+  "text": "9 mm Glok 19 C tapançasının lüləsinin uzunluğu nə qədərdir?",
+  "options": [
+    {
+      "text": "110 mm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead977b"
+      }
+    },
+    {
+      "text": "130 mm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead977c"
+      }
+    },
+    {
+      "text": "102 mm",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead977d"
+      }
+    },
+    {
+      "text": "90 mm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead977e"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.941Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.941Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9780"
+  },
+  "text": "Azərbaycan Respulikası Silahlı Qüvvələrin Sıra Nizamnaməsinə əsasən neçə cür addım olur və hansilardır?",
+  "options": [
+    {
+      "text": "bir cür olur səfər addımı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9781"
+      }
+    },
+    {
+      "text": "bir cür:səfər addımı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9782"
+      }
+    },
+    {
+      "text": "iki cür olur sıra addımı və yavaş addım",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9783"
+      }
+    },
+    {
+      "text": "iki cür olur sıra və səfər addımları",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9784"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.941Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.941Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9786"
+  },
+  "text": "Hərbi qulluqçunun psixoloji hazırlığının əsas əlamətləri hansılardır?",
+  "options": [
+    {
+      "text": "əmr və göstərişlərin icrasına tələbkar və qətiyyətlə yanaşmalı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9787"
+      }
+    },
+    {
+      "text": "yüksək mədəniyyətli təvazökar və təmkinli olmalı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9788"
+      }
+    },
+    {
+      "text": "tələskən və qapalı olma, hesablanmış və rəvan davranma, əmr və tapşırıqları səhvsiz və dəqiq yerinə yetirmə, normal fizioloji vəziyyət",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9789"
+      }
+    },
+    {
+      "text": "heç biri",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead978a"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.942Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.942Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead978c"
+  },
+  "text": "9 mm Glock 19 silahının uzunluğu nə qədərdir?",
+  "options": [
+    {
+      "text": "1,7 m",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead978d"
+      }
+    },
+    {
+      "text": "174 mm",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead978e"
+      }
+    },
+    {
+      "text": "200 mm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead978f"
+      }
+    },
+    {
+      "text": "40 mm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9790"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.942Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.942Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9792"
+  },
+  "text": "Addımla hərəkətin normal sürəti nə qədərdir?",
+  "options": [
+    {
+      "text": "əqiqədə 50–60 addım",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9793"
+      }
+    },
+    {
+      "text": "dəqiqədə 110–120 addım",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9794"
+      }
+    },
+    {
+      "text": "dəqiqədə 200–220 addım",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9795"
+      }
+    },
+    {
+      "text": "vəziyyətdən asılıdır",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9796"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.943Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.943Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9798"
+  },
+  "text": "Hərbi qulluqçu xidməti məsələlərə dair kimə müraciət edə bilər?",
+  "options": [
+    {
+      "text": "yalnız komanda üzrə ən böyük rəisə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9799"
+      }
+    },
+    {
+      "text": "özünün bilavasitə rəisinə və ancaq onun icazəsi ilə komanda üzrə daha böyük rəisə",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead979a"
+      }
+    },
+    {
+      "text": "yalnız özünün bilavasitə rəisinə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead979b"
+      }
+    },
+    {
+      "text": "heç kimə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead979c"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.944Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.944Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead979e"
+  },
+  "text": "9 mm Glok 45 tapançasının neçə yivi var?",
+  "options": [
+    {
+      "text": "yivsiz olur",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead979f"
+      }
+    },
+    {
+      "text": "4 yivi olur",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97a0"
+      }
+    },
+    {
+      "text": "6 yivi olur",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97a1"
+      }
+    },
+    {
+      "text": "5 yivi olur",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97a2"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.944Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.944Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97a4"
+  },
+  "text": "Sıra addımın ölçüsü nə qədərdir?",
+  "options": [
+    {
+      "text": "5-10 sm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97a5"
+      }
+    },
+    {
+      "text": "70–80 sm",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97a6"
+      }
+    },
+    {
+      "text": "1,5-2 m",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97a7"
+      }
+    },
+    {
+      "text": "əsgərin boy ölçüsünün üçdə biri qədər",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97a8"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.945Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.945Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97aa"
+  },
+  "text": "Döyüş tapşırığını yerinə yetirərkən tabeliyində olan şəxsi heyəti idarə edən Rəhbər hansı əsas keyfiyyətlərə malik olmalıdır?",
+  "options": [
+    {
+      "text": "şəxsi nümunə göstərməklə şəxsi heyəti idarə etməli",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ab"
+      }
+    },
+    {
+      "text": "yüksək mədəniyyətli təvazökar və təmkinli olmalı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ac"
+      }
+    },
+    {
+      "text": "əmr və göstərişlərin icrasına tələbkar və qətiyyətlə yanaşmalı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ad"
+      }
+    },
+    {
+      "text": "Sadalananların hamısı",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ae"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.945Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.945Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97b0"
+  },
+  "text": "9 mm Glock 19 C silahının nişanalma məsafəsi nə qədərdir?",
+  "options": [
+    {
+      "text": "50 m",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97b1"
+      }
+    },
+    {
+      "text": "1 km",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97b2"
+      }
+    },
+    {
+      "text": "25 m",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97b3"
+      }
+    },
+    {
+      "text": "150 m",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97b4"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.946Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.946Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97b6"
+  },
+  "text": "Xidmətin silah təhkim edilmiş hərbi qulluqçusu Əməliyyat-növbətçi hissədən silahını hansı sənədi təqdim edib götürür?",
+  "options": [
+    {
+      "text": "“Xidməti vəsiqə”",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97b7"
+      }
+    },
+    {
+      "text": "“Şəxsiyyət vəsiqəsi”",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97b8"
+      }
+    },
+    {
+      "text": "“Əvəzedici kart”",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97b9"
+      }
+    },
+    {
+      "text": "“Xidməti vəsiqə” təqdim edilib, silah götürülür.",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ba"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.946Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.946Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97bc"
+  },
+  "text": "Hərbi qulluqçular hansı hallarda əsgəri salam verməlidirlər?",
+  "options": [
+    {
+      "text": "Hərbi hissələrin Döyüş Bayraqlarına və həmçinin hərbi gəmiyə gəldiyi və getdiyi zaman hərbi Dəniz Bayrağına",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97bd"
+      }
+    },
+    {
+      "text": "Hər üç halda",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97be"
+      }
+    },
+    {
+      "text": "Şəhidlər xiyabanlarına, Naməlum əsgərin məzarına, Vətənin azadlığı və müstəqilliyi uğrunda döyüşlərdə həlak olmuş əsgərlərin qardaşlıq qəbiristanlığına",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97bf"
+      }
+    },
+    {
+      "text": "qoşunların müşayiət etdikləri dəfn mərasimlərinə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97c0"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.947Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97c2"
+  },
+  "text": "Silah hansı növ yağla təmizlənməlidir?",
+  "options": [
+    {
+      "text": "P S L",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97c3"
+      }
+    },
+    {
+      "text": "R J",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97c4"
+      }
+    },
+    {
+      "text": "J J",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97c5"
+      }
+    },
+    {
+      "text": "P M",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97c6"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.947Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97c8"
+  },
+  "text": "Post nədir?",
+  "options": [
+    {
+      "text": "mobil patrul qrupu üçün ayrılmış yer və ərazidir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97c9"
+      }
+    },
+    {
+      "text": "ictimai yerdir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ca"
+      }
+    },
+    {
+      "text": "əməkdaşa həvalə olunmuş vəzifələrin yerinə yetirildiyi yer və ya ərazi sahəsidir.",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97cb"
+      }
+    },
+    {
+      "text": "vəzifələrin yerinə yetirildiyi obyektdir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97cc"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.948Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.948Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97ce"
+  },
+  "text": "Cərgə nədir?",
+  "options": [
+    {
+      "text": "sıranın hərbi qulluqçularının üzləri baxan tərəfdir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97cf"
+      }
+    },
+    {
+      "text": "hərbi qulluqçular arasında dərinliyə görə məsafədir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97d0"
+      }
+    },
+    {
+      "text": "hərbi qulluqçuların biri o birinin yanında bir xətt üzərində düzüldüyü sıradır",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97d1"
+      }
+    },
+    {
+      "text": "sıra önünün əks tərəfidir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97d2"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.948Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.948Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97d4"
+  },
+  "text": "Sandıqdakı bütün patronlar sərf edildikdən sonra çaxmaq hansı vəziyyətdə qalır?",
+  "options": [
+    {
+      "text": "çaxmaq saxlayıcısı irəli vəziyyətdə qalır",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97d5"
+      }
+    },
+    {
+      "text": "tətiyi buraxmaq və yenə də onu basmaq lazımdır",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97d6"
+      }
+    },
+    {
+      "text": "çaxmaq saxlayıcısının üstündə durur və son arxa vəziyyətdə qalır",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97d7"
+      }
+    },
+    {
+      "text": "çaxmaq qaytarıcı yayın təsiri altında irəliyə qayıdır",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97d8"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.949Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.949Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97da"
+  },
+  "text": "Hansı silahlar kütləvi qırğın silahlarına aiddir?",
+  "options": [
+    {
+      "text": "nüvə silahları,kimyəvi silahlar,bioloji silahlar",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97db"
+      }
+    },
+    {
+      "text": "Makarov, Glock",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97dc"
+      }
+    },
+    {
+      "text": "9 mm Jericho 941 PSL",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97dd"
+      }
+    },
+    {
+      "text": "hər biri",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97de"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.949Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.949Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97e0"
+  },
+  "text": "Hərbi qulluqçular özlərini bilavasitə rəislərinə hansı hallarda təqdim etməlidirlər?",
+  "options": [
+    {
+      "text": "vəzifəyə təyin edildikdə və vəzifəni təhvil verdikdə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97e1"
+      }
+    },
+    {
+      "text": "hamısı",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97e2"
+      }
+    },
+    {
+      "text": "Azərbaycan Respublikasının orden və ya medalı ilə təltif edildikdə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97e3"
+      }
+    },
+    {
+      "text": "ezamiyyətə və ya məzuniyyətə getdikdə və qayıtdıqda",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97e4"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.950Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.950Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97e6"
+  },
+  "text": "9 mm Glok 45 tapançasını istehsal edən hansı ölkədir?",
+  "options": [
+    {
+      "text": "Avstriya Respublikası",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97e7"
+      }
+    },
+    {
+      "text": "İsrail Dövləti",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97e8"
+      }
+    },
+    {
+      "text": "Rusiya Federasiyası",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97e9"
+      }
+    },
+    {
+      "text": "Türkiyə Respublikası",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ea"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.950Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.950Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97ec"
+  },
+  "text": "“OLMADI” komandası nə üçün verilir?",
+  "options": [
+    {
+      "text": "dönmələri və hərəkəti yerinə yetirərkən",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ed"
+      }
+    },
+    {
+      "text": "hərbi qulluqçuları cəzalandırmaq üçün",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ee"
+      }
+    },
+    {
+      "text": "hərəkətin yerinə yetirilməsini dayandırmaq və ya ləğv etmək üçün",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ef"
+      }
+    },
+    {
+      "text": "hərbi qulluqçunu utandırmaq üçün",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97f0"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.951Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.951Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97f2"
+  },
+  "text": "Xidmətin hərbi qulluqçusu silahlı xidmət apararkən silahını kimə verə bilər?",
+  "options": [
+    {
+      "text": "anbar rəisi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97f3"
+      }
+    },
+    {
+      "text": "idarə rəisi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97f4"
+      }
+    },
+    {
+      "text": "Xidmət rəisi",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97f5"
+      }
+    },
+    {
+      "text": "heç kimə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97f6"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.951Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.951Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97f8"
+  },
+  "text": "Şəhadət barmağı ilə tətiyin boşluğunu alıb tətiyi basmaqda çaxmaq dabanı zərbə ilə vurucu milə dəyir, vurucu mil isə öz növbəsində nə edir?",
+  "options": [
+    {
+      "text": "patronun pistonunu əzir",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97f9"
+      }
+    },
+    {
+      "text": "patronu patron yuvasına yerləşdirir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97fa"
+      }
+    },
+    {
+      "text": "tapança yenidən atışa hazır vəziyyətdə olur",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97fb"
+      }
+    },
+    {
+      "text": "lülənin içi sərbəst çaxmaqla qapanır",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97fc"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.952Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.952Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead97fe"
+  },
+  "text": "“Yerində, addımla – Marş” (hərəkətdə – “Yerində”) komandası verilərkən ayaqlar yerdən neçə sm qaldırmalıdır?",
+  "options": [
+    {
+      "text": "5–6 sm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead97ff"
+      }
+    },
+    {
+      "text": "15-20 sm",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9800"
+      }
+    },
+    {
+      "text": "25-35 sm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9801"
+      }
+    },
+    {
+      "text": "40-50 sm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9802"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.952Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.952Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9804"
+  },
+  "text": "9 mm Jericho PSL tapançasının sandığının tutumu nə qədərdir?",
+  "options": [
+    {
+      "text": "12 ədəd",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9805"
+      }
+    },
+    {
+      "text": "14 ədəd",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9806"
+      }
+    },
+    {
+      "text": "10 ədəd",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9807"
+      }
+    },
+    {
+      "text": "16 ədəd",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9808"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.953Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.953Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead980a"
+  },
+  "text": "Azərbaycan Respulikası Silahlı Qüvvələrinin Sıra Nizamnaməsi nədən bəhs edir?",
+  "options": [
+    {
+      "text": "sıra hazırlığı, silahsız və silahla sıra üsulları və yeriş, əsgəri salamlaşma, siradan cixma və icazəsiz qarnizonu tərk etmək",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead980b"
+      }
+    },
+    {
+      "text": "sadalananların hamısı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead980c"
+      }
+    },
+    {
+      "text": "sıra hazırlığı, silahsız və silahla sıra üsulları və yeriş, əsgəri salamlaşma, siradan cixma və rəisə yanaşma, sıra baxışı,post-patrul xidməti",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead980d"
+      }
+    },
+    {
+      "text": "sıra hazırlığı, silahsız və silahla sıra üsulları və yeriş, əsgəri salamlaşma, siradan cixma və rəisə yanaşma, sıra baxışı",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead980e"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.953Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.953Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9810"
+  },
+  "text": "Azərbaycan Respulikası Silahlı Qüvvələrin Sıra Nizamnaməsinə əsasən kolon nədir?",
+  "options": [
+    {
+      "text": "hərbi qulluqçuların biri o birinin yanında bir xətt üzərində düzüldüyü sıradır",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9811"
+      }
+    },
+    {
+      "text": "sadalananların hamısı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9812"
+      }
+    },
+    {
+      "text": "hərbi qulluqçuların, bölmələrin (maşınların) bir-birinin arxasında Nizamnamə, yaxud komandirin göstərişi ilə müəyyən edilmiş distansiyalarda düzüldükləri sıradır",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9813"
+      }
+    },
+    {
+      "text": "hərbi qulluqçular arasında dərinliyə görə məsafədir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9814"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.954Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.954Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9816"
+  },
+  "text": "9 mm Jericho PSL tapançasının patronla dolu sandığı nə qədərdir?",
+  "options": [
+    {
+      "text": "200 q",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9817"
+      }
+    },
+    {
+      "text": "280 q",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9818"
+      }
+    },
+    {
+      "text": "260 q",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9819"
+      }
+    },
+    {
+      "text": "380 q",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead981a"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.954Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.954Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead981c"
+  },
+  "text": "Xidmətin aylıq atışlarında “Jercho 941 PSL” və “Glock” silahlarından istifadə olunan döyüş sursatının çapı nə qədərdir?",
+  "options": [
+    {
+      "text": "9x18 mm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead981d"
+      }
+    },
+    {
+      "text": "8x18 mm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead981e"
+      }
+    },
+    {
+      "text": "19 mm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead981f"
+      }
+    },
+    {
+      "text": "9x19 mm",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9820"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.955Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.955Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c2f85350bfcc3ead9822"
+  },
+  "text": "Azərbaycan Respublikasının Silahlı Qüvvələrinin neçə və hansı Nizamnamələri var?",
+  "options": [
+    {
+      "text": "Azərbaycan Respublikasının Silahlı Qüvvələrinin – 2 Nizamnaməsi var. Azərbaycan Respublikasının Silahlı Qüvvələrinin Qarnizon və Qarovul Xidmətləri Nizamnaməsi, Azərbaycan Respublikasının Silahlı Qüvvələrinin Sıra Nizamnaməsi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9823"
+      }
+    },
+    {
+      "text": "Azərbaycan Respublikasının Silahlı Qüvvələrinin - 4 Nizamnaməsi var. Azərbaycan Respublikasının Silahlı Qüvvələrinin Qarnizon və Qarovul Xidmətləri Nizamnaməsi, Azərbaycan Respublikasının Silahlı Qüvvələrinin Daxili Xidmət Nizamnaməsi, Azərbaycan Respublikasının Silahlı Qüvvələrinin İntizam Nizamnaməsi, Post-patrul Xidməti Nizamnaməsi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9824"
+      }
+    },
+    {
+      "text": "Azərbaycan Respublikasının Silahlı Qüvvələrinin - 4 Nizamnaməsi var. Azərbaycan Respublikasının Silahlı Qüvvələrinin Qarnizon və Qarovul Xidmətləri Nizamnaməsi, Azərbaycan Respublikasının Silahlı Qüvvələrinin Daxili Xidmət Nizamnaməsi, Azərbaycan Respublikasının Silahlı Qüvvələrinin İntizam Nizamnaməsi, Azərbaycan Respublikasının Silahlı Qüvvələrinin Sıra Nizamnaməsi",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9825"
+      }
+    },
+    {
+      "text": "Azərbaycan Respublikasının Silahlı Qüvvələrinin - 3 Nizamnaməsi var. Azərbaycan Respublikasının Silahlı Qüvvələrinin Qarnizon və Qarovul Xidmətləri Nizamnaməsi, Azərbaycan Respublikasının Silahlı Qüvvələrinin Daxili Xidmət Nizamnaməsi, Azərbaycan Respublikasının Silahlı Qüvvələrinin İntizam Nizamnaməsi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c2f85350bfcc3ead9826"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:20:24.955Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:20:24.955Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9986"
+  },
+  "text": "Ölkəmizdə keçirimiş “COP29” tədbiri nədir?",
+  "options": [
+    {
+      "text": "Paralimpiya oyunlarının seçki mərhələsi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9987"
+      }
+    },
+    {
+      "text": "Iqlim deyişiklərinə həsr olunmuş konfrans",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9988"
+      }
+    },
+    {
+      "text": "Genc istedadlar arasında olimpiada",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9989"
+      }
+    },
+    {
+      "text": "Hakimlərin beynəlxalq konfransı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead998a"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.389Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.389Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead998c"
+  },
+  "text": "Azərbaycan Respublikasının ümumi ərazisi nə qədərdir?",
+  "options": [
+    {
+      "text": "86600 km²",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead998d"
+      }
+    },
+    {
+      "text": "100500 km²",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead998e"
+      }
+    },
+    {
+      "text": "75200 km²",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead998f"
+      }
+    },
+    {
+      "text": "90300 km²",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9990"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.390Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.390Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9992"
+  },
+  "text": "20 Yanvar faciəsi hansı ildə baş vermişdir?",
+  "options": [
+    {
+      "text": "1992-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9993"
+      }
+    },
+    {
+      "text": "1994-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9994"
+      }
+    },
+    {
+      "text": "1990-cı il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9995"
+      }
+    },
+    {
+      "text": "1988-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9996"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.391Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.391Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9998"
+  },
+  "text": "Ümummilli lider Heydər Əlirza oğlu Əliyev nə vaxt Azərbaycan SSR Komunist Partiyasını birinci katibi seçilmişdir?",
+  "options": [
+    {
+      "text": "14 iyul 1969-cu il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9999"
+      }
+    },
+    {
+      "text": "14 iyul 1968-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead999a"
+      }
+    },
+    {
+      "text": "14 iyul 1980-cı il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead999b"
+      }
+    },
+    {
+      "text": "14 iyul 1967-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead999c"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.392Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.392Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead999e"
+  },
+  "text": "Ağdam rayonu hansı tarixdə işğaldan azad olunmuşdur?",
+  "options": [
+    {
+      "text": "10 noyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead999f"
+      }
+    },
+    {
+      "text": "1 dekabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99a0"
+      }
+    },
+    {
+      "text": "20 noyabr 2020-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99a1"
+      }
+    },
+    {
+      "text": "30 noyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99a2"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.392Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.392Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99a4"
+  },
+  "text": "Hərbi qulluqçu neçə il Silahlı Qüvvələrdə qüsursuz xidmət etdikdə “Qüsursuz xidmətlərə görə” 1-ci dərəcəli medalın alınmasına təqdim edilə bilər ?",
+  "options": [
+    {
+      "text": "15 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99a5"
+      }
+    },
+    {
+      "text": "05 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99a6"
+      }
+    },
+    {
+      "text": "10 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99a7"
+      }
+    },
+    {
+      "text": "20 il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99a8"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.393Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.393Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99aa"
+  },
+  "text": "Bu təşkilatlardan hansı erməni terror təşkilatıdır?",
+  "options": [
+    {
+      "text": "İRA",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ab"
+      }
+    },
+    {
+      "text": "ASALA",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ac"
+      }
+    },
+    {
+      "text": "ETA",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ad"
+      }
+    },
+    {
+      "text": "Əl-Qaidə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ae"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.393Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.393Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99b0"
+  },
+  "text": "Azərbaycan Respublikasının Konstitusiyasına görə Qanunvericilik hakimiyyətini hansı dövlət qurumu həyata keçirir?",
+  "options": [
+    {
+      "text": "Azərbaycan xalqı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99b1"
+      }
+    },
+    {
+      "text": "İcra hakimiyyəti",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99b2"
+      }
+    },
+    {
+      "text": "Milli Məclis",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99b3"
+      }
+    },
+    {
+      "text": "Konstitusiya Məhkəməsi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99b4"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.394Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.394Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99b6"
+  },
+  "text": "Ümummilli lider Heydər Əlirza oğlu Əliyev nə vaxt vəfat edib?",
+  "options": [
+    {
+      "text": "12 dekabr 2003-cü il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99b7"
+      }
+    },
+    {
+      "text": "05 dekabr 2003-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99b8"
+      }
+    },
+    {
+      "text": "24 oktyabr 2003-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99b9"
+      }
+    },
+    {
+      "text": "16 noyabr 2003-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ba"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.395Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.395Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99bc"
+  },
+  "text": "2-ci Dünya Müharibəsi neçənci illərdə baş verib ?",
+  "options": [
+    {
+      "text": "1930-1932-ci illərdə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99bd"
+      }
+    },
+    {
+      "text": "1939-1945-ci illərdə",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99be"
+      }
+    },
+    {
+      "text": "1941-1945-ci illərdə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99bf"
+      }
+    },
+    {
+      "text": "1918-1922-ci illərdə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99c0"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.395Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.395Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99c2"
+  },
+  "text": "Dünya Azərbaycanlılarının 5-ci Qurultayı nə vaxt keçirilmişdir?",
+  "options": [
+    {
+      "text": "09-10 noyabr 2001-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99c3"
+      }
+    },
+    {
+      "text": "16-17 mart 2006-cı il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99c4"
+      }
+    },
+    {
+      "text": "22-23 aprel 2022-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99c5"
+      }
+    },
+    {
+      "text": "05-06 iyul 2011-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99c6"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.396Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.396Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99c8"
+  },
+  "text": "Müstəqil Azərbaycanın ilk Konstitusiyası hansı tarixdə qəbul edilmişdir?",
+  "options": [
+    {
+      "text": "12 noyabr 1995-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99c9"
+      }
+    },
+    {
+      "text": "14 noyabr 1994-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ca"
+      }
+    },
+    {
+      "text": "08 noyabr 1995-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99cb"
+      }
+    },
+    {
+      "text": "10 noyabr 1993-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99cc"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.397Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.397Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99ce"
+  },
+  "text": "Azərbaycan Respublikasının Konstitusiyası neçə bölmə, fəsil və maddədən ibarətdir?",
+  "options": [
+    {
+      "text": "5 bölmə, 10 fəsil, 150 maddə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99cf"
+      }
+    },
+    {
+      "text": "5 bölmə, 12 fəsil, 158 maddə",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99d0"
+      }
+    },
+    {
+      "text": "6 bölmə, 13 fəsil, 160 maddə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99d1"
+      }
+    },
+    {
+      "text": "4 bölmə, 12 fəsil, 140 maddə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99d2"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.397Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.397Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99d4"
+  },
+  "text": "Azərbaycanlıarın soyqırımı günü nə vaxtdır?",
+  "options": [
+    {
+      "text": "31 mart",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99d5"
+      }
+    },
+    {
+      "text": "20 yanvar",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99d6"
+      }
+    },
+    {
+      "text": "08 noyabr",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99d7"
+      }
+    },
+    {
+      "text": "25 fevral",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99d8"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.397Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.397Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99da"
+  },
+  "text": "Azərbaycan Respublikasının Dövlət Gerbi nəyi ifadə edir?",
+  "options": [
+    {
+      "text": "Azərbaycan xalqının türk mənşəli olduğunu",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99db"
+      }
+    },
+    {
+      "text": "Azərbaycan xalqının islam sivilizasiyasına mənsubluğunu",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99dc"
+      }
+    },
+    {
+      "text": "Azərbaycan dövlətinin müstəqilliyinin rəmzini",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99dd"
+      }
+    },
+    {
+      "text": "Azərbaycan Respublikasının ərazi bütövlüyünü",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99de"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.398Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.398Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99e0"
+  },
+  "text": "Azərbaycan Respublikası yalnız Xəzər dənizi vasitəsilə hansı ölkələrlə həmsərhəddir?",
+  "options": [
+    {
+      "text": "İran, Türkmənistan və Ermənistan",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99e1"
+      }
+    },
+    {
+      "text": "Qazaxıstan və Türkmənistan",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99e2"
+      }
+    },
+    {
+      "text": "Qazaxıstan, Türkmənistan və Ermənistan",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99e3"
+      }
+    },
+    {
+      "text": "İran, Türkmənistan və Rusiya",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99e4"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.399Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.399Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99e6"
+  },
+  "text": "Füzuli şəhəri hansı tarixdə işğaldan azad olunmuşdur?",
+  "options": [
+    {
+      "text": "17 oktyabr 2020-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99e7"
+      }
+    },
+    {
+      "text": "20 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99e8"
+      }
+    },
+    {
+      "text": "25 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99e9"
+      }
+    },
+    {
+      "text": "30 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ea"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.399Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.399Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99ec"
+  },
+  "text": "“Əsrin Müqaviləsi” hansı tarixdə imzalanmışdır?",
+  "options": [
+    {
+      "text": "1 yanvar 1995-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ed"
+      }
+    },
+    {
+      "text": "12 dekabr 1994-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ee"
+      }
+    },
+    {
+      "text": "20 oktyabr 1994-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ef"
+      }
+    },
+    {
+      "text": "20 sentyabr 1994-cü il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99f0"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.400Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.400Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99f2"
+  },
+  "text": "Hərbi etikanın əsas prinsipləri hansılardır?",
+  "options": [
+    {
+      "text": "Fədakarlıq, intizam, cəsarət, kollektivizm",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99f3"
+      }
+    },
+    {
+      "text": "Fədakarlıq, eqoizm, kollektivizm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99f4"
+      }
+    },
+    {
+      "text": "İntizam, eqoizm, cəsarət, şəxsi maraq",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99f5"
+      }
+    },
+    {
+      "text": "Eqoizm, şəxsi maraq, kollektivizm",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99f6"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.400Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.400Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99f8"
+  },
+  "text": "XRİTDX tərəfindən təşkil olunmuş “Kiberfest” festivalı ilk dəfə nə vaxt keçirilmişdir?",
+  "options": [
+    {
+      "text": "26 oktyabr 2022-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99f9"
+      }
+    },
+    {
+      "text": "26 oktyabr 2024-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99fa"
+      }
+    },
+    {
+      "text": "26 oktyabr 2023-cü il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99fb"
+      }
+    },
+    {
+      "text": "26 oktyabr 2025-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99fc"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.401Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.401Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead99fe"
+  },
+  "text": "Ümummilli Lider Heydər Əliyev ilk dəfə nə vaxt Azərbaycan Respublikasının  prezidenti seçilib?",
+  "options": [
+    {
+      "text": "1994-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead99ff"
+      }
+    },
+    {
+      "text": "1993-cü il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a00"
+      }
+    },
+    {
+      "text": "1995-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a01"
+      }
+    },
+    {
+      "text": "1992-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a02"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.401Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.401Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a04"
+  },
+  "text": "“COP29” tədbiri hansı tarixlərdə keçirilib?",
+  "options": [
+    {
+      "text": "20 noyabr – 01 dekabr 2024-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a05"
+      }
+    },
+    {
+      "text": "01–10 noyabr 2024-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a06"
+      }
+    },
+    {
+      "text": "11–22 noyabr 2024-cü il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a07"
+      }
+    },
+    {
+      "text": "05–26 noyabr 2024-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a08"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.402Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.402Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a0a"
+  },
+  "text": "Dünya Azərbaycanlılarının 1-ci Qurultayı nə vaxt keçirilmişdir?",
+  "options": [
+    {
+      "text": "11–12 noyabr 2019-cu il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a0b"
+      }
+    },
+    {
+      "text": "05–06 iyul 2006-cı il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a0c"
+      }
+    },
+    {
+      "text": "09–10 noyabr 2001-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a0d"
+      }
+    },
+    {
+      "text": "03–04 iyun 2016-cı il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a0e"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.403Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.403Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a10"
+  },
+  "text": "“Suqovuşan” su anbarı hansı rayonun ərazisində yerləşir?",
+  "options": [
+    {
+      "text": "Tərtər",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a11"
+      }
+    },
+    {
+      "text": "Füzuli",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a12"
+      }
+    },
+    {
+      "text": "Ağdam",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a13"
+      }
+    },
+    {
+      "text": "Laçın",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a14"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.403Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.403Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a16"
+  },
+  "text": "Azərbaycan Respublikasının Dövlət Gerbinin təsvirində ulduz, alov, palıd budaqları və sünbüllər hansı rəngdədirlər?",
+  "options": [
+    {
+      "text": "Ağ, narıncı, boz, sarı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a17"
+      }
+    },
+    {
+      "text": "Mavi, qırmızı, yaşıl, sarı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a18"
+      }
+    },
+    {
+      "text": "Ağ, qırmızı, yaşıl, sarı",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a19"
+      }
+    },
+    {
+      "text": "Mavi, qırmızı, boz, sarı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a1a"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.404Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.404Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a1c"
+  },
+  "text": "Zəngilan şəhəri hansı tarixdə işğaldan azad olunmuşdur?",
+  "options": [
+    {
+      "text": "25 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a1d"
+      }
+    },
+    {
+      "text": "20 oktyabr 2020-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a1e"
+      }
+    },
+    {
+      "text": "18 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a1f"
+      }
+    },
+    {
+      "text": "22 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a20"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.405Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.405Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a22"
+  },
+  "text": "XRİTDX tərəfindən təşkil olunmuş “Critical Infrastructure Defence Challenge – CIDC‑2025” tədbiri hansı tarixlərdə keçirilmişdir?",
+  "options": [
+    {
+      "text": "10-11 oktyabr 2025-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a23"
+      }
+    },
+    {
+      "text": "9-10 oktyabr 2025-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a24"
+      }
+    },
+    {
+      "text": "8-9 oktyabr 2025-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a25"
+      }
+    },
+    {
+      "text": "11-12 oktyabr 2025-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a26"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.405Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.405Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a28"
+  },
+  "text": "Azərbaycan Respublikasının Xüsusi Rabitə və İnformasiya Təhlükəsizliyi Dövlət Xidməti əməkdaşlarının peşə bayramı günü nə vaxtdır ?",
+  "options": [
+    {
+      "text": "23 avqust",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a29"
+      }
+    },
+    {
+      "text": "02 iyul",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a2a"
+      }
+    },
+    {
+      "text": "26 sentyabr",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a2b"
+      }
+    },
+    {
+      "text": "28 mart",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a2c"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.406Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.406Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a2e"
+  },
+  "text": "Heydər Əliyev nə vaxt anadan olmuşdur?",
+  "options": [
+    {
+      "text": "12 may 1923-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a2f"
+      }
+    },
+    {
+      "text": "10 iyun 1923-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a30"
+      }
+    },
+    {
+      "text": "10 may 1925-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a31"
+      }
+    },
+    {
+      "text": "10 may 1923-cü il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a32"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.406Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.406Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a34"
+  },
+  "text": "Azərbaycan Respublikasının Prezidenti Cənab İlham Əliyev nə vaxt ümumxalq səsverməsi nəticəsində dördüncü dəfə Azərbaycan Respublikasının Prezidenti seçilmişdir?",
+  "options": [
+    {
+      "text": "11 aprel 2018-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a35"
+      }
+    },
+    {
+      "text": "12 aprel 2018-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a36"
+      }
+    },
+    {
+      "text": "20 sentyabr 2018-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a37"
+      }
+    },
+    {
+      "text": "07 fevral 2024-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a38"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.407Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.407Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a3a"
+  },
+  "text": "Müstəqil Azərbaycanın ilk Konstitusiyası hansı tarixdə qəbul edilmişdir?",
+  "options": [
+    {
+      "text": "12 noyabr 1995-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a3b"
+      }
+    },
+    {
+      "text": "18 oktyabr 1991-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a3c"
+      }
+    },
+    {
+      "text": "28 may 1992-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a3d"
+      }
+    },
+    {
+      "text": "08 noyabr 1995-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a3e"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.407Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.407Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a40"
+  },
+  "text": "Azərbaycanlıların Soyqırımı Günü nə vaxt qeyd olunur?",
+  "options": [
+    {
+      "text": "20 yanvar",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a41"
+      }
+    },
+    {
+      "text": "26 fevral",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a42"
+      }
+    },
+    {
+      "text": "8 noyabr",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a43"
+      }
+    },
+    {
+      "text": "31 mart",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a44"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.408Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.408Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a46"
+  },
+  "text": "Cəbrayıl şəhərinin işğaldan azad olunma tarixi nə vaxtdır?",
+  "options": [
+    {
+      "text": "25 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a47"
+      }
+    },
+    {
+      "text": "20 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a48"
+      }
+    },
+    {
+      "text": "04 oktyabr 2020-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a49"
+      }
+    },
+    {
+      "text": "22 oktyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a4a"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.408Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.408Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a4c"
+  },
+  "text": "Hərbi qulluqçu neçə il Silahlı Qüvvələrdə qüsursuz xidmət etdikdə “Qüsursuz xidmətlərə görə” 2-ci dərəcəli medalın alınmasına təqdim edilə bilər ?",
+  "options": [
+    {
+      "text": "15 il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a4d"
+      }
+    },
+    {
+      "text": "25 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a4e"
+      }
+    },
+    {
+      "text": "20 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a4f"
+      }
+    },
+    {
+      "text": "10 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a50"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.409Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.409Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a52"
+  },
+  "text": "Milli Qurtuluş Günü hansı tarixdə olub?",
+  "options": [
+    {
+      "text": "15 iyun 1993-cü il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a53"
+      }
+    },
+    {
+      "text": "10 may 1993-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a54"
+      }
+    },
+    {
+      "text": "23 avqust 1993-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a55"
+      }
+    },
+    {
+      "text": "15 sentyabr 1993-cü il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a56"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.409Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.409Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a58"
+  },
+  "text": "Azərbaycan Respublikasının Dövlət Bayrağında rənglərin mənası nəyi ifadə edir?",
+  "options": [
+    {
+      "text": "Türkçülük, azadlıq, islamçılıq",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a59"
+      }
+    },
+    {
+      "text": "Türkçülük, hökmdarı, xalqı bildirir",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a5a"
+      }
+    },
+    {
+      "text": "Türkçülük, zərdüştilik, süverinliyi",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a5b"
+      }
+    },
+    {
+      "text": "Türkçülük, müstəqilliyi, islamçılıq",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a5c"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.410Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.410Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a5e"
+  },
+  "text": "Hərbi qulluqçu neçə il Silahlı Qüvvələrdə qüsursuz xidmət etdikdə “Silahlı Qüvvələri Veteranı”  medalı alınmasına təqdim edilə bilər ?",
+  "options": [
+    {
+      "text": "25 il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a5f"
+      }
+    },
+    {
+      "text": "30 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a60"
+      }
+    },
+    {
+      "text": "35 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a61"
+      }
+    },
+    {
+      "text": "20 il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a62"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.410Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.410Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a64"
+  },
+  "text": "Laçın rayonu hansı tarixdə işğaldan azad olunmuşdur?",
+  "options": [
+    {
+      "text": "10 noyabr 2020-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a65"
+      }
+    },
+    {
+      "text": "26 avqust 2022-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a66"
+      }
+    },
+    {
+      "text": "01 dekabr 2020-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a67"
+      }
+    },
+    {
+      "text": "18 may 1992-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a68"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.411Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.411Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a6a"
+  },
+  "text": "Dünya Azərbaycanlılarının V Qurultayı hansı şəhərdə keçirilmişdir?",
+  "options": [
+    {
+      "text": "Bakı",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a6b"
+      }
+    },
+    {
+      "text": "Gəncə",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a6c"
+      }
+    },
+    {
+      "text": "Şuşa",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a6d"
+      }
+    },
+    {
+      "text": "Sumqayıt",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a6e"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.411Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.411Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989c3aa5350bfcc3ead9a70"
+  },
+  "text": "Ümummilli lider Heydər Əlirza oğlu Əliyev nə vaxt Azərbaycan SSR Dövlət Təhlükəsizliyi Komitəsinin sədri təyin edilmişdir?",
+  "options": [
+    {
+      "text": "22 iyun 1967-ci il",
+      "isCorrect": true,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a71"
+      }
+    },
+    {
+      "text": "24 iyul 1969-cu il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a72"
+      }
+    },
+    {
+      "text": "15 oktyabr 1960-cı il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a73"
+      }
+    },
+    {
+      "text": "08 noyabr 1967-ci il",
+      "isCorrect": false,
+      "_id": {
+        "$oid": "6989c3aa5350bfcc3ead9a74"
+      }
+    }
+  ],
+  "examType": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "structureCodes": [
+    "1150",
+    "1130",
+    "1110",
+    "1120",
+    "1400",
+    "1140"
+  ],
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T11:23:22.411Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:23:22.411Z"
+  },
+  "__v": 0
+}]

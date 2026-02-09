@@ -1,0 +1,76 @@
+[{
+  "_id": {
+    "$oid": "69899da146bd97a4b4e7b713"
+  },
+  "name": "İnformasiya Təhlükəsizliyi",
+  "slug": "informasiya-tehlukesizliyi",
+  "description": "",
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T08:41:05.460Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T08:41:05.460Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69899db546bd97a4b4e7b72d"
+  },
+  "name": "İxtisas",
+  "slug": "ixtisas",
+  "description": "",
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T08:41:25.349Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T08:41:25.349Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69899dc146bd97a4b4e7b733"
+  },
+  "name": "İctimai-Siyasi Hazırlıq",
+  "slug": "ictimai-siyasi-hazirliq",
+  "description": "",
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T08:41:37.003Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T08:41:37.003Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69899dcb46bd97a4b4e7b74d"
+  },
+  "name": "Döyüş Hazırlığı",
+  "slug": "doyus-hazirligi",
+  "description": "",
+  "isActive": true,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "createdAt": {
+    "$date": "2026-02-09T08:41:47.984Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T08:41:47.984Z"
+  },
+  "__v": 0
+}]

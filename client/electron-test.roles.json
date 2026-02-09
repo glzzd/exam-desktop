@@ -1,0 +1,57 @@
+[{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e8d"
+  },
+  "name": "Super Admin",
+  "slug": "superadmin",
+  "description": "Tam yetkili yönetici rolü",
+  "permissions": [
+    {
+      "$oid": "6989c56ec30b64c47f237e7e"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e7f"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e80"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e81"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e82"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e83"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e84"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e85"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e86"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e87"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e88"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e89"
+    },
+    {
+      "$oid": "6989c56ec30b64c47f237e8a"
+    }
+  ],
+  "isActive": true,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.296Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.296Z"
+  },
+  "__v": 0
+}]

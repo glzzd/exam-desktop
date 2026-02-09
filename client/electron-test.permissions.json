@@ -1,0 +1,255 @@
+[{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e7e"
+  },
+  "slug": "users.create",
+  "description": "Yeni istifadəçi yaratmaq",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "create",
+  "scope": "organization",
+  "riskLevel": "high",
+  "ui": {
+    "menu": "İstifadəçilər",
+    "visible": true
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e7f"
+  },
+  "slug": "users.read.all",
+  "description": "Bütün istifadəçilərin siyahısını görmək",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "read",
+  "scope": "organization",
+  "riskLevel": "medium",
+  "ui": {
+    "menu": "İstifadəçilər",
+    "visible": true
+  },
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e80"
+  },
+  "slug": "users.read.one",
+  "description": "Tək istifadəçi məlumatlarını görmək",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "read",
+  "scope": "organization",
+  "riskLevel": "low",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e81"
+  },
+  "slug": "users.update.all",
+  "description": "İstənilən istifadəçinin məlumatlarını yeniləmək",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "update",
+  "scope": "organization",
+  "riskLevel": "high",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e82"
+  },
+  "slug": "users.update.one",
+  "description": "Öz məlumatlarını yeniləmək",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "update",
+  "scope": "self",
+  "riskLevel": "medium",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e83"
+  },
+  "slug": "users.delete.all",
+  "description": "İstənilən istifadəçini silmək",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "delete",
+  "scope": "organization",
+  "riskLevel": "critical",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e84"
+  },
+  "slug": "users.delete.one",
+  "description": "Öz hesabını silmək",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "delete",
+  "scope": "self",
+  "riskLevel": "critical",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e85"
+  },
+  "slug": "users.history.read",
+  "description": "İstifadəçi tarixçəsini görmək",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "read",
+  "scope": "organization",
+  "riskLevel": "medium",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e86"
+  },
+  "slug": "users.reset_password",
+  "description": "İstifadəçinin şifrəsini sıfırlamaq",
+  "module": "Users",
+  "moduleKey": "users",
+  "action": "custom",
+  "scope": "organization",
+  "riskLevel": "critical",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e87"
+  },
+  "slug": "roles.create",
+  "description": "Yeni rol yaratmaq",
+  "module": "Roles",
+  "moduleKey": "roles",
+  "action": "create",
+  "scope": "organization",
+  "riskLevel": "critical",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.271Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e88"
+  },
+  "slug": "roles.read",
+  "description": "Rolları görmək",
+  "module": "Roles",
+  "moduleKey": "roles",
+  "action": "read",
+  "scope": "organization",
+  "riskLevel": "medium",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.272Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.272Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e89"
+  },
+  "slug": "roles.update",
+  "description": "Rol məlumatlarını dəyişmək",
+  "module": "Roles",
+  "moduleKey": "roles",
+  "action": "update",
+  "scope": "organization",
+  "riskLevel": "critical",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.272Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.272Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6989c56ec30b64c47f237e8a"
+  },
+  "slug": "roles.delete",
+  "description": "Rol silmək",
+  "module": "Roles",
+  "moduleKey": "roles",
+  "action": "delete",
+  "scope": "organization",
+  "riskLevel": "critical",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-02-09T11:30:54.272Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T11:30:54.272Z"
+  }
+}]

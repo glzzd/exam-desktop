@@ -1,0 +1,34 @@
+[{
+  "_id": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "username": "ilkin",
+  "password": "$2a$12$L68xnDA6mqdu5E2p1gHPhuI/GwcqFGyviHLsJssl6lNPuHSGbWkfK",
+  "personalData": {
+    "firstName": "Ilkin",
+    "lastName": "Guluzade",
+    "gender": "male",
+    "_id": {
+      "$oid": "6989876b24f7d4bbe8684b70"
+    }
+  },
+  "isActive": true,
+  "isDeleted": false,
+  "deletedAt": null,
+  "role": {
+    "$oid": "6989c56ec30b64c47f237e8d"
+  },
+  "createdBy": null,
+  "lastLogin": {
+    "$date": "2026-02-09T13:43:21.606Z"
+  },
+  "failedLoginAttempts": 0,
+  "tokenVersion": 0,
+  "createdAt": {
+    "$date": "2026-02-09T07:06:19.633Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T13:43:21.606Z"
+  },
+  "__v": 0
+}]

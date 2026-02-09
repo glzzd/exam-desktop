@@ -1,0 +1,120 @@
+[{
+  "_id": {
+    "$oid": "6989cdc996ce71e3b12df052"
+  },
+  "timsUserName": "",
+  "personalData": {
+    "firstName": "İlkin",
+    "lastName": "Quluzadə",
+    "fatherName": "Vasif",
+    "gender": "male",
+    "_id": {
+      "$oid": "6989cdc996ce71e3b12df053"
+    }
+  },
+  "isActive": true,
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "rank": "leytenant",
+  "note": "A",
+  "createdAt": {
+    "$date": "2026-02-09T12:06:33.436Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T12:06:33.436Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989cdc996ce71e3b12df055"
+  },
+  "timsUserName": "",
+  "personalData": {
+    "firstName": "Qorqud",
+    "lastName": "Niyazlı",
+    "fatherName": "Nofəl",
+    "gender": "male",
+    "_id": {
+      "$oid": "6989cdc996ce71e3b12df056"
+    }
+  },
+  "isActive": true,
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "rank": "leytenant",
+  "note": "A",
+  "createdAt": {
+    "$date": "2026-02-09T12:06:33.438Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T12:06:33.438Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989cdc996ce71e3b12df058"
+  },
+  "timsUserName": "",
+  "personalData": {
+    "firstName": "Ayxan",
+    "lastName": "Ağazadə",
+    "fatherName": "Şaiq",
+    "gender": "male",
+    "_id": {
+      "$oid": "6989cdc996ce71e3b12df059"
+    }
+  },
+  "isActive": true,
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "rank": "kapitan",
+  "note": "B",
+  "createdAt": {
+    "$date": "2026-02-09T12:06:33.439Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T12:06:33.439Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6989cdc996ce71e3b12df05b"
+  },
+  "timsUserName": "",
+  "personalData": {
+    "firstName": "Ağabəyim",
+    "lastName": "Zeynalzadə",
+    "fatherName": "Fuad",
+    "gender": "female",
+    "_id": {
+      "$oid": "6989cdc996ce71e3b12df05c"
+    }
+  },
+  "isActive": true,
+  "isDeleted": false,
+  "deletedAt": null,
+  "createdBy": {
+    "$oid": "6989876b24f7d4bbe8684b6f"
+  },
+  "rank": "gizir",
+  "note": "B",
+  "createdAt": {
+    "$date": "2026-02-09T12:06:33.440Z"
+  },
+  "updatedAt": {
+    "$date": "2026-02-09T12:06:33.440Z"
+  },
+  "__v": 0
+}]
