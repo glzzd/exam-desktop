@@ -70,7 +70,26 @@ export default function Questions() {
     structureCodes: [],
     file: null
   });
+  const [structureSearch, setStructureSearch] = useState('');
+  const [importStructureSearch, setImportStructureSearch] = useState('');
   const fileInputRef = React.useRef(null);
+
+  const handleSelectAll = (isImport = false) => {
+    const allCodes = structures.map(s => s.code);
+    if (isImport) {
+      setImportData(prev => ({ ...prev, structureCodes: allCodes }));
+    } else {
+      setFormData(prev => ({ ...prev, structureCodes: allCodes }));
+    }
+  };
+
+  const handleDeselectAll = (isImport = false) => {
+    if (isImport) {
+      setImportData(prev => ({ ...prev, structureCodes: [] }));
+    } else {
+      setFormData(prev => ({ ...prev, structureCodes: [] }));
+    }
+  };
 
   useEffect(() => {
     fetchExamTypes();
@@ -371,17 +390,51 @@ export default function Questions() {
                         <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
                         </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56 h-64 overflow-y-auto">
-                        {structures.map((structure) => (
-                        <DropdownMenuCheckboxItem
+                    <DropdownMenuContent className="w-64 p-0">
+                      <div className="p-2 border-b space-y-2">
+                        <Input 
+                          placeholder="Axtar..." 
+                          value={importStructureSearch}
+                          onChange={(e) => setImportStructureSearch(e.target.value)}
+                          className="h-8"
+                          onKeyDown={(e) => e.stopPropagation()}
+                        />
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            variant="secondary" 
+                            className="h-7 text-xs flex-1" 
+                            onClick={(e) => { e.preventDefault(); handleSelectAll(true); }}
+                          >
+                            Hamısı
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="ghost" 
+                            className="h-7 text-xs flex-1" 
+                            onClick={(e) => { e.preventDefault(); handleDeselectAll(true); }}
+                          >
+                            Sıfırla
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="h-64 overflow-y-auto p-1">
+                        {structures
+                          .filter(s => (s.name || s.code).toLowerCase().includes(importStructureSearch.toLowerCase()))
+                          .map((structure) => (
+                          <DropdownMenuCheckboxItem
                             key={structure._id}
                             checked={importData.structureCodes.includes(structure.code)}
                             onCheckedChange={() => toggleImportStructure(structure.code)}
                             onSelect={(e) => e.preventDefault()}
-                        >
+                          >
                             {structure.name || structure.code}
-                        </DropdownMenuCheckboxItem>
+                          </DropdownMenuCheckboxItem>
                         ))}
+                        {structures.filter(s => (s.name || s.code).toLowerCase().includes(importStructureSearch.toLowerCase())).length === 0 && (
+                          <div className="p-2 text-center text-sm text-muted-foreground">Nəticə yoxdur</div>
+                        )}
+                      </div>
                     </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
@@ -466,17 +519,51 @@ export default function Questions() {
                         <ChevronDown className="ml-2 h-4 w-4 opacity-50" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56 h-64 overflow-y-auto">
-                      {structures.map((structure) => (
-                        <DropdownMenuCheckboxItem
-                          key={structure._id}
-                          checked={formData.structureCodes.includes(structure.code)}
-                          onCheckedChange={() => toggleStructure(structure.code)}
-                          onSelect={(e) => e.preventDefault()}
-                        >
-                          {structure.name || structure.code}
-                        </DropdownMenuCheckboxItem>
-                      ))}
+                    <DropdownMenuContent className="w-64 p-0">
+                      <div className="p-2 border-b space-y-2">
+                        <Input 
+                          placeholder="Axtar..." 
+                          value={structureSearch}
+                          onChange={(e) => setStructureSearch(e.target.value)}
+                          className="h-8"
+                          onKeyDown={(e) => e.stopPropagation()}
+                        />
+                        <div className="flex gap-2">
+                          <Button 
+                            size="sm" 
+                            variant="secondary" 
+                            className="h-7 text-xs flex-1" 
+                            onClick={(e) => { e.preventDefault(); handleSelectAll(false); }}
+                          >
+                            Hamısı
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="ghost" 
+                            className="h-7 text-xs flex-1" 
+                            onClick={(e) => { e.preventDefault(); handleDeselectAll(false); }}
+                          >
+                            Sıfırla
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="h-64 overflow-y-auto p-1">
+                        {structures
+                          .filter(s => (s.name || s.code).toLowerCase().includes(structureSearch.toLowerCase()))
+                          .map((structure) => (
+                            <DropdownMenuCheckboxItem
+                              key={structure._id}
+                              checked={formData.structureCodes.includes(structure.code)}
+                              onCheckedChange={() => toggleStructure(structure.code)}
+                              onSelect={(e) => e.preventDefault()}
+                            >
+                              {structure.name || structure.code}
+                            </DropdownMenuCheckboxItem>
+                          ))}
+                        {structures.filter(s => (s.name || s.code).toLowerCase().includes(structureSearch.toLowerCase())).length === 0 && (
+                          <div className="p-2 text-center text-sm text-muted-foreground">Nəticə yoxdur</div>
+                        )}
+                      </div>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
