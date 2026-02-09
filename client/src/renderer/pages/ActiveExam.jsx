@@ -17,7 +17,11 @@ const ActiveExam = () => {
     // Listen for updates
     const onStudentListUpdate = (list) => {
       console.log('Received student list:', list);
-      setStudents(list);
+      // Sort by deskNumber
+      const sortedList = [...list].sort((a, b) => {
+        return (a.deskNumber || 9999) - (b.deskNumber || 9999);
+      });
+      setStudents(sortedList);
     };
 
     socket.on('student-list-updated', onStudentListUpdate);
@@ -57,8 +61,15 @@ const ActiveExam = () => {
               <div className="h-2 bg-blue-500 w-full" />
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-4">
-                  <div className="p-2 bg-blue-50 rounded-full">
-                    <Monitor className="h-5 w-5 text-blue-600" />
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-blue-50 rounded-full">
+                      <Monitor className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg text-slate-900 leading-none">
+                        {student.label || `Masa ${student.deskNumber || '?'}`}
+                      </h3>
+                    </div>
                   </div>
                   <Badge variant="outline" className="text-green-600 bg-green-50 border-green-200">
                     Aktiv

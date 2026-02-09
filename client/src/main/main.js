@@ -1,7 +1,26 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
-const { machineIdSync } = require('node-machine-id');
+const fs = require('fs');
+const crypto = require('crypto');
 const os = require('os');
+
+// Helper to get or create a persistent UUID
+function getPersistentUUID() {
+  const userDataPath = app.getPath('userData');
+  const idFilePath = path.join(userDataPath, '.machine-id');
+  
+  try {
+    if (fs.existsSync(idFilePath)) {
+      return fs.readFileSync(idFilePath, 'utf8');
+    }
+    const id = crypto.randomUUID();
+    fs.writeFileSync(idFilePath, id);
+    return id;
+  } catch (err) {
+    console.error('Error managing machine ID:', err);
+    return 'unknown-uuid';
+  }
+}
 
 function getMacAddress() {
   const interfaces = os.networkInterfaces();
@@ -24,6 +43,7 @@ function createWindow() {
       preload: path.join(__dirname, '../preload/preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
+      sandbox: false, // Disable sandbox to allow full Node.js access in preload
     },
   });
 
@@ -33,14 +53,15 @@ function createWindow() {
     mainWindow.loadURL('http://localhost:5173');
     // mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
+    const indexPath = path.join(__dirname, '../../dist/index.html');
+    mainWindow.loadFile(indexPath);
   }
 }
 
 // Handle Machine ID & MAC Request
 ipcMain.handle('get-machine-id', async () => {
   try {
-    const id = machineIdSync();
+    const id = getPersistentUUID();
     const mac = getMacAddress();
     return { uuid: id, mac: mac };
   } catch (error) {

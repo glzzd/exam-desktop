@@ -1,0 +1,110 @@
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+const fs = require('fs');
+const crypto = require('crypto');
+const os = require('os');
+
+// DEBUG LOGGER
+const logPath = path.join(os.homedir(), 'exam_debug.log');
+function log(message) {
+  try {
+    fs.appendFileSync(logPath, `${new Date().toISOString()} - ${message}\n`);
+  } catch (e) {
+    // ignore
+  }
+}
+
+log('App starting...');
+log(`Node: ${process.version}, Electron: ${process.versions.electron}`);
+
+// Helper to get or create a persistent UUID
+function getPersistentUUID() {
+// ... log('Entering getPersistentUUID');
+  const userDataPath = app.getPath('userData');
+  log(`userDataPath: ${userDataPath}`);
+  const idFilePath = path.join(userDataPath, '.machine-id');
+  
+  try {
+    if (fs.existsSync(idFilePath)) {
+      log('Reading existing UUID');
+      return fs.readFileSync(idFilePath, 'utf8');
+    }
+    log('Generating new UUID');
+    const id = crypto.randomUUID();
+    fs.writeFileSync(idFilePath, id);
+    return id;
+  } catch (err) {
+    log(`Error managing machine ID: ${err.message}`);
+    console.error('Error managing machine ID:', err);
+    return 'unknown-uuid';
+  }
+}
+
+function getMacAddress() {
+  log('Entering getMacAddress');
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      // Skip internal (i.e. 127.0.0.1) and non-ipv4 addresses
+      if (!iface.internal && iface.family === 'IPv4' && iface.mac && iface.mac !== '00:00:00:00:00:00') {
+        return iface.mac;
+      }
+    }
+  }
+  return '00:00:00:00:00:00';
+}
+
+function createWindow() {
+  log('Creating window...');
+  const mainWindow = new BrowserWindow({
+    width: 1000,
+    height: 800,
+    webPreferences: {
+      preload: path.join(__dirname, '../preload/preload.js'),
+      nodeIntegration: false,
+      contextIsolation: true,
+    },
+  });
+
+  const isDev = process.env.NODE_ENV === 'development';
+  log(`isDev: ${isDev}`);
+
+  if (isDev) {
+    mainWindow.loadURL('http://localhost:5173');
+    // mainWindow.webContents.openDevTools();
+  } else {
+    const indexPath = path.join(__dirname, '../../dist/index.html');
+    log(`Loading file: ${indexPath}`);
+    mainWindow.loadFile(indexPath);
+  }
+}
+
+// Handle Machine ID & MAC Request
+ipcMain.handle('get-machine-id', async () => {
+  log('Handling get-machine-id IPC call');
+  try {
+    const id = getPersistentUUID();
+    const mac = getMacAddress();
+    log(`Returning ID: ${id}, MAC: ${mac}`);
+    return { uuid: id, mac: mac };
+  } catch (error) {
+    log(`Error in get-machine-id: ${error.message}`);
+    console.error('Error getting machine info:', error);
+    return { uuid: 'unknown', mac: 'unknown' };
+  }
+});
+
+log('Calling app.whenReady()...');
+app.whenReady().then(() => {
+  log('App is ready');
+  createWindow();
+
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
+
+app.on('window-all-closed', function () {
+  log('All windows closed');
+  if (process.platform !== 'darwin') app.quit();
+});

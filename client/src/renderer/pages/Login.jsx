@@ -3,6 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Monitor } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -41,6 +42,18 @@ const Login = () => {
 
   return (
     <div className="relative h-screen lg:overflow-hidden bg-white">
+      {/* Test Link for Exam Client */}
+      <div className="absolute top-4 right-4 z-50">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="text-slate-500 hover:text-blue-600 bg-white/80 backdrop-blur-sm"
+          onClick={() => window.open('#/exam-client', '_self')}
+        >
+          <Monitor className="w-4 h-4 mr-2" />
+          İmtahan Terminalı
+        </Button>
+      </div>
       
 
       <div className="hidden lg:block absolute inset-y-0 left-0 w-[70%] -ml-[15%] -mt-[35%] -mb-[25%] transform rotate-[-4.5deg] bg-blue-900/20 rounded-[100%] pointer-events-none"></div>
