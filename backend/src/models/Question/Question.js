@@ -15,11 +15,10 @@ const questionSchema = new mongoose.Schema({
     ref: 'ExamType',
     required: true
   },
-  difficulty: {
+  structureCodes: [{
     type: String,
-    enum: ['easy', 'medium', 'hard'],
-    default: 'medium'
-  },
+    trim: true
+  }],
   isActive: {
     type: Boolean,
     default: true

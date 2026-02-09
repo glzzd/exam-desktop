@@ -7,19 +7,19 @@ const {
   deleteQuestion,
   toggleStatus
 } = require('../../controllers/questionController');
-const { protect, authorize } = require('../../middlewares/authMiddleware');
+const { authenticate } = require('../../middlewares/authMiddleware');
 
 // Base route: /api/v1/questions
 
 router.route('/')
-  .get(protect, getQuestions)
-  .post(protect, createQuestion);
+  .get(authenticate, getQuestions)
+  .post(authenticate, createQuestion);
 
 router.route('/:id')
-  .put(protect, updateQuestion)
-  .delete(protect, deleteQuestion);
+  .put(authenticate, updateQuestion)
+  .delete(authenticate, deleteQuestion);
 
 router.route('/:id/status')
-  .patch(protect, toggleStatus);
+  .patch(authenticate, toggleStatus);
 
 module.exports = router;

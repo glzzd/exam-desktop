@@ -81,17 +81,6 @@ const Header = () => {
           >
             Cari imtahan
           </Link>
-
-          <Link 
-            to="/exam-types" 
-            className={`text-sm font-medium transition-colors ${
-              isActive('/exam-types') 
-                ? 'text-blue-600 font-bold' 
-                : 'text-gray-700 hover:text-blue-600'
-            }`}
-          >
-            İmtahan növləri
-          </Link>
           
           <DropdownMenu>
             <DropdownMenuTrigger 

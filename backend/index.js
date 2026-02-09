@@ -7,6 +7,7 @@ const rbacRoutes = require('./src/routes/v1/rbacRoutes');
 const authRoutes = require('./src/routes/v1/authRoutes');
 const examTypeRoutes = require('./src/routes/v1/examTypeRoutes');
 const structureRoutes = require('./src/routes/v1/structureRoutes');
+const questionRoutes = require('./src/routes/v1/questionRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -33,7 +34,8 @@ app.use('/api/v1/rbac', rbacRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/exam-types', examTypeRoutes);
 app.use('/api/v1/structures', structureRoutes);
+app.use('/api/v1/questions', questionRoutes);
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${port}`);
 });

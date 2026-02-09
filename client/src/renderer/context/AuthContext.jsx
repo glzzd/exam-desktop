@@ -23,7 +23,6 @@ export const AuthProvider = ({ children }) => {
         });
         const data = await response.json();
         if (data.success) {
-          console.log(data);
           
           setUser(data.data);
         } else {
@@ -43,7 +42,6 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const baseUrl = import.meta.env.VITE_API_BASE_URL;
-      console.log('Login attempt to:', baseUrl);
       const response = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: {
@@ -72,7 +70,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('accessToken');
     setUser(null);
   };
-  console.log("user", user);
   
   return (
     <AuthContext.Provider value={{ user, login, logout, loading }}>

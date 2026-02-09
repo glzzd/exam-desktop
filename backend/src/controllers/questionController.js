@@ -1,13 +1,13 @@
 const Question = require('../models/Question/Question');
 const ExamType = require('../models/Exam/ExamType');
-const responseHandler = require('../utils/responseHandler');
+const { successResponse, errorResponse } = require('../utils/responseHandler');
 
 // @desc    Get all questions
 // @route   GET /api/v1/questions
 // @access  Private
 exports.getQuestions = async (req, res) => {
   try {
-    const { page = 1, limit = 10, examType, search } = req.query;
+    const { page = 1, limit = 10, examType, search, structureCode } = req.query;
     const query = {};
 
     if (examType) {
@@ -18,6 +18,10 @@ exports.getQuestions = async (req, res) => {
       query.text = { $regex: search, $options: 'i' };
     }
 
+    if (structureCode) {
+      query.structureCodes = structureCode;
+    }
+
     const total = await Question.countDocuments(query);
     const questions = await Question.find(query)
       .populate('examType', 'name slug')
@@ -26,16 +30,16 @@ exports.getQuestions = async (req, res) => {
       .skip((page - 1) * limit)
       .limit(parseInt(limit));
 
-    responseHandler.success(res, {
+    successResponse(res, {
       questions,
       pagination: {
         total,
         page: parseInt(page),
         pages: Math.ceil(total / limit)
       }
-    });
+    }, 'Suallar uğurla gətirildi');
   } catch (error) {
-    responseHandler.error(res, error.message);
+    errorResponse(res, error.message);
   }
 };
 
@@ -44,20 +48,20 @@ exports.getQuestions = async (req, res) => {
 // @access  Private
 exports.createQuestion = async (req, res) => {
   try {
-    const { text, options, examType, difficulty, isActive } = req.body;
+    const { text, options, examType, structureCodes, isActive } = req.body;
 
     const question = await Question.create({
       text,
       options,
       examType,
-      difficulty,
+      structureCodes,
       isActive,
       createdBy: req.user._id
     });
 
-    responseHandler.success(res, question, 201);
+    successResponse(res, question, 'Sual uğurla yaradıldı', 201);
   } catch (error) {
-    responseHandler.error(res, error.message);
+    errorResponse(res, error.message);
   }
 };
 
@@ -66,7 +70,7 @@ exports.createQuestion = async (req, res) => {
 // @access  Private
 exports.updateQuestion = async (req, res) => {
   try {
-    const { text, options, examType, difficulty, isActive } = req.body;
+    const { text, options, examType, structureCodes, isActive } = req.body;
 
     const question = await Question.findByIdAndUpdate(
       req.params.id,
@@ -74,7 +78,7 @@ exports.updateQuestion = async (req, res) => {
         text,
         options,
         examType,
-        difficulty,
+        structureCodes,
         isActive,
         updatedBy: req.user._id
       },
@@ -82,12 +86,12 @@ exports.updateQuestion = async (req, res) => {
     );
 
     if (!question) {
-      return responseHandler.error(res, 'Sual tapılmadı', 404);
+      return errorResponse(res, 'Sual tapılmadı', 404);
     }
 
-    responseHandler.success(res, question);
+    successResponse(res, question, 'Sual uğurla yeniləndi');
   } catch (error) {
-    responseHandler.error(res, error.message);
+    errorResponse(res, error.message);
   }
 };
 
@@ -99,12 +103,12 @@ exports.deleteQuestion = async (req, res) => {
     const question = await Question.findByIdAndDelete(req.params.id);
 
     if (!question) {
-      return responseHandler.error(res, 'Sual tapılmadı', 404);
+      return errorResponse(res, 'Sual tapılmadı', 404);
     }
 
-    responseHandler.success(res, { message: 'Sual silindi' });
+    successResponse(res, null, 'Sual uğurla silindi');
   } catch (error) {
-    responseHandler.error(res, error.message);
+    errorResponse(res, error.message);
   }
 };
 
@@ -122,11 +126,11 @@ exports.toggleStatus = async (req, res) => {
     );
 
     if (!question) {
-      return responseHandler.error(res, 'Sual tapılmadı', 404);
+      return errorResponse(res, 'Sual tapılmadı', 404);
     }
 
-    responseHandler.success(res, question);
+    successResponse(res, question, 'Status dəyişdirildi');
   } catch (error) {
-    responseHandler.error(res, error.message);
+    errorResponse(res, error.message);
   }
 };
