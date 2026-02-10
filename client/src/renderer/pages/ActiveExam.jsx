@@ -194,10 +194,29 @@ const ActiveExam = () => {
 
     socket.on('student-list-updated', onStudentListUpdate);
 
+    const onForceFinishSuccess = () => {
+      toast.success('Məlumatlar bazaya uğurla yazıldı!');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    };
+
+    socket.on('admin-force-finish-success', onForceFinishSuccess);
+
     return () => {
       socket.off('student-list-updated', onStudentListUpdate);
+      socket.off('admin-force-finish-success', onForceFinishSuccess);
     };
   }, [socket]);
+
+  const handleForceFinish = (uuid) => {
+    if (socket) {
+        if (confirm('İmtahanı bitirmək və nəticələri bazaya yazmaq istədiyinizə əminsiniz?')) {
+            socket.emit('admin-force-finish-exam', { uuid });
+            toast.info('Sorğu göndərildi...');
+        }
+    }
+  };
 
   const handleEditClick = (student) => {
     setEditingId(student.uuid);
@@ -453,10 +472,13 @@ const ActiveExam = () => {
                     </Button>
                   )}
                   {student.isConfirmed && (
-  <span className="block text-sm text-red-400 text-center font-bold pt-4">
-    Qeyd: İmtahana davam edən istifadəçinin məlumatlarını redaktə edə bilməzsiniz.
-  </span>
-)}
+                    <Button 
+                      className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-auto py-2 whitespace-normal"
+                      onClick={() => handleForceFinish(student.uuid)}
+                    >
+                      Məlumatları bazaya göndər
+                    </Button>
+                  )}
 
                   {student.results && student.results.length > 0 && (
                     <div className="mt-4 border-t pt-4 animate-in fade-in zoom-in duration-300">

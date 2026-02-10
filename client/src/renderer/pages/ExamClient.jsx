@@ -27,6 +27,7 @@ const ExamClient = () => {
   const [examStatus, setExamStatus] = useState('selection'); // selection, taking, results
   const [activeExamTypeId, setActiveExamTypeId] = useState(null);
   const [examResults, setExamResults] = useState(null);
+  const [resultsShown, setResultsShown] = useState(false);
   
   // Progress State for each Exam Type
   // { [examTypeId]: { status: 'pending'|'in_progress'|'completed', answeredCount: 0, totalQuestions: 0, currentQuestionIndex: 0, answers: {}, questions: [] } }
@@ -490,6 +491,7 @@ const ExamClient = () => {
   const handleShowResults = () => {
       if (socket) {
           socket.emit('student-get-results');
+          setResultsShown(true);
       }
   };
 
@@ -497,6 +499,15 @@ const ExamClient = () => {
       if (socket) {
           socket.emit('student-finish-session');
           toast.success('İmtahan bitirildi! Nəticələr admin panelinə göndərildi.');
+          
+          // Reset local state and redirect
+          localStorage.clear();
+          // We might want to preserve server_url if it's crucial, but user said "clear localStorage"
+          // If we clear everything, next reload will be like fresh start.
+          
+          setTimeout(() => {
+             window.location.reload();
+          }, 1000);
       }
   };
 
@@ -579,13 +590,15 @@ const ExamClient = () => {
               <div className="p-4 bg-slate-50/80 border-t border-slate-100 grid grid-cols-2 gap-3 text-xs">
                  {areAllExamsCompleted && (
                     <div className="col-span-2 mb-2 space-y-2">
-                        <Button 
-                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-sm"
-                            onClick={handleShowResults}
-                        >
-                            <CheckSquare className="w-4 h-4 mr-2" />
-                            Nəticələri Göstər
-                        </Button>
+                        {!resultsShown && (
+                            <Button 
+                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-sm"
+                                onClick={handleShowResults}
+                            >
+                                <CheckSquare className="w-4 h-4 mr-2" />
+                                Nəticələri Göstər
+                            </Button>
+                        )}
                         <Button 
                             className="w-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-sm"
                             onClick={handleFinishSession}

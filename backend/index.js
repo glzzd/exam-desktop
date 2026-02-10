@@ -949,6 +949,71 @@ io.on('connection', (socket) => {
     }
   });
 
+  // Handle admin force finishing exam (saving to DB)
+  socket.on('admin-force-finish-exam', async ({ uuid }) => {
+    console.log(`Admin requested force finish for UUID: ${uuid}`);
+    
+    try {
+        const ExamSession = require('./src/models/ExamSession');
+        
+        // Find active session
+        const activeSession = await ExamSession.findOne({ 
+            machineUuid: uuid, 
+            status: { $in: ['confirmed', 'started'] } 
+        });
+
+        if (activeSession) {
+            // Mark session as completed
+            activeSession.status = 'completed';
+            activeSession.completedAt = new Date();
+            await activeSession.save();
+            
+            // Find student in memory (if connected) or create mock
+            let student = students.find(s => s.uuid === uuid);
+            
+            if (!student) {
+                // Mock student object for generateExamResult if offline
+                student = {
+                    firstName: 'Unknown',
+                    lastName: 'Student',
+                    fatherName: '',
+                    hostname: activeSession.hostname
+                };
+            }
+            
+            // Generate and Save detailed result
+            const result = await generateExamResult(student, activeSession, true);
+            
+            // Update student object in memory if exists
+            student = students.find(s => s.uuid === uuid);
+            if (student) {
+                student.status = 'completed'; 
+                student.results = result.examTypes.map(t => ({
+                    examTypeName: t.examTypeName,
+                    correctCount: t.correctCount,
+                    wrongCount: t.wrongCount,
+                    emptyCount: t.emptyCount,
+                    score: t.score,
+                    passed: t.passed
+                }));
+                // Notify student if connected
+                io.to(student.socketId).emit('exam-finished-all');
+            }
+
+            // Notify admins
+            io.emit('student-list-updated', students);
+            socket.emit('admin-force-finish-success');
+            
+            console.log(`Force session finish for ${uuid}. Results generated.`);
+        } else {
+            socket.emit('error', { message: 'Aktiv sessiya tapılmadı' });
+        }
+    } catch (err) {
+        console.error('Error force finishing session:', err);
+        socket.emit('error', { message: 'Xəta baş verdi: ' + err.message });
+    }
+  });
+
   // Handle explicit exit
   socket.on('student-exit', () => {
     const student = students.find(s => s.socketId === socket.id);
