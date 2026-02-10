@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
@@ -47,6 +47,40 @@ function createWindow() {
     },
   });
 
+  // Create Application Menu
+  const template = [
+    {
+      label: 'Tətbiq',
+      submenu: [
+        { role: 'quit', label: 'Çıxış' }
+      ]
+    },
+    {
+      label: 'Görünüş',
+      submenu: [
+        { role: 'reload', label: 'Yenilə' },
+        { role: 'forceReload', label: 'Məcburi Yenilə' },
+        { role: 'toggleDevTools', label: 'Developer Tools' },
+        { type: 'separator' },
+        { role: 'togglefullscreen', label: 'Tam Ekran' }
+      ]
+    },
+    {
+      label: 'Parametlər',
+      submenu: [
+        {
+          label: 'Server Tənzimləmələri',
+          click: () => {
+            mainWindow.webContents.send('open-settings');
+          }
+        }
+      ]
+    }
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+
   const isDev = process.env.NODE_ENV === 'development';
 
   if (isDev) {
@@ -67,6 +101,69 @@ ipcMain.handle('get-machine-id', async () => {
   } catch (error) {
     console.error('Error getting machine info:', error);
     return { uuid: 'unknown', mac: 'unknown' };
+  }
+});
+
+// Handle Local Backup
+ipcMain.handle('save-local-backup', async (event, data) => {
+  try {
+    const { student, backupData } = data;
+    if (!student || !backupData) return { success: false, error: 'Missing data' };
+
+    // Construct filename: FirstName_LastName_FatherName.json
+    // Use student info if available, otherwise fallback
+    const firstName = student.firstName || 'Unknown';
+    const lastName = student.lastName || 'Student';
+    const fatherName = student.fatherName || '';
+    
+    const safeName = `${firstName}_${lastName}_${fatherName}`
+      .trim()
+      .replace(/[^a-z0-9_\u00C0-\u017F]+/gi, '_') // Allow unicode letters
+      .replace(/^_+|_+$/g, '');
+
+    const fileName = `${safeName || 'exam_backup'}.json`;
+
+    // Determine target directory
+    // Try to find the directory where the app executable resides
+    let targetDir;
+    
+    if (app.isPackaged) {
+      if (process.platform === 'darwin') {
+         // On macOS, app.getPath('exe') is inside Contents/MacOS
+         // We want the folder containing the .app bundle usually, or userData
+         // Go up 4 levels: .../App.app/Contents/MacOS/App -> .../
+         targetDir = path.resolve(path.dirname(app.getPath('exe')), '../../../../lastResults');
+      } else {
+         // On Windows/Linux, app.getPath('exe') is in the app folder
+         targetDir = path.join(path.dirname(app.getPath('exe')), 'lastResults');
+      }
+    } else {
+       // Development
+       targetDir = path.join(process.cwd(), 'lastResults');
+    }
+
+    // Ensure directory exists. If we can't write there, fallback to userData
+    try {
+       if (!fs.existsSync(targetDir)) {
+          fs.mkdirSync(targetDir, { recursive: true });
+       }
+       // Test write access
+       fs.accessSync(targetDir, fs.constants.W_OK);
+    } catch (err) {
+       console.warn('Cannot write to preferred path, falling back to userData:', err);
+       targetDir = path.join(app.getPath('userData'), 'lastResults');
+       if (!fs.existsSync(targetDir)) {
+          fs.mkdirSync(targetDir, { recursive: true });
+       }
+    }
+
+    const filePath = path.join(targetDir, fileName);
+    fs.writeFileSync(filePath, JSON.stringify(backupData, null, 2), 'utf8');
+    
+    return { success: true, path: filePath };
+  } catch (err) {
+    console.error('Backup error:', err);
+    return { success: false, error: err.message };
   }
 });
 

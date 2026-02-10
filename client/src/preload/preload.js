@@ -11,6 +11,7 @@ contextBridge.exposeInMainWorld('api', {
     username: os.userInfo().username
   }),
   getMachineId: () => ipcRenderer.invoke('get-machine-id'),
+  saveLocalBackup: (data) => ipcRenderer.invoke('save-local-backup', data),
   // Example: Send a message to main process
   sendMessage: (channel, data) => {
     // Whitelist channels
@@ -21,7 +22,7 @@ contextBridge.exposeInMainWorld('api', {
   },
   // Example: Receive message from main process
   on: (channel, func) => {
-    let validChannels = ['fromMain', 'app-closing'];
+    let validChannels = ['fromMain', 'app-closing', 'open-settings'];
     if (validChannels.includes(channel)) {
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     }

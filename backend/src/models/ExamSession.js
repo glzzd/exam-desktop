@@ -57,7 +57,28 @@ const examSessionSchema = new mongoose.Schema({
   },
   completedAt: {
     type: Date
-  }
+  },
+
+  // Exam Progress State
+  examState: [{
+    examTypeId: { type: mongoose.Schema.Types.ObjectId, ref: 'ExamType' },
+    questions: [{ 
+       _id: mongoose.Schema.Types.ObjectId, // Question ID
+       text: String,
+       options: [{ _id: String, text: String }]
+    }],
+    answers: { 
+      type: Map,
+      of: String // questionId -> optionId
+    },
+    timeSpent: {
+      type: Map,
+      of: Number // questionId -> seconds
+    },
+    status: { type: String, enum: ['pending', 'in_progress', 'completed'], default: 'pending' },
+    startTime: Date,
+    endTime: Date
+  }]
 
 }, { timestamps: true });
 

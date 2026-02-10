@@ -442,9 +442,44 @@ io.on('connection', (socket) => {
   socket.on('get-active-exam-types', async () => {
     try {
       const ExamType = require('./src/models/Exam/ExamType');
+      const ExamSession = require('./src/models/ExamSession');
+
       const examTypes = await ExamType.find({ isActive: true }).sort({ name: 1 });
       socket.emit('active-exam-types', examTypes);
-    } catch (err) {
+
+      // Also fetch and send student's progress for these types
+      const student = students.find(s => s.socketId === socket.id);
+      if (student && student.uuid) {
+          const activeSession = await ExamSession.findOne({ 
+              machineUuid: student.uuid, 
+              status: { $in: ['confirmed', 'started'] } 
+          });
+
+          if (activeSession && activeSession.examState && activeSession.examState.length > 0) {
+              const progressMap = {};
+              
+              activeSession.examState.forEach(state => {
+                  const total = state.questions ? state.questions.length : 0;
+                  const answered = state.answers ? state.answers.size : 0;
+                  
+                  progressMap[state.examTypeId] = {
+                      status: state.status,
+                      answeredCount: answered,
+                      totalQuestions: total,
+                      // We can include more if needed, but this is enough for the card UI
+                  };
+              });
+
+              socket.emit('student-exam-progress', progressMap);
+           }
+           
+           // Sync Global Timer if session is started
+           if (activeSession && activeSession.startedAt) {
+               socket.emit('session-timer-sync', { startTime: activeSession.startedAt });
+           }
+       }
+
+     } catch (err) {
       console.error('Error fetching active exam types for client:', err);
     }
   });
@@ -456,32 +491,413 @@ io.on('connection', (socket) => {
       if (!student) return;
 
       console.log(`Student ${student.hostname} started exam type: ${examTypeId}`);
+      
+      // Load Models
+      const Question = require('./src/models/Question/Question');
+      const ExamType = require('./src/models/Exam/ExamType');
 
-      // Update in-memory status
+      // 1. Get Exam Type details
+      const examType = await ExamType.findById(examTypeId);
+      if (!examType) {
+        socket.emit('error', { message: 'İmtahan növü tapılmadı' });
+        return;
+      }
+
+      // 2. Validate Structure Code
+      if (!student.assignedStructure || !student.assignedStructure.code) {
+         socket.emit('error', { message: 'Struktur kodu təyin edilməyib' });
+         return;
+      }
+      const structureCode = student.assignedStructure.code;
+
+      // 3. Fetch Questions
+      // Logic: examType matches AND structureCodes array contains student's structureCode
+      const questions = await Question.find({
+        examType: examTypeId,
+        structureCodes: structureCode,
+        isActive: true
+      });
+
+      if (questions.length === 0) {
+        socket.emit('error', { message: 'Bu imtahan növü və struktur üçün sual tapılmadı' });
+        return;
+      }
+
+      // 4. Shuffle Questions (Moved inside logic)
+      // const shuffled = questions.sort(() => 0.5 - Math.random());
+      
+      // 5. Limit question count if needed (based on examType.questionCount)
+      // const selectedQuestions = shuffled.slice(0, examType.questionCount);
+
+      // 6. Prepare payload (remove isCorrect) (Moved inside logic)
+      /*
+      const sanitizedQuestions = selectedQuestions.map(q => ({
+        _id: q._id,
+        text: q.text,
+        options: q.options.map(o => ({ _id: o._id, text: o.text })), // Hide isCorrect
+        // structureCodes: q.structureCodes // Optional to send back
+      }));
+      */
+
+      // 7. Update Student State
       student.status = 'started';
+      student.examTypeId = examTypeId;
+      student.examTypeName = examType.name;
+      student.startTime = new Date();
+      student.duration = examType.duration; // in minutes
+      // student.totalQuestions will be set after sanitizedQuestions is populated
       
       // Update DB Session
       const ExamSession = require('./src/models/ExamSession');
       const activeSession = await ExamSession.findOne({ 
         machineUuid: student.uuid, 
-        status: 'confirmed' 
+        status: { $in: ['confirmed', 'started'] } 
       }).sort({ createdAt: -1 });
 
+      let sanitizedQuestions = [];
+      let previousAnswers = {};
+      let isResume = false;
+
       if (activeSession) {
-        activeSession.status = 'started';
-        activeSession.startedAt = new Date();
-        // You might want to store examTypeId in the session too, but schema update needed
+        // Only update status and startedAt if it's the FIRST time
+        if (activeSession.status === 'confirmed') {
+            activeSession.status = 'started';
+            activeSession.startedAt = new Date();
+        }
+
+        // Check if this exam type is already started/generated
+        const existingExamState = activeSession.examState.find(e => e.examTypeId.toString() === examTypeId);
+        
+        if (existingExamState) {
+            // CHECK COMPLETED STATUS
+            if (existingExamState.status === 'completed') {
+                socket.emit('error', { message: 'Bu imtahan növü artıq tamamlanıb. Yenidən başlaya bilməzsiniz.' });
+                return;
+            }
+
+            console.log(`Resuming exam ${examTypeId} for ${student.hostname}`);
+            isResume = true;
+            // Use existing questions
+            sanitizedQuestions = existingExamState.questions.map(q => ({
+                _id: q._id,
+                text: q.text,
+                options: q.options.map(o => ({ _id: o._id, text: o.text }))
+            }));
+            // Convert Map to Object for transmission
+            previousAnswers = Object.fromEntries(existingExamState.answers);
+        } else {
+             // 4. Shuffle Questions
+            const shuffled = questions.sort(() => 0.5 - Math.random());
+            
+            // 5. Limit question count if needed (based on examType.questionCount)
+            const selectedQuestions = shuffled.slice(0, examType.questionCount);
+
+            // 6. Prepare payload (remove isCorrect)
+            sanitizedQuestions = selectedQuestions.map(q => ({
+                _id: q._id,
+                text: q.text,
+                options: q.options.map(o => ({ _id: o._id, text: o.text })), // Hide isCorrect
+            }));
+
+            // Save to DB
+            activeSession.examState.push({
+                examTypeId: examTypeId,
+                questions: selectedQuestions.map(q => ({
+                    _id: q._id,
+                    text: q.text,
+                    options: q.options.map(o => ({ _id: o._id, text: o.text }))
+                })),
+                answers: {},
+                status: 'in_progress',
+                startTime: new Date()
+            });
+        }
+        
         await activeSession.save();
+      } else {
+           // Fallback if no session found (shouldn't happen in normal flow but for dev)
+           // Just shuffle and send
+           const shuffled = questions.sort(() => 0.5 - Math.random());
+           const selectedQuestions = shuffled.slice(0, examType.questionCount);
+           sanitizedQuestions = selectedQuestions.map(q => ({
+            _id: q._id,
+            text: q.text,
+            options: q.options.map(o => ({ _id: o._id, text: o.text })),
+          }));
       }
+
+      // Late Update of Student State
+      student.totalQuestions = sanitizedQuestions.length;
+      student.answeredCount = Object.keys(previousAnswers).length;
 
       // Notify admins
       io.emit('student-list-updated', students);
       
-      // Notify student success (optional, can trigger next UI step)
-      socket.emit('exam-start-success', { examTypeId });
+      // Send questions to student
+      socket.emit('exam-started', {
+        examTypeId, // Include examTypeId so client knows which one
+        questions: sanitizedQuestions,
+        previousAnswers, // Send back previous answers if resuming
+        duration: examType.duration, // minutes
+        startTime: activeSession?.startedAt || new Date() // Use session start time
+      });
 
     } catch (err) {
       console.error('Error starting exam:', err);
+      socket.emit('error', { message: 'İmtahan başadılarkən xəta baş verdi' });
+    }
+  });
+
+  // Handle progress update
+  socket.on('update-exam-progress', async ({ examTypeId, questionId, optionId, answeredCount, timeSpent }) => {
+      const student = students.find(s => s.socketId === socket.id);
+      if (student) {
+          student.answeredCount = answeredCount;
+          io.emit('student-list-updated', students);
+
+          // Save answer to DB if details provided
+          if (examTypeId && questionId) {
+             try {
+                 const ExamSession = require('./src/models/ExamSession');
+                 const updates = {};
+                 
+                 // Update Answer
+                 if (optionId !== undefined) { // Check undefined to allow null (deselect)
+                    if (optionId) {
+                        updates[`examState.$.answers.${questionId}`] = optionId;
+                    } else {
+                         // We can't use $unset inside $set, need separate operation for unset
+                         // But for simplicity, let's use separate update if it's unset
+                    }
+                 }
+
+                 // Update Time Spent
+                 if (timeSpent !== undefined) {
+                    updates[`examState.$.timeSpent.${questionId}`] = timeSpent;
+                 }
+
+                 if (Object.keys(updates).length > 0) {
+                     await ExamSession.updateOne(
+                        { machineUuid: student.uuid, status: { $in: ['confirmed', 'started'] }, "examState.examTypeId": examTypeId },
+                        { $set: updates }
+                     );
+                 }
+                 
+                 // Handle unset separately if needed
+                 if (optionId === null) {
+                     await ExamSession.updateOne(
+                        { machineUuid: student.uuid, status: { $in: ['confirmed', 'started'] }, "examState.examTypeId": examTypeId },
+                        { $unset: { [`examState.$.answers.${questionId}`]: "" } }
+                     );
+                 }
+
+             } catch (err) {
+                 console.error("Error saving answer:", err);
+             }
+          }
+      }
+  });
+
+  // Helper to generate result
+  const generateExamResult = async (student, examSession, saveToDb = true) => {
+      const ExamResult = require('./src/models/ExamResult');
+      const Question = require('./src/models/Question/Question');
+      const ExamType = require('./src/models/Exam/ExamType');
+      const Employee = require('./src/models/Employee/Employee');
+      const Structure = require('./src/models/Structure/Structure');
+
+      // Fetch full employee details to ensure accuracy
+      const employee = await Employee.findById(examSession.employee);
+      let structureName = '';
+      let structureCode = '';
+      
+      if (employee && employee.structureId) {
+          const structure = await Structure.findById(employee.structureId);
+          if (structure) {
+              structureName = structure.name;
+              structureCode = structure.code;
+          }
+      }
+
+      const resultData = {
+          student: {
+              employeeId: examSession.employee,
+              firstName: employee?.personalData?.firstName || student.firstName,
+              lastName: employee?.personalData?.lastName || student.lastName,
+              fatherName: employee?.personalData?.fatherName || student.fatherName,
+              gender: employee?.personalData?.gender,
+              structureName: structureName || student.assignedStructure?.name,
+              structureCode: structureCode || student.assignedStructure?.code
+          },
+          examSessionId: examSession._id,
+          deskNumber: examSession.deskNumber,
+          deskLabel: examSession.deskLabel,
+          machineUuid: examSession.machineUuid,
+          macAddress: examSession.macAddress,
+          ipAddress: examSession.ipAddress,
+          startTime: examSession.startedAt,
+          endTime: new Date(),
+          totalDurationSeconds: Math.floor((new Date() - new Date(examSession.startedAt)) / 1000),
+          examTypes: []
+      };
+
+      for (const state of examSession.examState) {
+          const examType = await ExamType.findById(state.examTypeId);
+          
+          const typeResult = {
+              examTypeId: state.examTypeId,
+              examTypeName: examType?.name || 'Unknown',
+              startTime: state.startTime,
+              endTime: state.endTime || new Date(),
+              durationSeconds: Math.floor(((state.endTime || new Date()) - new Date(state.startTime)) / 1000),
+              questions: [],
+              correctCount: 0,
+              wrongCount: 0,
+              emptyCount: 0,
+              totalQuestions: state.questions.length,
+              passed: false,
+              score: 0
+          };
+
+          for (const qData of state.questions) {
+              const originalQuestion = await Question.findById(qData._id);
+              const selectedOptionId = state.answers.get(qData._id.toString());
+              const timeSpent = state.timeSpent ? state.timeSpent.get(qData._id.toString()) || 0 : 0;
+              
+              const correctOption = originalQuestion.options.find(o => o.isCorrect);
+              const isCorrect = selectedOptionId && correctOption && selectedOptionId === correctOption._id.toString();
+
+              if (!selectedOptionId) {
+                  typeResult.emptyCount++;
+              } else if (isCorrect) {
+                  typeResult.correctCount++;
+              } else {
+                  typeResult.wrongCount++;
+              }
+
+              typeResult.questions.push({
+                  questionId: originalQuestion._id,
+                  text: originalQuestion.text,
+                  options: originalQuestion.options.map(o => ({
+                      _id: o._id.toString(),
+                      text: o.text,
+                      isCorrect: o.isCorrect
+                  })),
+                  selectedOptionId: selectedOptionId || null,
+                  isCorrect: !!isCorrect,
+                  timeSpentSeconds: timeSpent
+              });
+          }
+          
+          // Calculate pass status (example logic)
+          if (examType && examType.minCorrectAnswers <= typeResult.correctCount) {
+              typeResult.passed = true;
+          }
+          typeResult.score = (typeResult.correctCount / typeResult.totalQuestions) * 100;
+
+          resultData.examTypes.push(typeResult);
+      }
+
+      if (saveToDb) {
+          const result = await ExamResult.create(resultData);
+          console.log(`Exam Result generated and saved for ${student.hostname}`);
+          return result;
+      } else {
+          console.log(`Exam Result generated (preview) for ${student.hostname}`);
+          // Return as a plain object or transient Mongoose doc
+          // Using plain object is safer to avoid accidental saves if returned to other logic
+          return resultData; 
+      }
+  };
+
+  // Handle finishing an exam type
+  socket.on('student-finish-exam-type', async ({ examTypeId }) => {
+      const student = students.find(s => s.socketId === socket.id);
+      if (student) {
+          try {
+             const ExamSession = require('./src/models/ExamSession');
+             // Mark type as completed
+             await ExamSession.updateOne(
+                { machineUuid: student.uuid, status: { $in: ['confirmed', 'started'] }, "examState.examTypeId": examTypeId },
+                { $set: { "examState.$.status": 'completed', "examState.$.endTime": new Date() } }
+             );
+             
+             // Check if ALL exams are completed
+             const activeSession = await ExamSession.findOne({ 
+                machineUuid: student.uuid, 
+                status: { $in: ['confirmed', 'started'] } 
+             });
+             
+             /* 
+             // REMOVED AUTO-COMPLETION: Prevents session from closing prematurely if user refreshes
+             // or if there are other exam types to take.
+             if (activeSession) {
+                 const allCompleted = activeSession.examState.every(s => s.status === 'completed');
+                 if (allCompleted) {
+                     // Finish the whole session
+                     activeSession.status = 'completed';
+                     activeSession.completedAt = new Date();
+                     await activeSession.save();
+                     
+                     // Generate detailed result
+                     await generateExamResult(student, activeSession);
+                     
+                     socket.emit('exam-finished-all');
+                 }
+             }
+             */
+             
+             // Still generate/update result for this specific exam type if needed, 
+             // but for now we rely on ExamSession persistence.
+             // Maybe we can generate an intermediate result? 
+             // For now, let's just keep the session open so the user doesn't get kicked out on refresh.
+
+             console.log(`Student ${student.hostname} finished exam type: ${examTypeId}`);
+          } catch (err) {
+             console.error("Error finishing exam type:", err);
+          }
+      }
+  });
+
+  // Handle request for results
+  socket.on('student-get-results', async () => {
+    const student = students.find(s => s.socketId === socket.id);
+    if (!student) return;
+
+    try {
+        const ExamSession = require('./src/models/ExamSession');
+        const ExamResult = require('./src/models/ExamResult');
+        
+        const activeSession = await ExamSession.findOne({ 
+            machineUuid: student.uuid, 
+            status: { $in: ['confirmed', 'started'] } 
+        });
+
+        if (!activeSession) {
+             socket.emit('error', { message: 'Aktiv sessiya tapılmadı.' });
+             return;
+        }
+
+        // Check if all exams are completed
+        const allCompleted = activeSession.examState.every(s => s.status === 'completed');
+        if (!allCompleted) {
+            socket.emit('error', { message: 'Nəticələri görmək üçün bütün imtahanları bitirməlisiniz.' });
+            return;
+        }
+
+        // Check if result already exists for this session
+        let result = await ExamResult.findOne({ examSessionId: activeSession._id });
+        
+        if (!result) {
+            // Generate it now (PREVIEW ONLY - DO NOT SAVE TO DB YET)
+            result = await generateExamResult(student, activeSession, false);
+        }
+
+        socket.emit('student-results', result);
+
+    } catch (err) {
+        console.error('Error fetching results:', err);
+        socket.emit('error', { message: 'Nəticələri əldə edərkən xəta baş verdi.' });
     }
   });
 
