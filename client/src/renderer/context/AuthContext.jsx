@@ -15,7 +15,18 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL;
+        // Get URL from localStorage if available, otherwise use env
+        const savedUrl = localStorage.getItem('server_url');
+        const defaultUrl = import.meta.env.VITE_API_BASE_URL;
+        
+        const getApiUrl = (url) => {
+          if (!url) return defaultUrl;
+          if (url.includes('/api/v1')) return url;
+          return `${url.replace(/\/$/, '')}/api/v1`;
+        };
+
+        const baseUrl = savedUrl ? getApiUrl(savedUrl) : defaultUrl;
+
         const response = await fetch(`${baseUrl}/auth/me`, {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -41,7 +52,18 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      // Get URL from localStorage if available, otherwise use env
+      const savedUrl = localStorage.getItem('server_url');
+      const defaultUrl = import.meta.env.VITE_API_BASE_URL;
+      
+      const getApiUrl = (url) => {
+        if (!url) return defaultUrl;
+        if (url.includes('/api/v1')) return url;
+        return `${url.replace(/\/$/, '')}/api/v1`;
+      };
+
+      const baseUrl = savedUrl ? getApiUrl(savedUrl) : defaultUrl;
+
       const response = await fetch(`${baseUrl}/auth/login`, {
         method: 'POST',
         headers: {

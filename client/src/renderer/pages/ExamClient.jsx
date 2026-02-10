@@ -1,12 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useSocket } from '@/context/SocketContext';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Monitor, Cpu, User } from 'lucide-react';
+import { Monitor, Cpu, User, Settings } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { toast } from "sonner";
 
 const ExamClient = () => {
   const { socket, isConnected } = useSocket();
   const [systemInfo, setSystemInfo] = useState(null);
   const [status, setStatus] = useState('connecting'); // connecting, registered, disconnected
+  const [showSettings, setShowSettings] = useState(false);
+  const [serverUrl, setServerUrl] = useState(localStorage.getItem('server_url') || '');
+
+  const handleSaveSettings = () => {
+    if (serverUrl) {
+      localStorage.setItem('server_url', serverUrl);
+      toast.success('Server ünvanı yadda saxlanıldı. Səhifə yenilənir...');
+      setTimeout(() => window.location.reload(), 1500);
+    }
+  };
 
   useEffect(() => {
     const fetchInfo = async () => {
@@ -49,23 +70,66 @@ const ExamClient = () => {
     };
     const onDisconnect = () => setStatus('disconnected');
 
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
+    // Socket listeners setup
+    if (socket) {
+      socket.on('connect', onConnect);
+      socket.on('disconnect', onDisconnect);
+      
+      // Handle desk assignment
+      socket.on('desk-assigned', (data) => {
+        setSystemInfo(prev => ({ ...prev, label: data.label, deskNumber: data.deskNumber }));
+      });
+    }
 
     return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
+      if (socket) {
+        socket.off('connect', onConnect);
+        socket.off('disconnect', onDisconnect);
+        socket.off('desk-assigned');
+      }
     };
   }, [socket, isConnected]);
 
   const registerClient = (info) => {
     console.log('Registering client:', info);
-    socket.emit('student-join', info);
-    setStatus('registered');
+    if (socket) {
+      socket.emit('student-join', info);
+      setStatus('registered');
+    }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4 relative">
+      {/* Settings Button */}
+      <Dialog open={showSettings} onOpenChange={setShowSettings}>
+        <DialogTrigger asChild>
+          <Button variant="ghost" size="icon" className="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+            <Settings className="h-5 w-5" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Server Tənzimləmələri</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Server URL</label>
+              <Input 
+                placeholder="http://192.168.1.35:3001" 
+                value={serverUrl}
+                onChange={(e) => setServerUrl(e.target.value)}
+              />
+              <p className="text-xs text-muted-foreground">
+                Backend sunucusunun tam ünvanını daxil edin. (Örn: http://192.168.1.100:3001)
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={handleSaveSettings}>Yadda Saxla</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center border-b bg-white rounded-t-lg pb-6">
           <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">

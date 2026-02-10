@@ -140,6 +140,24 @@ app.use('/api/v1/structures', structureRoutes);
 app.use('/api/v1/questions', questionRoutes);
 app.use('/api/v1/employees', employeeRoutes);
 
+const os = require('os');
+
+function getLocalIpAddress() {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return '0.0.0.0';
+}
+
 server.listen(port, '0.0.0.0', () => {
-  console.log(`Server is running on http://0.0.0.0:${port}`);
+  const localIp = getLocalIpAddress();
+  console.log(`Server is running on port ${port}`);
+  console.log(`Local Access: http://localhost:${port}`);
+  console.log(`Network Access: http://${localIp}:${port}`);
 });
