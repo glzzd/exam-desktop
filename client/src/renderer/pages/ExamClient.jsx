@@ -34,6 +34,7 @@ const ExamClient = () => {
 
   const [globalStartTime, setGlobalStartTime] = useState(null);
   const [timeLeft, setTimeLeft] = useState(0);
+  const [accordionValue, setAccordionValue] = useState([]); // For results view
 
   const formatTime = (seconds) => {
     if (seconds <= 0) return "0:00";
@@ -42,10 +43,20 @@ const ExamClient = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const getTotalDuration = () => {
+    return examTypes.reduce((total, type) => total + (type.duration || 0), 0);
+  };
+
+  // Check if ALL exams are completed
+  const areAllExamsCompleted = examTypes.length > 0 && examTypes.every(type => {
+      const prog = examProgress[type._id];
+      return prog && prog.status === 'completed';
+  });
+
   // Global Timer Effect
   useEffect(() => {
     let timer;
-    if (globalStartTime && examStatus !== 'results') {
+    if (globalStartTime && examStatus !== 'results' && !areAllExamsCompleted) {
       const totalDurationSec = getTotalDuration() * 60;
       
       timer = setInterval(() => {
@@ -55,7 +66,6 @@ const ExamClient = () => {
         
         if (remaining <= 0) {
            setTimeLeft(0);
-           // Optional: Auto-submit everything?
            clearInterval(timer);
         } else {
            setTimeLeft(remaining);
@@ -63,7 +73,7 @@ const ExamClient = () => {
       }, 1000);
     }
     return () => clearInterval(timer);
-   }, [globalStartTime, examTypes, examStatus]); // Depend on examTypes for total duration
+   }, [globalStartTime, examTypes, examStatus, areAllExamsCompleted]); // Depend on examTypes for total duration
 
 
 
@@ -195,6 +205,10 @@ const ExamClient = () => {
           console.log('Results received:', results);
           setExamResults(results);
           setExamStatus('results');
+          // Open all accordions by default to show all questions
+          if (results?.examTypes) {
+             setAccordionValue(results.examTypes.map((_, idx) => `item-${idx}`));
+          }
       });
 
       socket.on('error', (err) => {
@@ -467,21 +481,11 @@ const ExamClient = () => {
     }
   };
 
-  const getTotalDuration = () => {
-    return examTypes.reduce((total, type) => total + (type.duration || 0), 0);
-  };
-  
   // Derived state for rendering
   const currentExamData = activeExamTypeId ? examProgress[activeExamTypeId] : null;
   const currentQuestionIndex = currentExamData?.currentQuestionIndex || 0;
   const currentQuestion = currentExamData?.questions ? currentExamData.questions[currentQuestionIndex] : null;
   const currentAnswers = currentExamData?.answers || {};
-
-  // Check if ALL exams are completed
-  const areAllExamsCompleted = examTypes.length > 0 && examTypes.every(type => {
-      const prog = examProgress[type._id];
-      return prog && prog.status === 'completed';
-  });
 
   const handleShowResults = () => {
       if (socket) {
@@ -489,8 +493,15 @@ const ExamClient = () => {
       }
   };
 
+  const handleFinishSession = () => {
+      if (socket) {
+          socket.emit('student-finish-session');
+          toast.success('İmtahan bitirildi! Nəticələr admin panelinə göndərildi.');
+      }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col p-4 relative font-sans overflow-hidden">
+    <div className="h-screen w-screen bg-slate-50 flex flex-col p-4 relative font-sans overflow-hidden">
       {/* Settings Dialog - Triggered via Application Menu */}
       <Dialog open={showSettings} onOpenChange={setShowSettings}>
         <DialogContent>
@@ -516,9 +527,9 @@ const ExamClient = () => {
         </DialogContent>
       </Dialog>
 
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 h-full max-h-[calc(100vh-2rem)]">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 h-full overflow-hidden">
         {/* Left Column: Identity & Status */}
-        <div className="lg:col-span-4 flex flex-col gap-4 h-full">
+        <div className="lg:col-span-4 flex flex-col gap-4 h-full overflow-y-auto custom-scrollbar">
            {/* Main Status Card */}
            <Card className="flex-1 border-0 shadow-lg ring-1 ring-slate-900/5 flex flex-col">
               <div className="h-1.5 w-full bg-gradient-to-r from-blue-500 to-indigo-600" />
@@ -566,6 +577,24 @@ const ExamClient = () => {
               
               {/* Footer Status Indicators */}
               <div className="p-4 bg-slate-50/80 border-t border-slate-100 grid grid-cols-2 gap-3 text-xs">
+                 {areAllExamsCompleted && (
+                    <div className="col-span-2 mb-2 space-y-2">
+                        <Button 
+                            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-sm"
+                            onClick={handleShowResults}
+                        >
+                            <CheckSquare className="w-4 h-4 mr-2" />
+                            Nəticələri Göstər
+                        </Button>
+                        <Button 
+                            className="w-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-sm"
+                            onClick={handleFinishSession}
+                        >
+                            <CheckSquare className="w-4 h-4 mr-2" />
+                            İmtahanı Bitir
+                        </Button>
+                    </div>
+                 )}
                  <div className="flex items-center gap-2 text-slate-600">
                     <div className={`w-2 h-2 rounded-full ${status === 'registered' ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
                     <span className="font-medium">{status === 'registered' ? 'Onlayn' : 'Qoşulur...'}</span>
@@ -579,7 +608,7 @@ const ExamClient = () => {
         </div>
 
         {/* Right Column: Exam Content */}
-        <div className="lg:col-span-8 h-full flex flex-col">
+        <div className="lg:col-span-8 h-full flex flex-col min-h-0 overflow-hidden">
            {examStatus === 'taking' ? (
              <div className="flex flex-col h-full gap-4 animate-in slide-in-from-right-4 duration-500">
                 {/* Top Bar: Timer & Progress */}
@@ -603,7 +632,7 @@ const ExamClient = () => {
                 </Card>
 
                 {/* Question Content */}
-                <div className="flex-1 overflow-y-auto pr-1 flex flex-col gap-4">
+                <div className="flex-1 min-h-0 overflow-y-auto pr-1 flex flex-col gap-4">
                     {/* Question Navigation Bar */}
                     <Card className="border-0 shadow-sm ring-1 ring-slate-900/5 bg-white shrink-0">
                        <CardContent className="p-4">
@@ -706,12 +735,28 @@ const ExamClient = () => {
                             <h1 className="text-2xl font-black text-slate-800 tracking-tight">İmtahan Nəticələri</h1>
                             <p className="text-slate-500 font-medium">Detallı analiz və statistika</p>
                         </div>
-                        <Button variant="outline" size="lg" onClick={() => setExamStatus('selection')} className="border-slate-200 hover:bg-white hover:text-slate-900">
-                            <ArrowLeft className="w-5 h-5 mr-2" /> Əsas Menyu
-                        </Button>
+                        <div className="flex items-center gap-2">
+                            {examResults && (
+                                <Button 
+                                    variant="outline" 
+                                    size="lg" 
+                                    onClick={() => {
+                                        const allIds = examResults.examTypes.map((_, idx) => `item-${idx}`);
+                                        const isAllOpen = accordionValue.length === allIds.length;
+                                        setAccordionValue(isAllOpen ? [] : allIds);
+                                    }} 
+                                    className="border-slate-200 hover:bg-white hover:text-slate-900"
+                                >
+                                    {accordionValue.length === examResults?.examTypes?.length ? 'Hamısını Bağla' : 'Hamısını Göstər'}
+                                </Button>
+                            )}
+                            <Button variant="outline" size="lg" onClick={() => setExamStatus('selection')} className="border-slate-200 hover:bg-white hover:text-slate-900">
+                                <ArrowLeft className="w-5 h-5 mr-2" /> Əsas Menyu
+                            </Button>
+                        </div>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto px-2 pb-8 space-y-8 custom-scrollbar">
+                    <div className="flex-1 min-h-0 overflow-y-auto px-2 pb-8 space-y-8 custom-scrollbar">
                         {!examResults ? (
                             <div className="flex flex-col items-center justify-center h-full space-y-6">
                                 <div className="w-12 h-12 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
@@ -786,7 +831,12 @@ const ExamClient = () => {
                                 </div>
 
                                 {/* 2. Detailed Breakdown */}
-                                <Accordion type="single" collapsible className="w-full space-y-4 animate-in slide-in-from-bottom-4 duration-700 delay-100">
+                                <Accordion 
+                                    type="multiple" 
+                                    value={accordionValue} 
+                                    onValueChange={setAccordionValue}
+                                    className="w-full space-y-4 animate-in slide-in-from-bottom-4 duration-700 delay-100"
+                                >
                                 {examResults.examTypes.map((typeResult, idx) => (
                                     <AccordionItem key={idx} value={`item-${idx}`} className="border-0">
                                         <AccordionTrigger className={`px-6 py-4 rounded-lg hover:no-underline [&[data-state=open]]:rounded-b-none transition-colors border shadow-sm ${
@@ -907,7 +957,7 @@ const ExamClient = () => {
                 </Card>
 
                 {/* 2. Main Content: Exam Selection */}
-                <div className="flex-1 overflow-y-auto pr-1">
+                <div className="flex-1 min-h-0 overflow-y-auto pr-1">
                    {examTypes.length > 0 ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                         {examTypes.map((type) => {
@@ -975,18 +1025,6 @@ const ExamClient = () => {
                       <p className="text-xs text-slate-400 font-medium">
                         Zəhmət olmasa imtahan növünü seçərək "Başla" düyməsini sıxın.
                       </p>
-                      
-                      {areAllExamsCompleted && (
-                        <div className="mt-4 animate-in slide-in-from-bottom-4">
-                            <Button 
-                                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-6 px-12 text-lg shadow-lg hover:shadow-xl transition-all w-full max-w-md"
-                                onClick={handleShowResults}
-                            >
-                                <CheckSquare className="w-6 h-6 mr-3" />
-                                Nəticələri Göstər
-                            </Button>
-                        </div>
-                      )}
                    </div>
                 </div>
               ) : (

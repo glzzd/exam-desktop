@@ -901,6 +901,54 @@ io.on('connection', (socket) => {
     }
   });
 
+  // Handle student finishing the entire session
+  socket.on('student-finish-session', async () => {
+    const student = students.find(s => s.socketId === socket.id);
+    if (!student) return;
+
+    console.log(`Student ${student.hostname} requested to finish session`);
+
+    try {
+        const ExamSession = require('./src/models/ExamSession');
+        
+        const activeSession = await ExamSession.findOne({ 
+            machineUuid: student.uuid, 
+            status: { $in: ['confirmed', 'started'] } 
+        });
+
+        if (activeSession) {
+            // Mark session as completed
+            activeSession.status = 'completed';
+            activeSession.completedAt = new Date();
+            await activeSession.save();
+            
+            // Generate and Save detailed result
+            const result = await generateExamResult(student, activeSession, true);
+            
+            // Update student object in memory to include results for Admin Panel
+            student.status = 'completed'; 
+            student.results = result.examTypes.map(t => ({
+                examTypeName: t.examTypeName,
+                correctCount: t.correctCount,
+                wrongCount: t.wrongCount,
+                emptyCount: t.emptyCount,
+                score: t.score,
+                passed: t.passed
+            }));
+
+            // Notify student
+            socket.emit('exam-finished-all'); 
+            
+            // Notify admins
+            io.emit('student-list-updated', students);
+            
+            console.log(`Session finished for ${student.hostname}. Results generated.`);
+        }
+    } catch (err) {
+        console.error('Error finishing session:', err);
+    }
+  });
+
   // Handle explicit exit
   socket.on('student-exit', () => {
     const student = students.find(s => s.socketId === socket.id);

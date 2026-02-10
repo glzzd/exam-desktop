@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSocket } from '@/context/SocketContext';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Monitor, Clock, Signal, AlertCircle, Edit2, User, Search, Building, PlayCircle, CheckCircle } from 'lucide-react';
+import { Monitor, Clock, Signal, AlertCircle, Edit2, User, Search, Building, PlayCircle, CheckCircle, CheckSquare } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -457,6 +457,41 @@ const ActiveExam = () => {
     Qeyd: İmtahana davam edən istifadəçinin məlumatlarını redaktə edə bilməzsiniz.
   </span>
 )}
+
+                  {student.results && student.results.length > 0 && (
+                    <div className="mt-4 border-t pt-4 animate-in fade-in zoom-in duration-300">
+                        <h4 className="text-sm font-semibold mb-2 text-slate-800 flex items-center gap-2">
+                            <CheckSquare className="w-4 h-4" />
+                            Nəticələr
+                        </h4>
+                        <div className="space-y-2">
+                        {student.results.map((result, idx) => (
+                            <div key={idx} className={`p-2 rounded-md border ${result.passed ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                                <div className="flex justify-between items-center mb-1">
+                                    <span className="font-medium text-sm truncate max-w-[120px]" title={result.examTypeName}>{result.examTypeName}</span>
+                                    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${result.passed ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'}`}>
+                                    {result.passed ? 'KEÇDİ' : 'KƏSİLDİ'}
+                                    </span>
+                                </div>
+                                <div className="grid grid-cols-3 gap-1 text-[10px] text-center">
+                                    <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
+                                        <span className="text-green-600 font-bold block">{result.correctCount}</span> 
+                                        <span className="text-slate-500">Doğru</span>
+                                    </div>
+                                    <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
+                                        <span className="text-red-600 font-bold block">{result.wrongCount}</span> 
+                                        <span className="text-slate-500">Səhv</span>
+                                    </div>
+                                    <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
+                                        <span className="text-slate-600 font-bold block">{result.emptyCount}</span> 
+                                        <span className="text-slate-500">Boş</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                  )}
 
                 </div>
               </CardContent>
