@@ -35,7 +35,7 @@ exports.getAllExamTypes = async (req, res) => {
 // Create new exam type
 exports.createExamType = async (req, res) => {
   try {
-    const { name, description, isActive } = req.body;
+    const { name, description, isActive, duration, minCorrectAnswers, questionCount } = req.body;
     
     // Generate slug from name using custom slugify
     const slug = slugify(name);
@@ -49,6 +49,9 @@ exports.createExamType = async (req, res) => {
       name,
       slug,
       description,
+      duration: duration || 60,
+      minCorrectAnswers: minCorrectAnswers || 0,
+      questionCount: questionCount || 10,
       isActive: isActive !== undefined ? isActive : true,
       createdBy: req.user._id
     });
@@ -63,7 +66,7 @@ exports.createExamType = async (req, res) => {
 exports.updateExamType = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, isActive } = req.body;
+    const { name, description, isActive, duration, minCorrectAnswers, questionCount } = req.body;
 
     const examType = await ExamType.findById(id);
     if (!examType) {
@@ -88,6 +91,10 @@ exports.updateExamType = async (req, res) => {
 
     if (description !== undefined) examType.description = description;
     if (isActive !== undefined) examType.isActive = isActive;
+    if (duration !== undefined) examType.duration = duration;
+    if (minCorrectAnswers !== undefined) examType.minCorrectAnswers = minCorrectAnswers;
+    if (questionCount !== undefined) examType.questionCount = questionCount;
+    
     examType.updatedBy = req.user._id;
 
     await examType.save();

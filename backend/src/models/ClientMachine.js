@@ -21,6 +21,16 @@ const clientMachineSchema = new mongoose.Schema({
     type: String, // e.g., "Masa 1"
     required: true
   },
+  assignedEmployee: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Employee',
+    default: null
+  },
+  assignedStructure: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Structure',
+    default: null
+  },
   lastConnected: {
     type: Date,
     default: Date.now

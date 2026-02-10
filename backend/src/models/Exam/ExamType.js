@@ -18,6 +18,21 @@ const examTypeSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  duration: {
+    type: Number,
+    default: 60, // minutes
+    min: 1
+  },
+  minCorrectAnswers: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  questionCount: {
+    type: Number,
+    default: 10,
+    min: 1
+  },
   isActive: {
     type: Boolean,
     default: true

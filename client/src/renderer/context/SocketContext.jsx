@@ -38,6 +38,14 @@ export const SocketProvider = ({ children }) => {
     socket.on('disconnect', onDisconnect);
     socket.on('connect_error', onConnectError);
 
+    // Listen for app closing from Electron Main process
+    if (window.api && window.api.on) {
+      window.api.on('app-closing', () => {
+        console.log('App is closing, sending exit signal...');
+        socket.emit('student-exit');
+      });
+    }
+
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);

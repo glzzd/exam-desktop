@@ -41,6 +41,9 @@ export default function ExamTypes() {
     name: '',
     slug: '',
     description: '',
+    duration: 60,
+    questionCount: 10,
+    minCorrectAnswers: 0,
     isActive: true
   });
 
@@ -105,6 +108,9 @@ export default function ExamTypes() {
       name: examType.name,
       slug: examType.slug,
       description: examType.description || '',
+      duration: examType.duration || 60,
+      questionCount: examType.questionCount || 10,
+      minCorrectAnswers: examType.minCorrectAnswers || 0,
       isActive: examType.isActive
     });
     setIsOpen(true);
@@ -172,6 +178,9 @@ export default function ExamTypes() {
       name: '',
       slug: '',
       description: '',
+      duration: 60,
+      questionCount: 10,
+      minCorrectAnswers: 0,
       isActive: true
     });
     setEditingId(null);
@@ -231,6 +240,41 @@ export default function ExamTypes() {
                     placeholder="Qısa təsvir..."
                   />
                 </div>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="duration">Müddət (dəq)</Label>
+                    <Input
+                      id="duration"
+                      name="duration"
+                      type="number"
+                      min="1"
+                      value={formData.duration}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="questionCount">Sual Sayı</Label>
+                    <Input
+                      id="questionCount"
+                      name="questionCount"
+                      type="number"
+                      min="1"
+                      value={formData.questionCount}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="minCorrectAnswers">Keçid (bal)</Label>
+                    <Input
+                      id="minCorrectAnswers"
+                      name="minCorrectAnswers"
+                      type="number"
+                      min="0"
+                      value={formData.minCorrectAnswers}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
                 <div className="flex items-center space-x-2">
                   <Switch
                     id="isActive"
@@ -257,6 +301,8 @@ export default function ExamTypes() {
                   <TableHead>Ad</TableHead>
                   <TableHead>Slug</TableHead>
                   <TableHead>Təsvir</TableHead>
+                  <TableHead>Müddət</TableHead>
+                  <TableHead>Sual / Keçid</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead className="text-right">Əməliyyatlar</TableHead>
                 </TableRow>
@@ -264,13 +310,13 @@ export default function ExamTypes() {
               <TableBody>
                 {loading ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="h-24 text-center">
+                    <TableCell colSpan={7} className="h-24 text-center">
                       <Loader2 className="mx-auto h-6 w-6 animate-spin" />
                     </TableCell>
                   </TableRow>
                 ) : examTypes.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="h-24 text-center">
+                    <TableCell colSpan={7} className="h-24 text-center">
                       Məlumat tapılmadı.
                     </TableCell>
                   </TableRow>
@@ -280,6 +326,10 @@ export default function ExamTypes() {
                       <TableCell className="font-medium">{item.name}</TableCell>
                       <TableCell>{item.slug}</TableCell>
                       <TableCell>{item.description}</TableCell>
+                      <TableCell>{item.duration} dəq</TableCell>
+                      <TableCell>
+                        <span className="font-medium">{item.questionCount}</span> / <span className="text-muted-foreground">{item.minCorrectAnswers}</span>
+                      </TableCell>
                       <TableCell>
                         <Switch
                           checked={item.isActive}

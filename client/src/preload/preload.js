@@ -21,7 +21,7 @@ contextBridge.exposeInMainWorld('api', {
   },
   // Example: Receive message from main process
   on: (channel, func) => {
-    let validChannels = ['fromMain'];
+    let validChannels = ['fromMain', 'app-closing'];
     if (validChannels.includes(channel)) {
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     }
