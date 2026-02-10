@@ -922,11 +922,12 @@ io.on('connection', (socket) => {
             activeSession.completedAt = new Date();
             await activeSession.save();
             
-            // Generate and Save detailed result
-            const result = await generateExamResult(student, activeSession, true);
+            // Generate result but DO NOT SAVE to DB yet (preview for admin)
+            const result = await generateExamResult(student, activeSession, false);
             
             // Update student object in memory to include results for Admin Panel
             student.status = 'completed'; 
+            student.isSaved = false; // Flag to indicate not saved to DB
             student.results = result.examTypes.map(t => ({
                 examTypeName: t.examTypeName,
                 correctCount: t.correctCount,
@@ -942,14 +943,121 @@ io.on('connection', (socket) => {
             // Notify admins
             io.emit('student-list-updated', students);
             
-            console.log(`Session finished for ${student.hostname}. Results generated.`);
+            console.log(`Session finished for ${student.hostname}. Results generated (NOT SAVED).`);
         }
     } catch (err) {
         console.error('Error finishing session:', err);
     }
   });
 
-  // Handle admin force finishing exam (saving to DB)
+  // Handle admin manually saving exam result
+  socket.on('admin-save-exam-result', async ({ uuid }) => {
+    console.log(`Admin requested SAVE for UUID: ${uuid}`);
+    
+    try {
+        const ExamSession = require('./src/models/ExamSession');
+        
+        // Find session (it should be completed or started)
+        const activeSession = await ExamSession.findOne({ 
+            machineUuid: uuid, 
+            status: { $in: ['confirmed', 'started', 'completed'] } 
+        }).sort({ createdAt: -1 });
+
+        if (activeSession) {
+            // Ensure session is marked completed if not already
+            if (activeSession.status !== 'completed') {
+                activeSession.status = 'completed';
+                activeSession.completedAt = new Date();
+                await activeSession.save();
+            }
+            
+            // Find student in memory
+            let student = students.find(s => s.uuid === uuid);
+            
+            // If student is offline, create mock
+            if (!student) {
+                student = {
+                    firstName: 'Unknown',
+                    lastName: 'Student',
+                    fatherName: '',
+                    hostname: activeSession.hostname
+                };
+            }
+            
+            // Generate and SAVE detailed result
+            const result = await generateExamResult(student, activeSession, true);
+            
+            // Update student object in memory
+            student = students.find(s => s.uuid === uuid);
+            if (student) {
+                student.isSaved = true; // Mark as saved
+                // Ensure results are up to date
+                student.results = result.examTypes.map(t => ({
+                    examTypeName: t.examTypeName,
+                    correctCount: t.correctCount,
+                    wrongCount: t.wrongCount,
+                    emptyCount: t.emptyCount,
+                    score: t.score,
+                    passed: t.passed
+                }));
+            }
+
+            // Notify admins
+            io.emit('student-list-updated', students);
+            socket.emit('admin-save-success', { message: 'Nəticələr uğurla yadda saxlanıldı!' });
+            
+            console.log(`Exam results saved for ${uuid}.`);
+        } else {
+            socket.emit('error', { message: 'Sessiya tapılmadı' });
+        }
+    } catch (err) {
+        console.error('Error saving session:', err);
+        socket.emit('error', { message: 'Xəta baş verdi: ' + err.message });
+    }
+  });
+
+  // Handle admin resetting desk (clearing info)
+  socket.on('admin-reset-desk', async ({ uuid }) => {
+      console.log(`Admin requested RESET DESK for UUID: ${uuid}`);
+      try {
+          const ClientMachine = require('./src/models/ClientMachine');
+          
+          // 1. Clear Machine Assignment
+          const machine = await ClientMachine.findOne({ uuid });
+          if (machine) {
+              machine.assignedEmployee = null;
+              machine.assignedStructure = null;
+              await machine.save();
+          }
+
+          // 2. Update In-Memory Student State
+          const student = students.find(s => s.uuid === uuid);
+          if (student) {
+              // Reset fields
+              student.assignedEmployee = null;
+              student.assignedStructure = null;
+              student.isConfirmed = false;
+              student.status = 'connected'; // Back to connected/idle
+              student.results = null;
+              student.isSaved = false;
+              student.examTypeId = null;
+              student.examTypeName = null;
+              
+              // Notify student to reset their UI if connected
+              io.to(student.socketId).emit('desk-reset');
+          }
+
+          // 3. Notify Admins
+          io.emit('student-list-updated', students);
+          socket.emit('admin-reset-success', { message: 'Masa məlumatları sıfırlandı.' });
+
+      } catch (err) {
+          console.error('Error resetting desk:', err);
+          socket.emit('error', { message: 'Sıfırlama zamanı xəta: ' + err.message });
+      }
+  });
+
+  // Handle admin force finishing exam (modified to NOT save immediately)
   socket.on('admin-force-finish-exam', async ({ uuid }) => {
     console.log(`Admin requested force finish for UUID: ${uuid}`);
     
@@ -981,13 +1089,14 @@ io.on('connection', (socket) => {
                 };
             }
             
-            // Generate and Save detailed result
-            const result = await generateExamResult(student, activeSession, true);
+            // Generate result but DO NOT SAVE to DB yet
+            const result = await generateExamResult(student, activeSession, false);
             
             // Update student object in memory if exists
             student = students.find(s => s.uuid === uuid);
             if (student) {
-                student.status = 'completed'; 
+                student.status = 'completed';
+                student.isSaved = false; // Flag to indicate not saved to DB
                 student.results = result.examTypes.map(t => ({
                     examTypeName: t.examTypeName,
                     correctCount: t.correctCount,
@@ -1002,9 +1111,9 @@ io.on('connection', (socket) => {
 
             // Notify admins
             io.emit('student-list-updated', students);
-            socket.emit('admin-force-finish-success');
+            socket.emit('admin-force-finish-success', { message: 'İmtahan bitirildi. Nəticələri yadda saxlamaq üçün təsdiqləyin.' });
             
-            console.log(`Force session finish for ${uuid}. Results generated.`);
+            console.log(`Force session finish for ${uuid}. Results generated (NOT SAVED).`);
         } else {
             socket.emit('error', { message: 'Aktiv sessiya tapılmadı' });
         }

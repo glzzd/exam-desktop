@@ -194,27 +194,58 @@ const ActiveExam = () => {
 
     socket.on('student-list-updated', onStudentListUpdate);
 
-    const onForceFinishSuccess = () => {
-      toast.success('Məlumatlar bazaya uğurla yazıldı!');
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+    const onSaveSuccess = (data) => {
+      toast.success(data.message || 'Məlumatlar bazaya uğurla yazıldı!');
     };
 
+    const onResetSuccess = (data) => {
+      toast.success(data.message || 'Masa məlumatları sıfırlandı.');
+    };
+    
+    const onForceFinishSuccess = (data) => {
+      toast.success(data.message || 'İmtahan bitirildi.');
+    };
+
+    const onError = (data) => {
+        toast.error(data.message || 'Xəta baş verdi');
+    };
+
+    socket.on('admin-save-success', onSaveSuccess);
+    socket.on('admin-reset-success', onResetSuccess);
     socket.on('admin-force-finish-success', onForceFinishSuccess);
+    socket.on('error', onError);
 
     return () => {
       socket.off('student-list-updated', onStudentListUpdate);
+      socket.off('admin-save-success', onSaveSuccess);
+      socket.off('admin-reset-success', onResetSuccess);
       socket.off('admin-force-finish-success', onForceFinishSuccess);
+      socket.off('error', onError);
     };
   }, [socket]);
 
-  const handleForceFinish = (uuid) => {
+  const handleSaveExam = (uuid) => {
     if (socket) {
-        if (confirm('İmtahanı bitirmək və nəticələri bazaya yazmaq istədiyinizə əminsiniz?')) {
-            socket.emit('admin-force-finish-exam', { uuid });
+        if (confirm('Nəticələri bazaya yazmaq istədiyinizə əminsiniz?')) {
+            socket.emit('admin-save-exam-result', { uuid });
             toast.info('Sorğu göndərildi...');
         }
+    }
+  };
+
+  const handleResetDesk = (uuid) => {
+      if (socket) {
+          if (confirm('Masa məlumatlarını tamamilə sıfırlamaq istədiyinizə əminsiniz?')) {
+              socket.emit('admin-reset-desk', { uuid });
+          }
+      }
+  };
+
+  const handleForceFinish = (uuid) => {
+    if (socket) {
+      if (confirm('İmtahanı bitirmək istədiyinizə əminsiniz? Bu əməliyyat geri qaytarıla bilməz.')) {
+        socket.emit('admin-force-finish-exam', { uuid });
+      }
     }
   };
 
@@ -471,12 +502,23 @@ const ActiveExam = () => {
                       Masa məlumatlarını sıfırla
                     </Button>
                   )}
-                  {student.isConfirmed && (
+
+                  {student.isConfirmed && student.status === 'completed' && !student.isSaved && (
                     <Button 
                       className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold h-auto py-2 whitespace-normal"
-                      onClick={() => handleForceFinish(student.uuid)}
+                      onClick={() => handleSaveExam(student.uuid)}
                     >
-                      Məlumatları bazaya göndər
+                      Məlumatları Bazaya Yaz
+                    </Button>
+                  )}
+
+                  {student.isConfirmed && student.status === 'completed' && student.isSaved && (
+                    <Button 
+                      variant="destructive"
+                      className="w-full mt-4 h-auto py-2 whitespace-normal"
+                      onClick={() => handleResetDesk(student.uuid)}
+                    >
+                      Masa Məlumatlarını Sıfırla
                     </Button>
                   )}
 

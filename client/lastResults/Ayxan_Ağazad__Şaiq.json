@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-02-10T13:41:22.414Z",
+  "machineUuid": "e936b341-97d1-45c7-bff7-da4185ef81ec",
+  "macAddress": "1c:f6:4c:45:db:42",
+  "examTypes": [
+    {
+      "examTypeId": "69899dcb46bd97a4b4e7b74d",
+      "answers": {
+        "6989c2f85350bfcc3ead978c": "6989c2f85350bfcc3ead978d",
+        "6989c2f85350bfcc3ead9822": "6989c2f85350bfcc3ead9825",
+        "6989c2f85350bfcc3ead97a4": "6989c2f85350bfcc3ead97a5"
+      },
+      "questions": [
+        {
+          "questionId": "6989c2f85350bfcc3ead978c",
+          "selectedOptionId": "6989c2f85350bfcc3ead978d"
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead9822",
+          "selectedOptionId": "6989c2f85350bfcc3ead9825"
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97a4",
+          "selectedOptionId": "6989c2f85350bfcc3ead97a5"
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97c2",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97da",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97bc",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead9744",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97aa",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97f2",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead973e",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead9798",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97e6",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97c8",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead9792",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead976e",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97d4",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97b6",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97b0",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead975c",
+          "selectedOptionId": null
+        },
+        {
+          "questionId": "6989c2f85350bfcc3ead97fe",
+          "selectedOptionId": null
+        }
+      ]
+    }
+  ]
+}

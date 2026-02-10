@@ -57,24 +57,36 @@ const ExamClient = () => {
   // Global Timer Effect
   useEffect(() => {
     let timer;
-    if (globalStartTime && examStatus !== 'results' && !areAllExamsCompleted) {
-      const totalDurationSec = getTotalDuration() * 60;
-      
-      timer = setInterval(() => {
+    // Only run if we have start time and exams are loaded (to know duration)
+     // This prevents premature "0:00" state when examTypes are not yet fetched but startTime is present
+     if (globalStartTime && examTypes.length > 0 && examStatus !== 'results' && !areAllExamsCompleted) {
+       const totalDurationSec = getTotalDuration() * 60;
+       
+       const updateTimer = () => {
         const now = new Date();
-        const elapsedSec = Math.floor((now - new Date(globalStartTime)) / 1000);
+        const startTime = new Date(globalStartTime);
+        const elapsedSec = Math.floor((now - startTime) / 1000);
         const remaining = totalDurationSec - elapsedSec;
         
+        // console.log('Timer Tick:', { start: globalStartTime, total: totalDurationSec, elapsed: elapsedSec, remaining });
+
         if (remaining <= 0) {
            setTimeLeft(0);
-           clearInterval(timer);
+           if (timer) clearInterval(timer);
         } else {
            setTimeLeft(remaining);
         }
-      }, 1000);
+      };
+
+      // Update immediately to avoid 1s delay
+      updateTimer();
+
+      timer = setInterval(updateTimer, 1000);
     }
-    return () => clearInterval(timer);
-   }, [globalStartTime, examTypes, examStatus, areAllExamsCompleted]); // Depend on examTypes for total duration
+    return () => {
+        if (timer) clearInterval(timer);
+    };
+   }, [globalStartTime, examTypes, examStatus, areAllExamsCompleted]);
 
 
 
