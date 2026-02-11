@@ -1425,6 +1425,48 @@ io.on('connection', (socket) => {
     }
   });
 
+  // --- Screen Mirroring / WebRTC Signaling ---
+
+  // Admin requests to view a student's screen
+  socket.on('admin-start-screen-share', ({ uuid }) => {
+    console.log(`Admin requested screen share for UUID: ${uuid}`);
+    const student = students.find(s => s.uuid === uuid);
+    if (student && student.socketId) {
+      // Send request to student, including the admin's socket ID for direct signaling
+      io.to(student.socketId).emit('admin-start-screen-share', { adminSocketId: socket.id });
+    } else {
+      socket.emit('error', { message: 'Tələbə tapılmadı və ya oflayndır.' });
+    }
+  });
+
+  // Admin stops screen share
+  socket.on('admin-stop-screen-share', ({ uuid }) => {
+      const student = students.find(s => s.uuid === uuid);
+      if (student && student.socketId) {
+          io.to(student.socketId).emit('admin-stop-screen-share');
+      }
+  });
+
+  // Relay WebRTC Offer (Student -> Admin)
+  socket.on('screen-share-offer', ({ to, offer }) => {
+    io.to(to).emit('screen-share-offer', { offer, from: socket.id });
+  });
+
+  // Relay WebRTC Answer (Admin -> Student)
+  socket.on('screen-share-answer', ({ to, answer }) => {
+    io.to(to).emit('screen-share-answer', { answer, from: socket.id });
+  });
+
+  // Relay ICE Candidate (Both directions)
+  socket.on('screen-share-candidate', ({ to, candidate }) => {
+    io.to(to).emit('screen-share-candidate', { candidate, from: socket.id });
+  });
+
+  // Relay Error (Student -> Admin)
+  socket.on('screen-share-error', ({ to, message }) => {
+      io.to(to).emit('screen-share-error', { message, from: socket.id });
+  });
+
   socket.on('error', (err) => {
     console.error(`Socket Error: ${err.message}`);
   });

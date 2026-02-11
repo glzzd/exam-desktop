@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, desktopCapturer, session } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
@@ -98,9 +98,24 @@ ipcMain.handle('get-machine-id', async () => {
     const id = getPersistentUUID();
     const mac = getMacAddress();
     return { uuid: id, mac: mac };
-  } catch (error) {
-    console.error('Error getting machine info:', error);
-    return { uuid: 'unknown', mac: 'unknown' };
+  } catch (err) {
+    console.error('Error in get-machine-id:', err);
+    return { uuid: 'error', mac: '00:00:00:00:00:00' };
+  }
+});
+
+// Handle Screen Share Source ID Request
+ipcMain.handle('get-desktop-stream-id', async () => {
+  try {
+    const sources = await desktopCapturer.getSources({ types: ['screen'] });
+    if (sources && sources.length > 0) {
+      // Return the first screen's ID
+      return sources[0].id;
+    }
+    return null;
+  } catch (err) {
+    console.error('Error getting desktop stream id:', err);
+    return null;
   }
 });
 

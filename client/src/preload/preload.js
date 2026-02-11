@@ -11,6 +11,7 @@ contextBridge.exposeInMainWorld('api', {
     username: os.userInfo().username
   }),
   getMachineId: () => ipcRenderer.invoke('get-machine-id'),
+  getDesktopStreamId: () => ipcRenderer.invoke('get-desktop-stream-id'),
   saveLocalBackup: (data) => ipcRenderer.invoke('save-local-backup', data),
   // Example: Send a message to main process
   sendMessage: (channel, data) => {

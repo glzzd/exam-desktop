@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSocket } from '@/context/SocketContext';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Monitor, Clock, Signal, AlertCircle, Edit2, User, Search, Building, PlayCircle, CheckCircle, CheckSquare } from 'lucide-react';
+import { Monitor, Clock, Signal, AlertCircle, Edit2, User, Search, Building, PlayCircle, CheckCircle, CheckSquare, Maximize2, Minimize2, X, Scaling } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
+} from "@/components/ui/dialog";
 
 const EmployeeAssignmentDropdown = ({ student, socket, isOpen, onOpenChange, onAssign, disabled }) => {
   const [search, setSearch] = useState('');
@@ -164,13 +171,6 @@ const StructureAssignmentDropdown = ({ student, socket, isOpen, onOpenChange, on
   );
 };
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
 
 const ActiveExam = () => {
   const { socket } = useSocket();
@@ -188,6 +188,22 @@ const ActiveExam = () => {
 
   // Structure search state
   const [openStructureDropdownId, setOpenStructureDropdownId] = useState(null);
+
+  // Screen Share State
+  const [screenShareModalOpen, setScreenShareModalOpen] = useState(false);
+  const [currentStreamUuid, setCurrentStreamUuid] = useState(null);
+  const currentStreamUuidRef = useRef(null); // Fix stale closure
+  const [remoteStream, setRemoteStream] = useState(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFitToScreen, setIsFitToScreen] = useState(true);
+  const videoRef = useRef(null);
+  const containerRef = useRef(null);
+  const peerConnectionRef = useRef(null);
+
+  // Sync ref with state
+  useEffect(() => {
+    currentStreamUuidRef.current = currentStreamUuid;
+  }, [currentStreamUuid]);
 
   useEffect(() => {
     if (!socket) return;
@@ -243,6 +259,52 @@ const ActiveExam = () => {
         toast.error(message || 'Xəta baş verdi');
     };
 
+    // WebRTC Signaling Handlers
+    const onOffer = async ({ offer, from }) => {
+        console.log('Received Offer from', from);
+        try {
+            const pc = new RTCPeerConnection({
+                iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+            });
+            peerConnectionRef.current = pc;
+
+            pc.onicecandidate = (event) => {
+                if (event.candidate) {
+                    socket.emit('screen-share-candidate', { to: from, candidate: event.candidate });
+                }
+            };
+
+            pc.ontrack = (event) => {
+                console.log('Received Track');
+                setRemoteStream(event.streams[0]);
+            };
+
+            await pc.setRemoteDescription(new RTCSessionDescription(offer));
+            const answer = await pc.createAnswer();
+            await pc.setLocalDescription(answer);
+            
+            socket.emit('screen-share-answer', { to: from, answer });
+        } catch (err) {
+            console.error('Error handling offer:', err);
+            toast.error('Ekran paylaşımı xətası: ' + err.message);
+        }
+    };
+
+    const onCandidate = async ({ candidate }) => {
+        if (peerConnectionRef.current) {
+            try {
+                await peerConnectionRef.current.addIceCandidate(new RTCIceCandidate(candidate));
+            } catch (e) {
+                console.error('Error adding received ice candidate', e);
+            }
+        }
+    };
+
+    const onScreenShareError = ({ message }) => {
+        toast.error('Ekran paylaşımı xətası (Tələbə): ' + message);
+        handleCloseScreenShare();
+    };
+
     socket.on('student-list-updated', onStudentListUpdate);
     socket.on('admin-save-success', onSaveSuccess);
     socket.on('admin-reset-success', onResetSuccess);
@@ -251,18 +313,38 @@ const ActiveExam = () => {
     socket.on('admin-save-all-progress', onSaveAllProgress);
     socket.on('admin-save-all-complete', onSaveAllComplete);
     socket.on('admin-save-all-error', onSaveAllError);
+    
+    // WebRTC listeners
+    socket.on('screen-share-offer', onOffer);
+    socket.on('screen-share-candidate', onCandidate);
+    socket.on('screen-share-error', onScreenShareError);
 
     return () => {
-        socket.off('student-list-updated', onStudentListUpdate);
-        socket.off('admin-save-success', onSaveSuccess);
-        socket.off('admin-reset-success', onResetSuccess);
-        socket.off('admin-force-finish-success', onForceFinishSuccess);
-        socket.off('error', onError);
-        socket.off('admin-save-all-progress', onSaveAllProgress);
-        socket.off('admin-save-all-complete', onSaveAllComplete);
-        socket.off('admin-save-all-error', onSaveAllError);
+      socket.off('student-list-updated', onStudentListUpdate);
+      socket.off('admin-save-success', onSaveSuccess);
+      socket.off('admin-reset-success', onResetSuccess);
+      socket.off('admin-force-finish-success', onForceFinishSuccess);
+      socket.off('error', onError);
+      socket.off('admin-save-all-progress', onSaveAllProgress);
+      socket.off('admin-save-all-complete', onSaveAllComplete);
+      socket.off('admin-save-all-error', onSaveAllError);
+      
+      socket.off('screen-share-offer', onOffer);
+      socket.off('screen-share-candidate', onCandidate);
+      socket.off('screen-share-error', onScreenShareError);
+
+      if (peerConnectionRef.current) {
+        peerConnectionRef.current.close();
+      }
     };
   }, [socket]);
+
+  // Handle stream attachment
+  useEffect(() => {
+    if (videoRef.current && remoteStream) {
+        videoRef.current.srcObject = remoteStream;
+    }
+  }, [remoteStream, screenShareModalOpen]);
 
   const handleSaveAllResults = () => {
      if (!socket) return;
@@ -299,6 +381,37 @@ const ActiveExam = () => {
               socket.emit('admin-reset-desk', { uuid });
           }
       }
+  };
+
+  // Start Screen Share Handler
+  const handleStartScreenShare = (uuid) => {
+    setCurrentStreamUuid(uuid);
+    setRemoteStream(null);
+    setScreenShareModalOpen(true);
+    setIsFullscreen(false);
+    setIsFitToScreen(true);
+    socket.emit('admin-start-screen-share', { uuid });
+  };
+
+  // Close Handler
+  const handleCloseScreenShare = () => {
+    setScreenShareModalOpen(false);
+    setRemoteStream(null);
+    
+    // Use ref to get current value even in stale closures
+    const uuidToStop = currentStreamUuidRef.current || currentStreamUuid;
+    if (uuidToStop) {
+        socket.emit('admin-stop-screen-share', { uuid: uuidToStop });
+    }
+    setCurrentStreamUuid(null);
+    if (peerConnectionRef.current) {
+        peerConnectionRef.current.close();
+        peerConnectionRef.current = null;
+    }
+    if (videoRef.current && videoRef.current.srcObject) {
+        videoRef.current.srcObject.getTracks().forEach(track => track.stop());
+        videoRef.current.srcObject = null;
+    }
   };
 
   const handleForceFinish = (uuid) => {
@@ -603,6 +716,17 @@ const ActiveExam = () => {
                     </Button>
                   )}
 
+                  {student.status !== 'disconnected' && student.status !== 'exited' && (
+                    <Button 
+                      variant="outline" 
+                      className="w-full mt-2 h-8 text-xs flex items-center justify-center gap-2 border-slate-300"
+                      onClick={() => handleStartScreenShare(student.uuid)}
+                    >
+                      <Monitor className="w-3 h-3" />
+                      Ekran Yansıtmasını Aç
+                    </Button>
+                  )}
+
                   {student.results && student.results.length > 0 && (
                     <div className="mt-4 border-t pt-4 animate-in fade-in zoom-in duration-300">
                         <h4 className="text-sm font-semibold mb-2 text-slate-800 flex items-center gap-2">
@@ -673,6 +797,108 @@ const ActiveExam = () => {
              </div>
              <p className="text-center text-sm font-medium text-slate-700">{Math.round(saveProgress)}%</p>
           </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Screen Share Modal */}
+      <Dialog open={screenShareModalOpen} onOpenChange={(open) => !open && handleCloseScreenShare()}>
+        <DialogContent 
+            className="max-w-[95vw] w-full h-[90vh] flex flex-col p-0 gap-0 bg-zinc-950 border-zinc-800 shadow-2xl"
+            aria-describedby={undefined}
+        >
+            <DialogTitle className="sr-only">
+                Ekran Yansıtma - {students.find(s => s.uuid === currentStreamUuid)?.label || 'Bilinməyən'}
+            </DialogTitle>
+            <div className="flex items-center justify-between px-4 py-3 bg-zinc-900 border-b border-zinc-800 text-zinc-100 select-none">
+                <div className="flex items-center gap-3">
+                    <div className="p-1.5 bg-blue-500/10 rounded-md">
+                        <Monitor className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <div>
+                        <h3 className="text-sm font-medium leading-none">
+                            {students.find(s => s.uuid === currentStreamUuid)?.label || 'Ekran Paylaşımı'}
+                        </h3>
+                        <p className="text-xs text-zinc-400 mt-1">
+                            {students.find(s => s.uuid === currentStreamUuid)?.deskNumber 
+                                ? `Masa ${students.find(s => s.uuid === currentStreamUuid)?.deskNumber}` 
+                                : 'Canlı Yayım'}
+                        </p>
+                    </div>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                        onClick={() => setIsFitToScreen(!isFitToScreen)}
+                        title={isFitToScreen ? "Orijinal Ölçü" : "Ekrana Sığdır"}
+                    >
+                        <Scaling className="w-4 h-4" />
+                    </Button>
+                    
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0 text-zinc-400 hover:text-white hover:bg-zinc-800"
+                        onClick={() => {
+                            if (!document.fullscreenElement) {
+                                containerRef.current?.requestFullscreen().catch(err => console.error(err));
+                                setIsFullscreen(true);
+                            } else {
+                                document.exitFullscreen();
+                                setIsFullscreen(false);
+                            }
+                        }}
+                        title={isFullscreen ? "Tam Ekrandan Çıx" : "Tam Ekran"}
+                    >
+                        {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+                    </Button>
+
+                    <div className="w-px h-4 bg-zinc-800 mx-1" />
+
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0 text-zinc-400 hover:text-red-400 hover:bg-red-500/10"
+                        onClick={handleCloseScreenShare}
+                        title="Bağla"
+                    >
+                        <X className="w-4 h-4" />
+                    </Button>
+                </div>
+            </div>
+
+            <div 
+                ref={containerRef}
+                className="flex-1 bg-black flex items-center justify-center overflow-hidden relative w-full h-full"
+            >
+                {remoteStream ? (
+                    <video 
+                        ref={videoRef} 
+                        autoPlay 
+                        playsInline 
+                        muted
+                        controls={false}
+                        className={`transition-all duration-300 ${isFitToScreen ? 'w-full h-full object-contain' : 'w-auto h-auto max-w-none max-h-none'}`}
+                        style={{
+                            cursor: isFullscreen ? 'none' : 'default'
+                        }}
+                        onMouseMove={(e) => {
+                            e.currentTarget.style.cursor = 'default';
+                            clearTimeout(e.currentTarget.cursorTimeout);
+                            e.currentTarget.cursorTimeout = setTimeout(() => {
+                                if (document.fullscreenElement) e.currentTarget.style.cursor = 'none';
+                            }, 2000);
+                        }}
+                    />
+                ) : (
+                    <div className="flex flex-col items-center justify-center text-zinc-500 gap-3">
+                        <div className="w-12 h-12 rounded-full border-2 border-zinc-800 border-t-blue-500 animate-spin" />
+                        <p className="text-sm">Görüntü gözlənilir...</p>
+                    </div>
+                )}
+            </div>
         </DialogContent>
       </Dialog>
     </div>

@@ -36,6 +36,121 @@ const ExamClient = () => {
   const [globalStartTime, setGlobalStartTime] = useState(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [accordionValue, setAccordionValue] = useState([]); // For results view
+  
+  // Screen Share Refs
+  const peerConnectionRef = React.useRef(null);
+  const streamRef = React.useRef(null);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleAdminStartScreenShare = async ({ adminSocketId }) => {
+      console.log('Admin requested screen share:', adminSocketId);
+      try {
+        let stream;
+
+        // Try Electron approach first (no permission prompt)
+        if (window.api && window.api.getDesktopStreamId) {
+             const streamId = await window.api.getDesktopStreamId();
+             if (streamId) {
+                 stream = await navigator.mediaDevices.getUserMedia({
+                    audio: false,
+                    video: {
+                        mandatory: {
+                            chromeMediaSource: 'desktop',
+                            chromeMediaSourceId: streamId,
+                            maxWidth: 1920,
+                            maxHeight: 1080
+                        }
+                    }
+                });
+             }
+        }
+
+        // Fallback to standard browser API (will prompt user) if Electron failed or not available
+        if (!stream) {
+             console.warn('Electron API not available or failed. Falling back to standard getDisplayMedia.');
+             stream = await navigator.mediaDevices.getDisplayMedia({
+                 audio: false,
+                 video: {
+                     width: { ideal: 1920 },
+                     height: { ideal: 1080 },
+                     frameRate: { ideal: 30 }
+                 }
+             });
+        }
+        
+        streamRef.current = stream;
+
+        const pc = new RTCPeerConnection({
+          iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+        });
+        peerConnectionRef.current = pc;
+
+        stream.getTracks().forEach(track => pc.addTrack(track, stream));
+
+        pc.onicecandidate = (event) => {
+          if (event.candidate) {
+            socket.emit('screen-share-candidate', { to: adminSocketId, candidate: event.candidate });
+          }
+        };
+
+        // Handle stream stop (e.g. if user stops sharing via OS UI - though unlikely in kiosk)
+        stream.getVideoTracks()[0].onended = () => {
+             socket.emit('screen-share-stopped', { to: adminSocketId });
+             if (peerConnectionRef.current) {
+                 peerConnectionRef.current.close();
+                 peerConnectionRef.current = null;
+             }
+        };
+
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+
+        socket.emit('screen-share-offer', { to: adminSocketId, offer });
+
+      } catch (err) {
+        console.error('Screen share start error:', err);
+        socket.emit('screen-share-error', { to: adminSocketId, message: err.message });
+      }
+    };
+
+    const handleScreenShareAnswer = async ({ answer }) => {
+       if (peerConnectionRef.current) {
+          await peerConnectionRef.current.setRemoteDescription(new RTCSessionDescription(answer));
+       }
+    };
+
+    const handleScreenShareCandidate = async ({ candidate }) => {
+        if (peerConnectionRef.current) {
+            await peerConnectionRef.current.addIceCandidate(new RTCIceCandidate(candidate));
+        }
+    };
+
+    const handleAdminStopScreenShare = () => {
+        if (streamRef.current) {
+            streamRef.current.getTracks().forEach(track => track.stop());
+            streamRef.current = null;
+        }
+        if (peerConnectionRef.current) {
+            peerConnectionRef.current.close();
+            peerConnectionRef.current = null;
+        }
+    };
+
+    socket.on('admin-start-screen-share', handleAdminStartScreenShare);
+    socket.on('screen-share-answer', handleScreenShareAnswer);
+    socket.on('screen-share-candidate', handleScreenShareCandidate);
+    socket.on('admin-stop-screen-share', handleAdminStopScreenShare);
+
+    return () => {
+      socket.off('admin-start-screen-share', handleAdminStartScreenShare);
+      socket.off('screen-share-answer', handleScreenShareAnswer);
+      socket.off('screen-share-candidate', handleScreenShareCandidate);
+      socket.off('admin-stop-screen-share', handleAdminStopScreenShare);
+      handleAdminStopScreenShare();
+    };
+  }, [socket]);
 
   const formatTime = (seconds) => {
     if (seconds <= 0) return "0:00";
