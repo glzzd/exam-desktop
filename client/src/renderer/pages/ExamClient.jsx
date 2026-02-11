@@ -54,6 +54,24 @@ const ExamClient = () => {
       return prog && prog.status === 'completed';
   });
 
+  // Retry fetching stats if missing for completed exams
+  useEffect(() => {
+    if (examTypes.length > 0 && socket) {
+        const stuckExams = examTypes.some(type => {
+            const prog = examProgress[type._id];
+            return prog && prog.status === 'completed' && !prog.result;
+        });
+
+        if (stuckExams) {
+            const timer = setTimeout(() => {
+                 console.log('Retrying fetch for stuck stats...');
+                 socket.emit('get-active-exam-types');
+            }, 2000); 
+            return () => clearTimeout(timer);
+        }
+    }
+  }, [examProgress, examTypes, socket]);
+
   // Global Timer Effect
   useEffect(() => {
     let timer;
@@ -194,11 +212,9 @@ const ExamClient = () => {
           setTimeLeft(0);
           setAccordionValue([]);
           
-          // Reset System Info (keep uuid/mac/hostname but clear assignment)
+          // Reset System Info (keep uuid/mac/hostname/deskNumber/label but clear assignment)
           setSystemInfo(prev => ({
               ...prev,
-              label: null,
-              deskNumber: null,
               assignedEmployee: null,
               assignedStructure: null
           }));
@@ -234,6 +250,18 @@ const ExamClient = () => {
         setExamProgress(prev => ({
             ...prev,
             ...progressMap
+        }));
+      });
+
+      // Handle exam type stats
+      socket.on('exam-type-stats', ({ examTypeId, stats }) => {
+        console.log(`Received stats for ${examTypeId}:`, stats);
+        setExamProgress(prev => ({
+            ...prev,
+            [examTypeId]: {
+                ...prev[examTypeId],
+                result: stats
+            }
         }));
       });
 
@@ -322,6 +350,7 @@ const ExamClient = () => {
         socket.off('exam-start-success');
         socket.off('exam-started');
         socket.off('exam-finished-all');
+        socket.off('exam-type-stats');
         socket.off('error');
       }
     };
@@ -634,24 +663,15 @@ const ExamClient = () => {
               <div className="p-4 bg-slate-50/80 border-t border-slate-100 grid grid-cols-2 gap-3 text-xs">
                  {areAllExamsCompleted && examStatus !== 'results' && (
                     <div className="col-span-2 mb-2 space-y-2">
-                        {!resultsShown && (
-                            <Button 
-                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-sm"
-                                onClick={handleShowResults}
-                            >
-                                <CheckSquare className="w-4 h-4 mr-2" />
-                                Nəticələri Göstər
-                            </Button>
-                        )}
                         <Button 
                             className="w-full bg-red-600 hover:bg-red-700 text-white font-bold shadow-sm"
                             onClick={handleFinishSession}
                         >
                             <CheckSquare className="w-4 h-4 mr-2" />
-                            İmtahanı Bitir
+                            Nəticələrlə tanış ol və imtahanı bitir
                         </Button>
                     </div>
-                 )}
+                )}
                  <div className="flex items-center gap-2 text-slate-600">
                     <div className={`w-2 h-2 rounded-full ${status === 'registered' ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`} />
                     <span className="font-medium">{status === 'registered' ? 'Onlayn' : 'Qoşulur...'}</span>
@@ -792,25 +812,7 @@ const ExamClient = () => {
                             <h1 className="text-2xl font-black text-slate-800 tracking-tight">İmtahan Nəticələri</h1>
                             <p className="text-slate-500 font-medium">Detallı analiz və statistika</p>
                         </div>
-                        <div className="flex items-center gap-2">
-                            {examResults && (
-                                <Button 
-                                    variant="outline" 
-                                    size="lg" 
-                                    onClick={() => {
-                                        const allIds = examResults.examTypes.map((_, idx) => `item-${idx}`);
-                                        const isAllOpen = accordionValue.length === allIds.length;
-                                        setAccordionValue(isAllOpen ? [] : allIds);
-                                    }} 
-                                    className="border-slate-200 hover:bg-white hover:text-slate-900"
-                                >
-                                    {accordionValue.length === examResults?.examTypes?.length ? 'Hamısını Bağla' : 'Hamısını Göstər'}
-                                </Button>
-                            )}
-                            <Button variant="outline" size="lg" onClick={() => setExamStatus('selection')} className="border-slate-200 hover:bg-white hover:text-slate-900">
-                                <ArrowLeft className="w-5 h-5 mr-2" /> Əsas Menyu
-                            </Button>
-                        </div>
+                     
                     </div>
 
                     <div className="flex-1 min-h-0 overflow-y-auto px-2 pb-8 space-y-8 custom-scrollbar">
@@ -824,70 +826,7 @@ const ExamClient = () => {
                             </div>
                         ) : (
                             <>
-                                {/* 1. Overall Summary Cards */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                    <Card className="border-0 shadow-sm ring-1 ring-slate-900/5 bg-white overflow-hidden relative group hover:shadow-md transition-all">
-                                        <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500" />
-                                        <CardContent className="p-5 flex items-center justify-between">
-                                            <div>
-                                                <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Ümumi Bal</p>
-                                                <div className="text-3xl font-black text-slate-900">
-                                                    {Math.round(examResults.examTypes.reduce((acc, curr) => acc + curr.score, 0) / examResults.examTypes.length)}%
-                                                </div>
-                                            </div>
-                                            <div className="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                <CheckSquare className="w-6 h-6" />
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-
-                                    <Card className="border-0 shadow-sm ring-1 ring-slate-900/5 bg-white overflow-hidden relative group hover:shadow-md transition-all">
-                                        <div className="absolute top-0 left-0 w-1 h-full bg-green-500" />
-                                        <CardContent className="p-5 flex items-center justify-between">
-                                            <div>
-                                                <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Doğru Cavab</p>
-                                                <div className="text-3xl font-black text-green-600">
-                                                    {examResults.examTypes.reduce((acc, curr) => acc + curr.correctCount, 0)}
-                                                </div>
-                                            </div>
-                                            <div className="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                <CheckSquare className="w-6 h-6" />
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-
-                                    <Card className="border-0 shadow-sm ring-1 ring-slate-900/5 bg-white overflow-hidden relative group hover:shadow-md transition-all">
-                                        <div className="absolute top-0 left-0 w-1 h-full bg-red-500" />
-                                        <CardContent className="p-5 flex items-center justify-between">
-                                            <div>
-                                                <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Səhv Cavab</p>
-                                                <div className="text-3xl font-black text-red-600">
-                                                    {examResults.examTypes.reduce((acc, curr) => acc + curr.wrongCount, 0)}
-                                                </div>
-                                            </div>
-                                            <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                <AlertTriangle className="w-6 h-6" />
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-
-                                    <Card className="border-0 shadow-sm ring-1 ring-slate-900/5 bg-white overflow-hidden relative group hover:shadow-md transition-all">
-                                        <div className="absolute top-0 left-0 w-1 h-full bg-amber-500" />
-                                        <CardContent className="p-5 flex items-center justify-between">
-                                            <div>
-                                                <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">Boş Qalan</p>
-                                                <div className="text-3xl font-black text-amber-600">
-                                                    {examResults.examTypes.reduce((acc, curr) => acc + curr.emptyCount, 0)}
-                                                </div>
-                                            </div>
-                                            <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                <FileQuestion className="w-6 h-6" />
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </div>
-
-                                {/* 2. Detailed Breakdown */}
+                              
                                 <Accordion 
                                     type="multiple" 
                                     value={accordionValue} 
@@ -908,7 +847,7 @@ const ExamClient = () => {
                                                     <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide border ${
                                                         typeResult.passed ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200'
                                                     }`}>
-                                                        {typeResult.passed ? 'İmtahandan Keçdi' : 'İmtahandan Kəsildi'}
+                                                        {typeResult.passed ? 'Uğurlu' : 'Uğursuz'}
                                                     </span>
                                                     <span className="font-mono text-lg font-bold opacity-80">{Math.round(typeResult.score)}%</span>
                                                 </div>
@@ -1043,12 +982,41 @@ const ExamClient = () => {
                                    </div>
                                 </div>
 
-                                {/* Progress Info */}
+                                   {/* Progress Info */}
                                 {progress && (
-                                   <div className="w-full mb-4 px-4 py-2 bg-slate-100 rounded-lg text-sm text-slate-600 flex justify-between items-center">
-                                      <span>Cavablanan: <b>{progress.answeredCount}/{progress.totalQuestions}</b></span>
-                                      {inProgress && <span className="text-amber-600 font-bold text-xs uppercase">Davam Edir</span>}
-                                      {isCompleted && <span className="text-green-600 font-bold text-xs uppercase">Bitib</span>}
+                                   <div className="w-full mb-4 px-4 py-2 bg-slate-100 rounded-lg text-sm text-slate-600 flex flex-col gap-2">
+                                      <div className="flex justify-between items-center w-full">
+                                          <span>Cavablanan: <b>{progress.answeredCount}/{progress.totalQuestions}</b></span>
+                                          {inProgress && <span className="text-amber-600 font-bold text-xs uppercase">Davam Edir</span>}
+                                          {isCompleted && <span className="text-green-600 font-bold text-xs uppercase">Bitib</span>}
+                                      </div>
+                                      
+                                      {/* Show Result Stats if completed and available */}
+                                      {isCompleted && (
+                                          <div className="mt-1 w-full">
+                                              {progress.result ? (
+                                                  <div className="grid grid-cols-3 gap-2 w-full text-xs font-bold text-center animate-in fade-in zoom-in duration-300">
+                                                      <div className="bg-green-100 text-green-700 border border-green-200 rounded-md px-1 py-1.5 flex flex-col items-center justify-center shadow-sm">
+                                                          <span className="text-[10px] uppercase text-green-600/70 tracking-tighter">Doğru</span>
+                                                          <span className="text-sm">{progress.result.correctCount ?? 0}</span>
+                                                      </div>
+                                                      <div className="bg-red-100 text-red-700 border border-red-200 rounded-md px-1 py-1.5 flex flex-col items-center justify-center shadow-sm">
+                                                          <span className="text-[10px] uppercase text-red-600/70 tracking-tighter">Səhv</span>
+                                                          <span className="text-sm">{progress.result.wrongCount ?? 0}</span>
+                                                      </div>
+                                                      <div className="bg-slate-200 text-slate-600 border border-slate-300 rounded-md px-1 py-1.5 flex flex-col items-center justify-center shadow-sm">
+                                                          <span className="text-[10px] uppercase text-slate-500 tracking-tighter">Boş</span>
+                                                          <span className="text-sm">{progress.result.emptyCount ?? 0}</span>
+                                                      </div>
+                                                  </div>
+                                              ) : (
+                                                  <div className="flex items-center justify-center py-2 gap-2 text-slate-500 animate-pulse">
+                                                      <div className="w-4 h-4 border-2 border-slate-300 border-t-blue-500 rounded-full animate-spin"></div>
+                                                      <span className="text-xs font-medium">Hesablanır...</span>
+                                                  </div>
+                                              )}
+                                          </div>
+                                      )}
                                    </div>
                                 )}
                                 
@@ -1077,12 +1045,7 @@ const ExamClient = () => {
                    )}
                 </div>
 
-                {/* 3. Bottom Hint */}
-                <div className="text-center py-2">
-                      <p className="text-xs text-slate-400 font-medium">
-                        Zəhmət olmasa imtahan növünü seçərək "Başla" düyməsini sıxın.
-                      </p>
-                   </div>
+               
                 </div>
               ) : (
                 // Not Ready State Placeholder
@@ -1091,8 +1054,8 @@ const ExamClient = () => {
                     <Monitor className="w-8 h-8 text-slate-400" />
                  </div>
                  <div>
-                    <h3 className="text-lg font-medium text-slate-900">Sistemə Qoşulur...</h3>
-                    <p className="text-slate-500">Zəhmət olmasa gözləyin, serverlə əlaqə qurulur.</p>
+                    <h3 className="text-lg font-medium text-slate-900">Məlumatlarınız Sistemə Daxil Edilir...</h3>
+                    <p className="text-slate-500">Zəhmət olmasa gözləyin</p>
                  </div>
               </div>
               )}

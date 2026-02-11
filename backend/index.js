@@ -208,26 +208,31 @@ io.on('connection', (socket) => {
         if (activeSession) {
           isConfirmed = true;
           
-          if (activeSession.status === 'completed') {
+          // Check if ALL exams are completed
+          const allExamsFinished = activeSession.examState.length > 0 && activeSession.examState.every(s => s.status === 'completed');
+
+          if (activeSession.status === 'completed' || allExamsFinished) {
              const ExamResult = require('./src/models/ExamResult');
              // Check if already saved to DB
              const existingResult = await ExamResult.findOne({ examSessionId: activeSession._id });
              
-             // Generate preview results
-             const previewResults = await generateExamResult(
-                { 
-                   firstName: 'Unknown', 
-                   lastName: 'Unknown',
-                   // generateExamResult fetches real data using session
-                }, 
-                activeSession, 
-                false 
-             );
+             let previewResults = null;
+             // Only generate full results if session is explicitly completed
+             if (activeSession.status === 'completed') {
+                 previewResults = await generateExamResult(
+                    { 
+                       firstName: 'Unknown', 
+                       lastName: 'Unknown',
+                    }, 
+                    activeSession, 
+                    false 
+                 );
+             }
              
              restoredSessionData = {
-                status: 'completed',
+                status: activeSession.status === 'completed' ? 'completed' : 'all_exams_done',
                 isSaved: !!existingResult,
-                results: previewResults.examTypes.map(t => ({
+                results: previewResults ? previewResults.examTypes.map(t => ({
                     examTypeName: t.examTypeName,
                     correctCount: t.correctCount,
                     wrongCount: t.wrongCount,
@@ -235,7 +240,7 @@ io.on('connection', (socket) => {
                     score: t.score,
                     passed: t.passed,
                     durationSeconds: t.durationSeconds
-                }))
+                })) : null
              };
           }
 
@@ -614,7 +619,12 @@ io.on('connection', (socket) => {
                       status: state.status,
                       answeredCount: answered,
                       totalQuestions: total,
-                      // We can include more if needed, but this is enough for the card UI
+                      result: state.result ? {
+                          correctCount: state.result.correctCount,
+                          wrongCount: state.result.wrongCount,
+                          emptyCount: state.result.emptyCount,
+                          score: state.result.score
+                      } : null
                   };
               });
 
@@ -964,41 +974,67 @@ io.on('connection', (socket) => {
       if (student) {
           try {
              const ExamSession = require('./src/models/ExamSession');
-             // Mark type as completed
-             await ExamSession.updateOne(
-                { machineUuid: student.uuid, status: { $in: ['confirmed', 'started'] }, "examState.examTypeId": examTypeId },
-                { $set: { "examState.$.status": 'completed', "examState.$.endTime": new Date() } }
-             );
              
-             // Check if ALL exams are completed
+             // Find active session
              const activeSession = await ExamSession.findOne({ 
                 machineUuid: student.uuid, 
                 status: { $in: ['confirmed', 'started'] } 
              });
-             
-             /* 
-             // REMOVED AUTO-COMPLETION: Prevents session from closing prematurely if user refreshes
-             // or if there are other exam types to take.
+
              if (activeSession) {
-                 const allCompleted = activeSession.examState.every(s => s.status === 'completed');
-                 if (allCompleted) {
-                     // Finish the whole session
-                     activeSession.status = 'completed';
-                     activeSession.completedAt = new Date();
-                     await activeSession.save();
-                     
-                     // Generate detailed result
-                     await generateExamResult(student, activeSession);
-                     
-                     socket.emit('exam-finished-all');
-                 }
-             }
-             */
-             
-             // Still generate/update result for this specific exam type if needed, 
-             // but for now we rely on ExamSession persistence.
-             // Maybe we can generate an intermediate result? 
-             // For now, let's just keep the session open so the user doesn't get kicked out on refresh.
+                 // Mark type as completed in DB first to ensure state is saved
+                 await ExamSession.updateOne(
+                    { machineUuid: student.uuid, status: { $in: ['confirmed', 'started'] }, "examState.examTypeId": examTypeId },
+                    { $set: { "examState.$.status": 'completed', "examState.$.endTime": new Date() } }
+                 );
+                 
+                 // Refresh session to get updated status
+                 const updatedSession = await ExamSession.findOne({ _id: activeSession._id });
+                 
+                 // Generate result for this type (using generateExamResult for convenience)
+                 // This will calculate stats based on answers stored in session
+                 const fullResult = await generateExamResult(student, updatedSession, false);
+                 
+                 // Ensure we match by string ID to avoid ObjectId mismatches
+                 const typeResult = fullResult.examTypes.find(t => t.examTypeId.toString() === examTypeId.toString());
+                 
+                 if (typeResult) {
+                     console.log(`Sending stats for ${examTypeId}:`, typeResult); // Debug log
+
+                     // Save the result stats to the session for persistence
+                     await ExamSession.updateOne(
+                        { _id: activeSession._id, "examState.examTypeId": examTypeId },
+                        { $set: { 
+                            "examState.$.result": {
+                                correctCount: typeResult.correctCount,
+                                wrongCount: typeResult.wrongCount,
+                                emptyCount: typeResult.emptyCount,
+                                score: typeResult.score
+                            }
+                        }}
+                     );
+
+                     // Emit stats to client
+                     socket.emit('exam-type-stats', {
+                         examTypeId,
+                         stats: {
+                             correctCount: typeResult.correctCount,
+                             wrongCount: typeResult.wrongCount,
+                             emptyCount: typeResult.emptyCount,
+                             score: typeResult.score
+                            }
+                        });
+
+                        // Check if ALL exam types are completed
+                        const finalSessionCheck = await ExamSession.findOne({ _id: activeSession._id });
+                        const allCompleted = finalSessionCheck.examState.every(s => s.status === 'completed');
+                        
+                        if (allCompleted) {
+                            student.status = 'all_exams_done';
+                            io.emit('student-list-updated', students);
+                        }
+                    }
+                }
 
              console.log(`Student ${student.hostname} finished exam type: ${examTypeId}`);
           } catch (err) {
@@ -1167,6 +1203,100 @@ io.on('connection', (socket) => {
         socket.emit('error', { message: 'Xəta baş verdi: ' + err.message });
     }
   });
+
+  // Handle admin bulk save results
+  socket.on('admin-save-all-results', async () => {
+    console.log('Admin requested BULK SAVE ALL');
+    
+    // 1. Identify candidates
+    const candidates = students.filter(s => 
+        (s.status === 'completed' || s.status === 'all_exams_done') && !s.isSaved && s.uuid
+    );
+
+    if (candidates.length === 0) {
+        socket.emit('admin-save-all-complete', { successCount: 0, errorCount: 0, errors: [] });
+        return;
+    }
+
+    const total = candidates.length;
+    let processed = 0;
+    let successCount = 0;
+    let errorCount = 0;
+    const errors = [];
+    const BATCH_SIZE = 10; // Process 10 at a time
+
+    const ExamSession = require('./src/models/ExamSession');
+    const ExamResult = require('./src/models/ExamResult');
+
+    // Process in chunks
+    for (let i = 0; i < total; i += BATCH_SIZE) {
+        const batch = candidates.slice(i, i + BATCH_SIZE);
+        
+        await Promise.all(batch.map(async (student) => {
+            try {
+                // Find session
+                const activeSession = await ExamSession.findOne({ 
+                    machineUuid: student.uuid, 
+                    status: { $in: ['confirmed', 'started', 'completed'] } 
+                }).sort({ createdAt: -1 });
+
+                if (activeSession) {
+                    // Ensure completed
+                    if (activeSession.status !== 'completed') {
+                        activeSession.status = 'completed';
+                        activeSession.completedAt = new Date();
+                        await activeSession.save();
+                    }
+
+                    // Check if already saved (double check db)
+                    const existing = await ExamResult.findOne({ examSessionId: activeSession._id });
+                    
+                    if (!existing) {
+                         const result = await generateExamResult(student, activeSession, true);
+                         
+                         // Update memory
+                         student.isSaved = true;
+                         student.results = result.examTypes.map(t => ({
+                            examTypeName: t.examTypeName,
+                            correctCount: t.correctCount,
+                            wrongCount: t.wrongCount,
+                            emptyCount: t.emptyCount,
+                            score: t.score,
+                            passed: t.passed,
+                            durationSeconds: t.durationSeconds
+                        }));
+                        successCount++;
+                    } else {
+                        // Already saved in DB but memory was out of sync?
+                        student.isSaved = true;
+                        successCount++; 
+                    }
+                } else {
+                    errorCount++;
+                    errors.push({ uuid: student.uuid, name: student.label, error: 'Session not found' });
+                }
+            } catch (err) {
+                console.error(`Error saving result for ${student.uuid}:`, err);
+                errorCount++;
+                errors.push({ uuid: student.uuid, name: student.label, error: err.message });
+            }
+        }));
+
+        processed += batch.length;
+        // Ensure percentage doesn't exceed 100
+        const percentage = Math.min(100, Math.round((processed / total) * 100));
+        socket.emit('admin-save-all-progress', { processed, total, percentage });
+        
+        // Small delay to prevent event loop starvation
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    // Notify updates
+    io.emit('student-list-updated', students);
+    socket.emit('admin-save-all-complete', { successCount, errorCount, errors });
+    console.log(`Bulk save completed. Success: ${successCount}, Errors: ${errorCount}`);
+  });
+
 
   // Handle admin resetting desk (clearing info)
   socket.on('admin-reset-desk', async ({ uuid }) => {

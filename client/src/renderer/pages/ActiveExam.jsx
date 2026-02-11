@@ -164,11 +164,24 @@ const StructureAssignmentDropdown = ({ student, socket, isOpen, onOpenChange, on
   );
 };
 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+
 const ActiveExam = () => {
   const { socket } = useSocket();
   const [students, setStudents] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState('');
+  
+  // Bulk Save State
+  const [isSavingAll, setIsSavingAll] = useState(false);
+  const [saveProgress, setSaveProgress] = useState(0);
+  const [saveStats, setSaveStats] = useState(null);
   
   // Employee search state
   const [openDropdownId, setOpenDropdownId] = useState(null);
@@ -192,8 +205,6 @@ const ActiveExam = () => {
       setStudents(sortedList);
     };
 
-    socket.on('student-list-updated', onStudentListUpdate);
-
     const onSaveSuccess = (data) => {
       toast.success(data.message || 'Məlumatlar bazaya uğurla yazıldı!');
     };
@@ -210,19 +221,68 @@ const ActiveExam = () => {
         toast.error(data.message || 'Xəta baş verdi');
     };
 
+    // Bulk Save Listeners
+    const onSaveAllProgress = ({ processed, total, percentage }) => {
+        setSaveProgress(percentage);
+    };
+
+    const onSaveAllComplete = ({ successCount, errorCount, errors }) => {
+        setIsSavingAll(false);
+        setSaveProgress(0);
+        
+        if (errorCount > 0) {
+            toast.warning(`${successCount} nəticə yadda saxlanıldı. ${errorCount} xəta baş verdi.`);
+            console.error('Bulk save errors:', errors);
+        } else {
+            toast.success(`${successCount} nəticə uğurla yadda saxlanıldı!`);
+        }
+    };
+
+    const onSaveAllError = ({ message }) => {
+        setIsSavingAll(false);
+        toast.error(message || 'Xəta baş verdi');
+    };
+
+    socket.on('student-list-updated', onStudentListUpdate);
     socket.on('admin-save-success', onSaveSuccess);
     socket.on('admin-reset-success', onResetSuccess);
     socket.on('admin-force-finish-success', onForceFinishSuccess);
     socket.on('error', onError);
+    socket.on('admin-save-all-progress', onSaveAllProgress);
+    socket.on('admin-save-all-complete', onSaveAllComplete);
+    socket.on('admin-save-all-error', onSaveAllError);
 
     return () => {
-      socket.off('student-list-updated', onStudentListUpdate);
-      socket.off('admin-save-success', onSaveSuccess);
-      socket.off('admin-reset-success', onResetSuccess);
-      socket.off('admin-force-finish-success', onForceFinishSuccess);
-      socket.off('error', onError);
+        socket.off('student-list-updated', onStudentListUpdate);
+        socket.off('admin-save-success', onSaveSuccess);
+        socket.off('admin-reset-success', onResetSuccess);
+        socket.off('admin-force-finish-success', onForceFinishSuccess);
+        socket.off('error', onError);
+        socket.off('admin-save-all-progress', onSaveAllProgress);
+        socket.off('admin-save-all-complete', onSaveAllComplete);
+        socket.off('admin-save-all-error', onSaveAllError);
     };
   }, [socket]);
+
+  const handleSaveAllResults = () => {
+     if (!socket) return;
+     
+     // Filter potential candidates to give immediate feedback if none exist
+     const candidates = students.filter(s => 
+         (s.status === 'completed' || s.status === 'all_exams_done') && !s.isSaved
+     );
+
+     if (candidates.length === 0) {
+         toast.info('Yadda saxlanılacaq yeni nəticə tapılmadı.');
+         return;
+     }
+
+     if (confirm(`${candidates.length} istifadəçinin nəticəsini bazaya yazmaq istədiyinizə əminsiniz?`)) {
+         setIsSavingAll(true);
+         setSaveProgress(0);
+         socket.emit('admin-save-all-results');
+     }
+  };
 
   const handleSaveExam = (uuid) => {
     if (socket) {
@@ -316,6 +376,25 @@ const ActiveExam = () => {
           </p>
         </div>
         <div className="flex items-center space-x-4">
+           <Button 
+             variant="outline" 
+             className="border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-800"
+             onClick={handleSaveAllResults}
+             disabled={isSavingAll}
+           >
+             {isSavingAll ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mr-2"></div>
+                  Saxlanılır...
+                </>
+             ) : (
+                <>
+                  <CheckSquare className="w-4 h-4 mr-2" />
+                  Bütün Nəticələri Yadda Saxla
+                </>
+             )}
+           </Button>
+
            {eligibleForConfirmationCount > 0 && (
               <Button 
                 onClick={() => handleConfirmDeskInfo()} 
@@ -393,11 +472,13 @@ const ActiveExam = () => {
                     ${student.status === 'disconnected' ? 'text-orange-600 bg-orange-50 border-orange-200' : ''}
                     ${student.status === 'exited' ? 'text-red-600 bg-red-50 border-red-200' : ''}
                     ${student.status === 'started' ? 'text-yellow-600 bg-yellow-50 border-yellow-200' : ''}
+                    ${student.status === 'completed' || student.status === 'all_exams_done' ? 'text-purple-600 bg-purple-50 border-purple-200' : ''}
                     ${student.status === 'connected' ? 'text-green-600 bg-green-50 border-green-200' : ''}
                   `}>
                     {student.status === 'disconnected' ? 'Bağlantı kəsildi' : 
                      student.status === 'exited' ? 'Proqramdan çıxış edildi' : 
-                     student.status === 'started' ? 'İmtahan başladı' : 'Aktiv'}
+                     student.status === 'started' ? 'İmtahan başladı' : 
+                     student.status === 'completed' || student.status === 'all_exams_done' ? 'İmtahanı yekunlaşdırdı' : 'Aktiv'}
                   </Badge>
                 </div>
                 
@@ -444,7 +525,7 @@ const ActiveExam = () => {
                       onClick={() => handleConfirmDeskInfo(student.uuid)}
                     >
                       <CheckCircle className="w-3 h-3 mr-2 flex-shrink-0" />
-                      Masa məlumatının doğruluğu təstiq edildi
+                      MƏLUMATLAR DOĞRUDUR
                     </Button>
                   )}
 
@@ -551,11 +632,8 @@ const ActiveExam = () => {
                                         <span className="text-slate-500">Boş</span>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-1 text-[10px] text-center">
-                                     <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
-                                        <span className="text-blue-600 font-bold block">{result.score !== undefined ? Number(result.score).toFixed(1) : '-'}</span> 
-                                        <span className="text-slate-500">Bal</span>
-                                    </div>
+                                <div className="grid grid-cols-1 gap-1 text-[10px] text-center">
+                                     
                                     <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
                                         <span className="text-purple-600 font-bold block">
                                             {result.durationSeconds ? 
@@ -577,6 +655,26 @@ const ActiveExam = () => {
           ))}
         </div>
       )}
+      
+      <Dialog open={isSavingAll} onOpenChange={setIsSavingAll}>
+        <DialogContent className="sm:max-w-[425px]" onInteractOutside={(e) => e.preventDefault()}>
+          <DialogHeader>
+            <DialogTitle>Bütün nəticələr yadda saxlanılır</DialogTitle>
+            <DialogDescription>
+              Zəhmət olmasa gözləyin, əməliyyat davam edir...
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-6">
+             <div className="w-full bg-slate-200 rounded-full h-4 overflow-hidden mb-2">
+                 <div 
+                   className="bg-blue-600 h-full transition-all duration-300 ease-out"
+                   style={{ width: `${saveProgress}%` }}
+                 />
+             </div>
+             <p className="text-center text-sm font-medium text-slate-700">{Math.round(saveProgress)}%</p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

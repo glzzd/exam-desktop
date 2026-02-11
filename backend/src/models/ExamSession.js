@@ -77,7 +77,13 @@ const examSessionSchema = new mongoose.Schema({
     },
     status: { type: String, enum: ['pending', 'in_progress', 'completed'], default: 'pending' },
     startTime: Date,
-    endTime: Date
+    endTime: Date,
+    result: {
+        correctCount: Number,
+        wrongCount: Number,
+        emptyCount: Number,
+        score: Number
+    }
   }]
 
 }, { timestamps: true });
