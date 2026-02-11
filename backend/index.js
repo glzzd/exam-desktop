@@ -34,6 +34,118 @@ const port = process.env.PORT || 3001;
 // Make io accessible globally or pass it to routes
 app.set('io', io);
 
+// Helper to generate result
+const generateExamResult = async (student, examSession, saveToDb = true) => {
+    const ExamResult = require('./src/models/ExamResult');
+    const Question = require('./src/models/Question/Question');
+    const ExamType = require('./src/models/Exam/ExamType');
+    const Employee = require('./src/models/Employee/Employee');
+    const Structure = require('./src/models/Structure/Structure');
+
+    // Fetch full employee details to ensure accuracy
+    const employee = await Employee.findById(examSession.employee);
+    let structureName = '';
+    let structureCode = '';
+    
+    if (employee && employee.structureId) {
+        const structure = await Structure.findById(employee.structureId);
+        if (structure) {
+            structureName = structure.name;
+            structureCode = structure.code;
+        }
+    }
+
+    const resultData = {
+        student: {
+            employeeId: examSession.employee,
+            firstName: employee?.personalData?.firstName || student.firstName,
+            lastName: employee?.personalData?.lastName || student.lastName,
+            fatherName: employee?.personalData?.fatherName || student.fatherName,
+            gender: employee?.personalData?.gender,
+            structureName: structureName || student.assignedStructure?.name,
+            structureCode: structureCode || student.assignedStructure?.code
+        },
+        examSessionId: examSession._id,
+        deskNumber: examSession.deskNumber,
+        deskLabel: examSession.deskLabel,
+        machineUuid: examSession.machineUuid,
+        macAddress: examSession.macAddress,
+        ipAddress: examSession.ipAddress,
+        startTime: examSession.startedAt,
+        endTime: new Date(),
+        totalDurationSeconds: Math.floor((new Date() - new Date(examSession.startedAt)) / 1000),
+        examTypes: []
+    };
+
+    for (const state of examSession.examState) {
+        const examType = await ExamType.findById(state.examTypeId);
+        
+        const typeResult = {
+            examTypeId: state.examTypeId,
+            examTypeName: examType?.name || 'Unknown',
+            startTime: state.startTime,
+            endTime: state.endTime || new Date(),
+            durationSeconds: Math.floor(((state.endTime || new Date()) - new Date(state.startTime)) / 1000),
+            questions: [],
+            correctCount: 0,
+            wrongCount: 0,
+            emptyCount: 0,
+            totalQuestions: state.questions.length,
+            passed: false,
+            score: 0
+        };
+
+        for (const qData of state.questions) {
+            const originalQuestion = await Question.findById(qData._id);
+            const selectedOptionId = state.answers.get(qData._id.toString());
+            const timeSpent = state.timeSpent ? state.timeSpent.get(qData._id.toString()) || 0 : 0;
+            
+            const correctOption = originalQuestion.options.find(o => o.isCorrect);
+            const isCorrect = selectedOptionId && correctOption && selectedOptionId === correctOption._id.toString();
+
+            if (!selectedOptionId) {
+                typeResult.emptyCount++;
+            } else if (isCorrect) {
+                typeResult.correctCount++;
+            } else {
+                typeResult.wrongCount++;
+            }
+
+            typeResult.questions.push({
+                questionId: originalQuestion._id,
+                text: originalQuestion.text,
+                options: originalQuestion.options.map(o => ({
+                    _id: o._id.toString(),
+                    text: o.text,
+                    isCorrect: o.isCorrect
+                })),
+                selectedOptionId: selectedOptionId || null,
+                isCorrect: !!isCorrect,
+                timeSpentSeconds: timeSpent
+            });
+        }
+        
+        // Calculate pass status (example logic)
+        if (examType && examType.minCorrectAnswers <= typeResult.correctCount) {
+            typeResult.passed = true;
+        }
+        typeResult.score = (typeResult.correctCount / typeResult.totalQuestions) * 100;
+
+        resultData.examTypes.push(typeResult);
+    }
+
+    if (saveToDb) {
+        const result = await ExamResult.create(resultData);
+        console.log(`Exam Result generated and saved for ${student.hostname}`);
+        return result;
+    } else {
+        console.log(`Exam Result generated (preview) for ${student.hostname}`);
+        // Return as a plain object or transient Mongoose doc
+        // Using plain object is safer to avoid accidental saves if returned to other logic
+        return resultData; 
+    }
+};
+
 // Store connected students
 let students = [];
 
@@ -86,14 +198,47 @@ io.on('connection', (socket) => {
 
       // Check for active exam session (Persistence check)
       let isConfirmed = false;
+      let restoredSessionData = null;
       try {
         const activeSession = await ExamSession.findOne({ 
           machineUuid: uuid, 
-          status: { $in: ['confirmed', 'started'] } 
+          status: { $in: ['confirmed', 'started', 'completed'] } 
         }).sort({ createdAt: -1 });
 
         if (activeSession) {
           isConfirmed = true;
+          
+          if (activeSession.status === 'completed') {
+             const ExamResult = require('./src/models/ExamResult');
+             // Check if already saved to DB
+             const existingResult = await ExamResult.findOne({ examSessionId: activeSession._id });
+             
+             // Generate preview results
+             const previewResults = await generateExamResult(
+                { 
+                   firstName: 'Unknown', 
+                   lastName: 'Unknown',
+                   // generateExamResult fetches real data using session
+                }, 
+                activeSession, 
+                false 
+             );
+             
+             restoredSessionData = {
+                status: 'completed',
+                isSaved: !!existingResult,
+                results: previewResults.examTypes.map(t => ({
+                    examTypeName: t.examTypeName,
+                    correctCount: t.correctCount,
+                    wrongCount: t.wrongCount,
+                    emptyCount: t.emptyCount,
+                    score: t.score,
+                    passed: t.passed,
+                    durationSeconds: t.durationSeconds
+                }))
+             };
+          }
+
           console.log(`Restoring active session for ${hostname} (Session ID: ${activeSession._id})`);
         }
       } catch (sessionErr) {
@@ -114,10 +259,12 @@ io.on('connection', (socket) => {
 
       const finalStudentInfo = {
         ...studentInfo,
-        status: 'connected',
+        status: restoredSessionData ? restoredSessionData.status : 'connected',
         isDuplicate: false,
         disconnectedAt: null,
-        isConfirmed: isConfirmed
+        isConfirmed: isConfirmed,
+        isSaved: restoredSessionData ? restoredSessionData.isSaved : false,
+        results: restoredSessionData ? restoredSessionData.results : null
       };
       
       if (existingStudentIndex !== -1) {
@@ -154,7 +301,8 @@ io.on('connection', (socket) => {
              timestamp: new Date(),
              assignedEmployee: machine.assignedEmployee,
              assignedStructure: machine.assignedStructure,
-             restored: true
+             restored: true,
+             status: restoredSessionData ? restoredSessionData.status : 'confirmed'
            });
         }
       }
@@ -452,7 +600,7 @@ io.on('connection', (socket) => {
       if (student && student.uuid) {
           const activeSession = await ExamSession.findOne({ 
               machineUuid: student.uuid, 
-              status: { $in: ['confirmed', 'started'] } 
+              status: { $in: ['confirmed', 'started', 'completed'] } 
           });
 
           if (activeSession && activeSession.examState && activeSession.examState.length > 0) {
@@ -870,7 +1018,7 @@ io.on('connection', (socket) => {
         
         const activeSession = await ExamSession.findOne({ 
             machineUuid: student.uuid, 
-            status: { $in: ['confirmed', 'started'] } 
+            status: { $in: ['confirmed', 'started', 'completed'] } 
         });
 
         if (!activeSession) {
@@ -913,14 +1061,16 @@ io.on('connection', (socket) => {
         
         const activeSession = await ExamSession.findOne({ 
             machineUuid: student.uuid, 
-            status: { $in: ['confirmed', 'started'] } 
+            status: { $in: ['confirmed', 'started', 'completed'] } 
         });
 
         if (activeSession) {
-            // Mark session as completed
-            activeSession.status = 'completed';
-            activeSession.completedAt = new Date();
-            await activeSession.save();
+            // Mark session as completed if not already
+            if (activeSession.status !== 'completed') {
+                activeSession.status = 'completed';
+                activeSession.completedAt = new Date();
+                await activeSession.save();
+            }
             
             // Generate result but DO NOT SAVE to DB yet (preview for admin)
             const result = await generateExamResult(student, activeSession, false);
@@ -934,7 +1084,8 @@ io.on('connection', (socket) => {
                 wrongCount: t.wrongCount,
                 emptyCount: t.emptyCount,
                 score: t.score,
-                passed: t.passed
+                passed: t.passed,
+                durationSeconds: t.durationSeconds
             }));
 
             // Notify student
@@ -998,7 +1149,8 @@ io.on('connection', (socket) => {
                     wrongCount: t.wrongCount,
                     emptyCount: t.emptyCount,
                     score: t.score,
-                    passed: t.passed
+                    passed: t.passed,
+                    durationSeconds: t.durationSeconds
                 }));
             }
 
@@ -1029,6 +1181,13 @@ io.on('connection', (socket) => {
               machine.assignedStructure = null;
               await machine.save();
           }
+
+          // 1.1 Archive Active Session
+          const ExamSession = require('./src/models/ExamSession');
+          await ExamSession.updateMany(
+              { machineUuid: uuid, status: { $in: ['confirmed', 'started', 'completed'] } },
+              { $set: { status: 'archived' } }
+          );
 
           // 2. Update In-Memory Student State
           const student = students.find(s => s.uuid === uuid);
@@ -1103,7 +1262,8 @@ io.on('connection', (socket) => {
                     wrongCount: t.wrongCount,
                     emptyCount: t.emptyCount,
                     score: t.score,
-                    passed: t.passed
+                    passed: t.passed,
+                    durationSeconds: t.durationSeconds
                 }));
                 // Notify student if connected
                 io.to(student.socketId).emit('exam-finished-all');

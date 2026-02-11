@@ -178,13 +178,48 @@ const ExamClient = () => {
         }));
       });
 
+      // Handle desk reset
+      socket.on('desk-reset', () => {
+          console.log('Desk reset command received');
+          
+          // Reset all state
+          setExamTypes([]);
+          setIsExamReady(false);
+          setExamStatus('selection');
+          setActiveExamTypeId(null);
+          setExamResults(null);
+          setResultsShown(false);
+          setExamProgress({});
+          setGlobalStartTime(null);
+          setTimeLeft(0);
+          setAccordionValue([]);
+          
+          // Reset System Info (keep uuid/mac/hostname but clear assignment)
+          setSystemInfo(prev => ({
+              ...prev,
+              label: null,
+              deskNumber: null,
+              assignedEmployee: null,
+              assignedStructure: null
+          }));
+          
+          // Clear Local Storage (except critical config like server_url)
+          const serverUrl = localStorage.getItem('server_url');
+          localStorage.clear();
+          if (serverUrl) localStorage.setItem('server_url', serverUrl);
+          
+          toast.info('Masa məlumatları sıfırlandı.');
+      });
+
       // Handle exam activation
       socket.on('exam-activated', (data) => {
         console.log('Exam activated:', data);
         setIsExamReady(true);
         // Fetch active exam types immediately
         socket.emit('get-active-exam-types');
-        toast.success('Məlumatlar təsdiqləndi. İmtahan növünü seçin!');
+        if (data.status !== 'completed') {
+            toast.success('Məlumatlar təsdiqləndi. İmtahan növünü seçin!');
+        }
       });
 
       // Handle active exam types list
@@ -227,6 +262,11 @@ const ExamClient = () => {
       socket.on('error', (err) => {
           console.error('Socket error:', err);
           toast.error(err.message || 'Xəta baş verdi');
+      });
+
+      socket.on('exam-finished-all', () => {
+         toast.success('İmtahan bitirildi! Nəticələr admin panelinə göndərildi.');
+         socket.emit('student-get-results');
       });
 
       socket.on('exam-started', (data) => {
@@ -276,10 +316,12 @@ const ExamClient = () => {
         socket.off('connect', onConnect);
         socket.off('disconnect', onDisconnect);
         socket.off('desk-assigned');
+        socket.off('desk-reset');
         socket.off('exam-activated');
         socket.off('active-exam-types');
         socket.off('exam-start-success');
         socket.off('exam-started');
+        socket.off('exam-finished-all');
         socket.off('error');
       }
     };
@@ -510,16 +552,6 @@ const ExamClient = () => {
   const handleFinishSession = () => {
       if (socket) {
           socket.emit('student-finish-session');
-          toast.success('İmtahan bitirildi! Nəticələr admin panelinə göndərildi.');
-          
-          // Reset local state and redirect
-          localStorage.clear();
-          // We might want to preserve server_url if it's crucial, but user said "clear localStorage"
-          // If we clear everything, next reload will be like fresh start.
-          
-          setTimeout(() => {
-             window.location.reload();
-          }, 1000);
       }
   };
 
@@ -600,7 +632,7 @@ const ExamClient = () => {
               
               {/* Footer Status Indicators */}
               <div className="p-4 bg-slate-50/80 border-t border-slate-100 grid grid-cols-2 gap-3 text-xs">
-                 {areAllExamsCompleted && (
+                 {areAllExamsCompleted && examStatus !== 'results' && (
                     <div className="col-span-2 mb-2 space-y-2">
                         {!resultsShown && (
                             <Button 

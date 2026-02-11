@@ -537,7 +537,7 @@ const ActiveExam = () => {
                                     {result.passed ? 'KEÇDİ' : 'KƏSİLDİ'}
                                     </span>
                                 </div>
-                                <div className="grid grid-cols-3 gap-1 text-[10px] text-center">
+                                <div className="grid grid-cols-3 gap-1 text-[10px] text-center mb-1">
                                     <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
                                         <span className="text-green-600 font-bold block">{result.correctCount}</span> 
                                         <span className="text-slate-500">Doğru</span>
@@ -549,6 +549,20 @@ const ActiveExam = () => {
                                     <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
                                         <span className="text-slate-600 font-bold block">{result.emptyCount}</span> 
                                         <span className="text-slate-500">Boş</span>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-1 text-[10px] text-center">
+                                     <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
+                                        <span className="text-blue-600 font-bold block">{result.score !== undefined ? Number(result.score).toFixed(1) : '-'}</span> 
+                                        <span className="text-slate-500">Bal</span>
+                                    </div>
+                                    <div className="bg-white/60 rounded px-1 py-0.5 border border-slate-100">
+                                        <span className="text-purple-600 font-bold block">
+                                            {result.durationSeconds ? 
+                                              `${Math.floor(result.durationSeconds / 60)}:${(result.durationSeconds % 60).toString().padStart(2, '0')}` 
+                                              : '-'}
+                                        </span> 
+                                        <span className="text-slate-500">Müddət</span>
                                     </div>
                                 </div>
                             </div>

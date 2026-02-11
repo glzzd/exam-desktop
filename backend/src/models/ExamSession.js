@@ -44,7 +44,7 @@ const examSessionSchema = new mongoose.Schema({
   // Session Status
   status: {
     type: String,
-    enum: ['confirmed', 'started', 'completed', 'cancelled'],
+    enum: ['confirmed', 'started', 'completed', 'cancelled', 'archived'],
     default: 'confirmed'
   },
   
